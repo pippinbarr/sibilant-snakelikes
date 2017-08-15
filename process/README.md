@@ -7,6 +7,8 @@ Spent some time mocking up game screens for the candidate ten sibilant snakelike
 
 The basic mechanic here is that it's The Witness but the snake is the line. If you had enough apples in there then you'd also create the situation where the snake can create blockages for itself too. As per the image, feel like it's a good idea to have both the 'collect all these' mechanic and something like the black/white mechanic so that you've got something a little more complex. Figure I'd only have on level rather than attempting anything so bold as generating levels or curating multiple levels. "Choose a direction to begin" would allow you to choose your entry point into the puzzle. Snake introduces a realtime element into the puzzle both in the sense of needing the skill to turn corners correctly, as well as to remember/solve the puzzle while the snake is in motion...
 
+[2017-08-14 12:40 – Realising as I look at this and simulate in my head that in order to have the white/black division mechanic working you'd need to first have the snake be long enough to actually separate them before exiting the puzzle. Actually quite a different concept of play since you need to 'earn' the length of your line, as well as the realtime component. I guess you could design the other way and have the snake just infinitely grow without apples. Or alternatively you could have the snake eat an apple frequently enough that it would never stop growing. In those two cases you would then need to expicitly have the 'must pass through here' markers as a separate entity... which is a shame in that it misses that idea of cross-over between the systems... also visually confusing to the max... hmmm.]
+
 ### Tetrisss
 ![The Tetrissssss](images/tetrisss.png)
 
