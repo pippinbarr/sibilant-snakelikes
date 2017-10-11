@@ -1,3 +1,29 @@
+## 2017-10-11 11:09
+
+Had a short conversation with Rilla (and myself) about the relationship of process documentation and GitHub specifically. In particular I just wrote a pretty extensive commit message+description for the little block of work I did here. Things that came up from this (and yes, it's pretty fucking meta to be writing a development journal entry about commit messages that I will then write a commit message for and commit...)
+
+- When to commit is a very real thing. Even in the short period of work I did this morning getting the colossus on screen I made multiple design decisions that felt important to the overall nature of the game. I don't think I could reasonably have remember to break that into distinct pieces - maybe somebody else could, but maybe somebody else would have pushed ahead even further before committing? That commitment question is a big one indeed. I don't have an answer, just flagging it.
+- The actual visual representation of commits on GitHub online and also in the Desktop application really minimises the role of commit descriptions - they're really a "drill down" kind of thing that you have to very explicitly expand out to read. That reduces the visibility of that design thinking. On the other hand it gives us the win of having the design/development meditation very specifically attached to a commit, rather than relying on it being referenced in the journal and forcing an analyst to then figure out which commit was being referred to, which is powerful.
+- Don't want to create double work here. It would be possible to write a journal entry reflecting the same design thinking from the commit, but I'm a little... well actually AM I skeptical of that? Maybe part of writing those detailed descriptions for commits should be to paste them into the journal for that commit as well? That way you've got them in the linear record too - because I often find myself wanting to just reread design thinking over time, and that would facilitate that, while maintaining the commit-tied nature of them. I kind of like that.
+- Writing the commit description. It felt quite good actually. A different style of writing. I tried to be more modular in what I was expressing about the commit, and ended up with a notation. + means something I added (generally in the technical sense), and ? means something I thought about in relation to the commit, often design.
+
+Here's the commit message (note that in this instance it's from the LAST commit):
+
++ Process description (just a diary entry to get my head back in the game)
+
+__+Process journal entry, +Initial implementation of Ssshadow of the Colossssssusss__
+
+- + Added file for Ssshadow of the Colossssssusss and set it up to extend the base Snake class
+- + Made decision to implement the colossus in the game as being built out of tiles (using data in an array) because I realised collision detection would be problematic with an image.
+- + An implementation win from the data-driven representation is the ability to map out where the 'apple' appears in sequence on the colossus body specifically, which I was worried about with the image representation (would have been messier)
+- + Putting the component pieces of the colossus into a 'group' in Phaser means I can move it around per tick as a whole unit which is nice, go frameworks
+
+- ? (I'm going to try using a question mark to indicate any thoughts) Just seeing the colossus move around in the actual game _immediately_ made the game feel more real and worthwhile
+- ? Looking at the code and the method calls immediately got my brain going in a way it hadn't been, just the simple pleasure of thinking about how to implement specific elements (like the colossus's decision-making process when it moves...)
+- ? Stepping into implementation meant i thought about the potentialo scenario of the colossus moving on a tick onto the snake's head - e.g. "stepping on" the snake. I could prevent this (the colossus checks and makes sure not to do that), but in thinking about it I think it makes sense for this to be possible, in keeping with the threat that the colossus represents.
+- ? That, in turn, is making me rethink and wonder about collisions between the colossus and the Snake's body... there's one of those tensions between the Snake rules (the snake's body is solid and impermeable) and the Colossus rules (the colossus is huge and can destroy anything). I'm still inclined toward Snake rules for that one, but I wonder what that prioritisation is based on?
+
+
 ## 2017-10-11 10:36
 
 Welcome to my nightmare. Not really, but it's just that I haven't had any time for this project at all in the last month. I've done literally nothing on it other than pine away thinking about working on it, or really just the concept of working on anything creative of my own. Still, I've been teaching classes, applying for grant money, doing directed studies, going to meetings, so that's alright, right?
@@ -13,6 +39,7 @@ In terms of the work, it's sufficiently designed (via the low-res layered images
 I think it probably needs to be mobile friendly again. It's kind of dumb to make non-mobile games given it's how people live these days. Though on the other hand Snake isn't the best swipe-controlled game? Maybe it's fine? I don't remember the swipes feeling totally awesome on SNAKISMS? Or were they fine? I'll have to check that up.
 
 Anyway I guess the truth of the matter is I should just start. Maybe I will.
+
 
 ## 2017-09-15 19:35
 
