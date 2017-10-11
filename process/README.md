@@ -1,6 +1,22 @@
+## 2017-10-11 10:36
+
+Welcome to my nightmare. Not really, but it's just that I haven't had any time for this project at all in the last month. I've done literally nothing on it other than pine away thinking about working on it, or really just the concept of working on anything creative of my own. Still, I've been teaching classes, applying for grant money, doing directed studies, going to meetings, so that's alright, right?
+
+ANYWAY. There's perhaps some chance I can put more attention to this over the next weeks now that grants and essays are written and teaching is under control. (Meeting are never under control.)
+
+As such I wanted to write an entry mostly to register that I still actually care about this project. I still believe that I understand what it is in terms of another exploration of remediation of game mechanics, using mechanics as a "medium" and so on. And so on.
+
+It's not a 'critical' project per se, and not really speculative or disaffective. It's certainly experimental, though. Another one in this line of semi-formal experiments with form in videogames.
+
+In terms of the work, it's sufficiently designed (via the low-res layered images) to just start implementation I suspect. Which begins with having them mechanics of Snake (can be taken from SNAKISMS) and then implementing the new stuff on top. I gueeeeessss I should use inheritance to extend the base Snake implementation so that I can fix things a little more smoothly moving forward? SNAKISMS already has that structure anyway, so I can take that and move forward.
+
+I think it probably needs to be mobile friendly again. It's kind of dumb to make non-mobile games given it's how people live these days. Though on the other hand Snake isn't the best swipe-controlled game? Maybe it's fine? I don't remember the swipes feeling totally awesome on SNAKISMS? Or were they fine? I'll have to check that up.
+
+Anyway I guess the truth of the matter is I should just start. Maybe I will.
+
 ## 2017-09-15 19:35
 
-HA HA HA HA. Now I'm going to write about what the game is about. Like six weeks later. Or maybe it's even seven weeks. Part of this was just because of being busy, but I think it's also pretty clear that there's a resistance to tackling the work of really engaging with the "what is this for?" question. Maybe partly because it's intimidating? I think maybe most of all because you might get an answer you don't like... an anwer like "nothing" and then you have to stop making it.
+HA HA HA HA. Now I'm going to write about what the game is about. Like six weeks later. Or maybe it's even seven weeks. Part of this was just because of being busy, but I think it's also pretty clear that there's a resistance to tackling the work of really engaging with the "what is this for?" question. Maybe partly because it's intimidating? I think maybe most of all because you might get an answer you don't like... an answer like "nothing" and then you have to stop making it.
 
 (Well you don't _have_ to stop, but now that I'm in this academic game full time I feel like I probably shouldn't spend too much time making games that serve no interesting purpose at all. Anyway that's not the case here, because...)
 

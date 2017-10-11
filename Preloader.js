@@ -21,6 +21,8 @@ BasicGame.Preloader.prototype = {
 		this.load.image('wall','assets/images/wall.png');
 		this.load.image('black','assets/images/black.png');
 
+		this.load.image('colossus','assets/images/colossus.png');
+
 		this.load.audio('hit',['assets/sounds/hit.mp3','assets/sounds/hit.ogg']);
 		this.load.audio('apple',['assets/sounds/apple.mp3','assets/sounds/apple.ogg']);
 		this.load.audio('move',['assets/sounds/move.mp3','assets/sounds/move.ogg']);
@@ -35,7 +37,7 @@ BasicGame.Preloader.prototype = {
 		if (this.cache.isSoundDecoded('move') && this.ready == false)
 		{
 			this.ready = true;
-			this.state.start('Menu');
+			this.state.start('Ssshadow');
 		}
 
 	}
