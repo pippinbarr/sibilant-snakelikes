@@ -31,6 +31,10 @@ BasicGame.Ssshadow.prototype.create = function () {
   this.colossusBits = [];
   this.FINAL_APPLE_INDEX = 6;
   this.currentAppleIndex = 2;
+  this.currentAppleBitPosition = {
+    x:-1,
+    y: -1
+  }
 
   // The colossus will be represented as a group
   this.colossus = this.game.add.group();
@@ -45,6 +49,8 @@ BasicGame.Ssshadow.prototype.create = function () {
         this.apple.x = x * this.GRID_SIZE;
         this.apple.y = y * this.GRID_SIZE,'apple';
         this.colossus.add(this.apple);
+        this.currentAppleBitPosition.x = x;
+        this.currentAppleBitPosition.y = y;
       }
       else if (this.colossusData[y][x] > 0) {
         bit = this.game.add.sprite(x * this.GRID_SIZE,y*this.GRID_SIZE,'body');
@@ -80,6 +86,9 @@ BasicGame.Ssshadow.prototype.tick = function () {
 BasicGame.Ssshadow.prototype.checkAppleCollision = function () {
   if (this.snakeHead.position.equals(this.apple.world)) {
     this.appleSFX.play();
+    var replacementBit = this.game.add.sprite(this.apple.x,this.apple.y,'body');
+    this.colossus.add(replacementBit);
+    this.colossusBits[this.currentAppleBitPosition.y][this.currentAppleBitPosition.x] = replacementBit;
     this.currentAppleIndex++;
     if (this.currentAppleIndex > this.MAX_APPLE_INDEX) {
       // That was the final apple!
@@ -92,6 +101,8 @@ BasicGame.Ssshadow.prototype.checkAppleCollision = function () {
             this.colossusBits[y][x].destroy();
             this.apple.position.x = (x * this.GRID_SIZE);
             this.apple.position.y = (y * this.GRID_SIZE);
+            this.currentAppleBitPosition.x = x;
+            this.currentAppleBitPosition.y = y;
           }
         }
       }
@@ -101,7 +112,7 @@ BasicGame.Ssshadow.prototype.checkAppleCollision = function () {
 
 BasicGame.Ssshadow.prototype.checkColossusCollision = function () {
   this.colossus.forEach(function (bit) {
-    if (this.snakeHead.position.equals(bit.world)) {
+    if (this.snakeHead.position.equals(bit.world) && bit != this.apple) {
       this.die();
       return;
     }
