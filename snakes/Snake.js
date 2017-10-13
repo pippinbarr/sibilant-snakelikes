@@ -103,7 +103,7 @@ BasicGame.Snake.prototype = {
     this.game.physics.enable(this.snakeHead, Phaser.Physics.ARCADE);
     this.snake.unshift(this.snakeHead);
 
-    this.snakeBitsToAdd = 3;
+    this.snakeBitsToAdd = this.SNAKE_START_LENGTH;
   },
 
   createApple: function () {

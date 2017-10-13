@@ -6,6 +6,9 @@ BasicGame.Ssshadow.prototype = Object.create(BasicGame.Snake.prototype);
 BasicGame.Ssshadow.prototype.constructor = BasicGame.Ssshadow;
 
 BasicGame.Ssshadow.prototype.create = function () {
+
+  this.SNAKE_START_LENGTH = 40;
+
   BasicGame.Snake.prototype.create.call(this);
 
   // Data to represent the colossus by creating it out of tiles
@@ -91,12 +94,49 @@ BasicGame.Ssshadow.prototype.update = function () {
 BasicGame.Ssshadow.prototype.tick = function () {
   BasicGame.Snake.prototype.tick.call(this);
 
-  this.colossusMove();
   this.checkColossusCollision();
+  this.colossusMove();
 }
 
-BasicGame.Ssshadow.prototype.colossusMove() = function () {
-
+BasicGame.Ssshadow.prototype.colossusMove = function () {
+  // As a first approximation, let's just randomly either move up, down, left, right
+  // or no move
+  var dir = Math.floor(Math.random() * 5);
+  var canMove = true;
+  switch (dir) {
+    case 0: // UP
+    // Go through every bit in the colossus to check collisions
+    this.colossus.forEach(function (colossusBit) {
+      // Calculate the position this bit in the colossus would be in if you moved it up
+      var upPosition = colossusBit.world.clone();
+      upPosition.y -= this.GRID_SIZE;
+      // Go through every bit in the snake
+      this.snake.forEach(function (snakeBit) {
+        // Check if the colossus would hit it, if so fail
+        if (snakeBit.world.equals(upPosition)) {
+          canMove = false;
+          return;
+        }
+      },this);
+      // If we found the colossus can't move, escape out
+      if (!canMove) return;
+      // Go through every bit in the walls
+      this.wallGroup.forEach(function (wallBit) {
+        // Check if the colossus would hit it, if so fail
+        if (wallBit.world.equals(upPosition)) {
+          canMove = false;
+          return;
+        }
+      },this);
+      // If we found the colossus can't move, escape out
+      if (!canMove) return;
+    },this);
+    // Check if the colossus can actually move after all that
+    if (canMove) {
+      // Move it!
+      this.colossus.y -= this.GRID_SIZE;
+    }
+  }
 };
 
 BasicGame.Ssshadow.prototype.checkAppleCollision = function () {
