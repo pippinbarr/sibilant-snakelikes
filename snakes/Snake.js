@@ -261,13 +261,17 @@ BasicGame.Snake.prototype = {
 
     this.moveSFX.play();
 
+    // Move every snake bit up by one
     for (var i = 0; i < this.snake.length - 1; i++) {
       this.snake[i].x = this.snake[i+1].x;
       this.snake[i].y = this.snake[i+1].y;
     }
+
+    // Move the snake head
     this.snakeHead.x += this.next.x;
     this.snakeHead.y += this.next.y;
 
+    // Wrap
     if (this.snakeHead.x >= this.game.width) {
       this.snakeHead.x = 0;
     }

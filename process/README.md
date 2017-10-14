@@ -3,13 +3,16 @@
 ### Ssshadow of the Colossssssusss
 
 - Add win condition (what will this be like? "BUT AT WHAT COST?!?!?!")
-- Make colossus move better (in more than one direction, for instance)
 
+- ~~Make colossus move better (in more than one direction, for instance)~~
 - ~~Make snake die on impact~~
 - ~~Make apple appear at different colossus locations~~
 - ~~Make colossus move~~
 - ~~Get the colossus displaying~~
 - ~~Get basic Snake working~~
+
+- BUGS
+  - I managed to pass through the colossus's shoulder. Probably that's it moving and me moving. Will have to try to recreate though. I just did (notably after reversing colossusMove and checkColossusCollision, so it's something deeper than that...)
 
 ## 2017-10-14 14:18
 

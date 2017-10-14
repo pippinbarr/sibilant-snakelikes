@@ -94,48 +94,69 @@ BasicGame.Ssshadow.prototype.update = function () {
 BasicGame.Ssshadow.prototype.tick = function () {
   BasicGame.Snake.prototype.tick.call(this);
 
-  this.checkColossusCollision();
-  this.colossusMove();
+  if (!this.dead) {
+    this.colossusMove();
+    this.checkColossusCollision();
+  }
 }
 
 BasicGame.Ssshadow.prototype.colossusMove = function () {
-  // As a first approximation, let's just randomly either move up, down, left, right
-  // or no move
-  var dir = Math.floor(Math.random() * 5);
+
+  // Generate a random move in both directions
+  var move = {
+    x: Math.floor(-1 + Math.random() * 3) * this.GRID_SIZE,
+    y: Math.floor(-1 + Math.random() * 3) * this.GRID_SIZE
+  };
+
+  // Randomly zero one or both directions to slow the colossus down
+  if (Math.random() < 0.75) move.x = 0;
+  if (Math.random() < 0.75) move.y = 0;
+
+  // If colossus would move on both axes, zero one out so it moves
+  // like the snake does (no diagonals)
+  if (move.x != 0 && move.y != 0) {
+    if (Math.random() < 0.5) move.x = 0;
+    else move.y = 0;
+  }
+
   var canMove = true;
-  switch (dir) {
-    case 0: // UP
-    // Go through every bit in the colossus to check collisions
-    this.colossus.forEach(function (colossusBit) {
-      // Calculate the position this bit in the colossus would be in if you moved it up
-      var upPosition = colossusBit.world.clone();
-      upPosition.y -= this.GRID_SIZE;
-      // Go through every bit in the snake
-      this.snake.forEach(function (snakeBit) {
-        // Check if the colossus would hit it, if so fail
-        if (snakeBit.world.equals(upPosition)) {
-          canMove = false;
-          return;
-        }
-      },this);
-      // If we found the colossus can't move, escape out
-      if (!canMove) return;
-      // Go through every bit in the walls
-      this.wallGroup.forEach(function (wallBit) {
-        // Check if the colossus would hit it, if so fail
-        if (wallBit.world.equals(upPosition)) {
-          canMove = false;
-          return;
-        }
-      },this);
-      // If we found the colossus can't move, escape out
-      if (!canMove) return;
+
+  // Go through every bit in the colossus to check collisions
+  this.colossus.forEach(function (colossusBit) {
+    // Calculate the position this bit in the colossus would be in if you moved it up
+    var newPosition = colossusBit.world.clone();
+    newPosition.x += move.x;
+    newPosition.y += move.y;
+
+    // Go through every bit in the snake
+    this.snake.forEach(function (snakeBit) {
+      // Check if the colossus would hit it, if so fail
+      if (snakeBit.world.equals(newPosition)) {
+        canMove = false;
+        return;
+      }
     },this);
-    // Check if the colossus can actually move after all that
-    if (canMove) {
-      // Move it!
-      this.colossus.y -= this.GRID_SIZE;
-    }
+
+    // If we found the colossus can't move, escape out
+    if (!canMove) return;
+    // Go through every bit in the walls
+    this.wallGroup.forEach(function (wallBit) {
+      // Check if the colossus would hit it, if so fail
+      if (wallBit.world.equals(newPosition)) {
+        canMove = false;
+        return;
+      }
+    },this);
+
+    // If we found the colossus can't move, escape out
+    if (!canMove) return;
+  },this);
+
+  // Check if the colossus can actually move after all that
+  if (canMove) {
+    // Move it!
+    this.colossus.x += move.x;
+    this.colossus.y += move.y;
   }
 };
 
