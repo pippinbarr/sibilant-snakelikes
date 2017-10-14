@@ -7,7 +7,7 @@ BasicGame.Ssshadow.prototype.constructor = BasicGame.Ssshadow;
 
 BasicGame.Ssshadow.prototype.create = function () {
 
-  this.SNAKE_START_LENGTH = 40;
+  // this.SNAKE_START_LENGTH = 40;
 
   BasicGame.Snake.prototype.create.call(this);
 
@@ -35,6 +35,9 @@ BasicGame.Ssshadow.prototype.create = function () {
   // An array to store a representation of the colossus matching the data
   // but with the actual tiles in it
   this.colossusBits = [];
+
+  // Chance that the colossus will move in a tick
+  this.colossusMoveChance = 0.05;
 
   // Tracking which apple we're up to
   this.FINAL_APPLE_INDEX = 6;
@@ -102,15 +105,14 @@ BasicGame.Ssshadow.prototype.tick = function () {
 
 BasicGame.Ssshadow.prototype.colossusMove = function () {
 
+  // Only move sometimes
+  if (Math.random() > this.colossusMoveChance) return;
+
   // Generate a random move in both directions
   var move = {
     x: Math.floor(-1 + Math.random() * 3) * this.GRID_SIZE,
     y: Math.floor(-1 + Math.random() * 3) * this.GRID_SIZE
   };
-
-  // Randomly zero one or both directions to slow the colossus down
-  if (Math.random() < 0.75) move.x = 0;
-  if (Math.random() < 0.75) move.y = 0;
 
   // If colossus would move on both axes, zero one out so it moves
   // like the snake does (no diagonals)
@@ -166,6 +168,8 @@ BasicGame.Ssshadow.prototype.checkAppleCollision = function () {
   if (this.snakeHead.position.equals(this.apple.world)) {
     // Play the sound
     this.appleSFX.play();
+    // Increase snake size
+    this.snakeBitsToAdd += this.NEW_BODY_PIECES_PER_APPLE;
     // Create a replace bit so that after the apple gets eaten the colossus
     // has a body tile at that location from then on
     var replacementBit = this.game.add.sprite(this.apple.x,this.apple.y,'body');
@@ -175,7 +179,7 @@ BasicGame.Ssshadow.prototype.checkAppleCollision = function () {
     // Increment the apple index
     this.currentAppleIndex++;
     // Check if that was the final apple or not
-    if (this.currentAppleIndex > this.MAX_APPLE_INDEX) {
+    if (this.currentAppleIndex > this.FINAL_APPLE_INDEX) {
       // That was the final apple!
       console.log("You defeated the colossus!")
     }

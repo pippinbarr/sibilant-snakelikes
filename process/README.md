@@ -3,7 +3,10 @@
 ### Ssshadow of the Colossssssusss
 
 - Add win condition (what will this be like? "BUT AT WHAT COST?!?!?!")
+  - In Shadow there's that swirling soul thing... something like that... black smoke... vanishes into black (change alpha?)... tendrils hit the avatar... he collapses...
 
+- ~~Make winning actually register~~
+- ~~__PROBABLY TOO SLOW NOW__ Slow down the colossus~~
 - ~~Make colossus move better (in more than one direction, for instance)~~
 - ~~Make snake die on impact~~
 - ~~Make apple appear at different colossus locations~~
@@ -13,6 +16,10 @@
 
 - BUGS
   - I managed to pass through the colossus's shoulder. Probably that's it moving and me moving. Will have to try to recreate though. I just did (notably after reversing colossusMove and checkColossusCollision, so it's something deeper than that...)
+
+## 2017-10-14 15:03
+
+Added the game recognising actually winning. Made the colossus slower. Much too slow. Thinking about how the game is actually maybe 'good' at this point is a strange feeling. It occurs to me in particular that it would be possible within this framework to 'turn the handle' and crank out multiple levels with different colossi of different shapes, different speeds, movement, blah blah blah. Totally possible to do that. Might even be a good game. BUT that's not really the point I don't think? I guess you could say that's exploration of a kind of higher level structural remediation of the game? Both games have 'levels' and you could explore the relationship, particularly in terms of the ways that different colossi would lead to exploring different behaviours/qualities in the Snake version too. But I just don't think that's necessarily what's interesting/deep in the project, so my inclination right now at least is to say no to that.
 
 ## 2017-10-14 14:18
 
