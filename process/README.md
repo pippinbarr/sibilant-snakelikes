@@ -1,3 +1,20 @@
+## TO-DO
+
+### Ssshadow of the Colossssssusss
+
+- Add win condition (what will this be like? "BUT AT WHAT COST?!?!?!")
+- Make colossus move better (in more than one direction, for instance)
+
+- ~~Make snake die on impact~~
+- ~~Make apple appear at different colossus locations~~
+- ~~Make colossus move~~
+- ~~Get the colossus displaying~~
+- ~~Get basic Snake working~~
+
+## 2017-10-14 14:18
+
+Just wrote the initial to do list to clarify what's need for Ssshadow after having worked intuitively thus far. The games aren't very complex. But then also noting that filling out the Git commit messages has been a good venue for the design thinking associated with moment to moment coding. But that's made this diary section less powerful/populated. BUT it's also true that these entries are probably more important for higher level thinking about what the game is about and so on, collating observations about multiple commits, etc.
+
 ## 2017-10-11 14:46
 
 __Blog post from website__
