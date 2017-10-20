@@ -37,7 +37,7 @@ BasicGame.Preloader.prototype = {
 		if (this.cache.isSoundDecoded('move') && this.ready == false)
 		{
 			this.ready = true;
-			this.state.start('Ssshadow');
+			this.state.start('Sssensssible');
 		}
 
 	}
