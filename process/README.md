@@ -1,3 +1,20 @@
+## The list of games
+
+- Tetrisss
+- Sssensssible Sssoccer
+- Ssshadow of the Colossssssusss
+- ? Sssteven'sss Sssausssage Roll
+- Papersss, Pleassse
+- ? Sssuper Hexagon
+- SSSSSS
+- The Witnessssss
+- Sssuper Mario Brosss.
+- Minesssweeper
+- Missssssile Command (ha ha)
+- ? Asssteroidsss
+- Msss. Pacman
+- ??? Ssspace War!
+
 ## TO-DO
 
 ### Ssshadow of the Colossssssusss
@@ -16,6 +33,32 @@
 
 - BUGS
   - I managed to pass through the colossus's shoulder. Probably that's it moving and me moving. Will have to try to recreate though. I just did (notably after reversing colossusMove and checkColossusCollision, so it's something deeper than that...)
+
+## 2017-10-20 12:09
+
+Been a gap in development where I needed to do things like move house, but here I am at the kitchen table in the new house getting back to it.
+
+I think the most productive thing I can work on right now is actually starting one of the other games rather than fine-tuning how Ssshadow itself works. So let me pick one I think would easy to work on...
+
+So one interesting thing I notice when I look at this is... goddamn they all require complex stuff in the background. I guess this is the systems interlinking. Generally speaking Snake is providing a basic 'physics' of the world (a snake that collides with things, that moves on a tick) and a small amount of extra ideas (death on collision, growth on eating an apple), but not much more. To make the source game recognisable generally involves taking that form of movement or being-in-the-world (is that Heidegger? Hah.) and then translating the larger mechanics of the source game into such a world. That means compromises with the movement for example, or finding a representation/use of the Apple concept, and working out death. But generally the source games are very complicated and so you're often talking about simulating a lot of that game. e.g. Pacman presumably involves the logic of the ghosts and the concept of power pellets in order to really make sense? Although again there are fun weirdnesses there... are the ghosts little snakes? Then they could block passage ways as well... maybe they can all just move randomly or am I supposed to implement their separate AIs? Etc. And this will always return me to questions of what this game is truly 'about'.
+
+### Papersss, Pleassse thinking
+
+Anyway, I guess the next really easy one is just Papersss, Pleassse to the extent I was thinking about it as a very one-note joke where you move according to the timing of the opening music and otherwise are just literally playing Snake as per usual. That's a cop out in the sense of actual remediation, but I'm also allowed to have _one_ game that doesn't actually confront the task but rather goes for an easy life. (I'm _allowed_ to do anything obviously, since it's my game, but in terms of having the impact I want or making the argument I want or inviting the questions I want or whatever it is I do, I can't just have a bunch of trivial jokes.)
+
+### Sssensssible Sssoccer thinking
+
+I think, though, that Sssensible Sssoccer might be good. Thoughts for the initial foray:
+
+- Two player to avoid AIs (which will make it harder to test but AI sucks)
+- Two controllable Snakes
+- An apple-ball (though here is a moment for questions, because you could also have apples separately and choose whether or not to eat them in case an elongated body had some advantage?, thus maintaining the meaning of an apple. But that said if the apple is the ball it maintains its status as the core object-of-interest/pursuit)
+- Hole in the wall at the top and bottom for the goals
+- Nudge the ball forward with the snake's head (two squares or one? Two might feel more like dribbling)
+- Collision is still death but want about collision with ball against a wall or snake body? Can it jump?
+- On death you reset to emerge from your own goal
+
+That should be enough to get started on it.
 
 ## 2017-10-14 15:03
 
