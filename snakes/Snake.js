@@ -10,15 +10,18 @@ BasicGame.Snake.prototype = {
   NUM_ROWS: 0,
   NUM_COLS: 0,
   FONT_SIZE: 24,
+
   SNAKE_START_LENGTH: 4,
   SNAKE_START_X: 11,
   SNAKE_START_Y: 11,
   SNAKE_TICK: 0.15,
   NEW_BODY_PIECES_PER_APPLE: 3,
   SNAKE_FLICKER_SPEED: 0.2,
+
   APPLE_SCORE: 10,
   MAX_SCORE: 9999999990,
   APPLE_DELAY: 1500,
+
   DEATH_DELAY: 3,
 
   textGrid: [],
@@ -44,8 +47,15 @@ BasicGame.Snake.prototype = {
 
     this.NUM_ROWS = this.game.height/this.GRID_SIZE;
     this.NUM_COLS = this.game.width/this.GRID_SIZE;
+
     this.CONTROLS_X = 8;
     this.CONTROLS_Y = 7;
+
+    this.WALL_LEFT = 1;
+    this.WALL_RIGHT = this.NUM_COLS-2;
+    this.WALL_TOP = 3;
+    this.WALL_BOTTOM = this.NUM_ROWS - this.WALL_TOP - 1;
+
 
     this.instructionsButtonGroup = this.game.add.group();
 
@@ -79,15 +89,10 @@ BasicGame.Snake.prototype = {
 
   createWalls: function () {
     // Create the walls
-    WALL_LEFT = 1;
-    WALL_RIGHT = this.NUM_COLS-2;
-    WALL_TOP = 3;
-    WALL_BOTTOM = this.NUM_ROWS - WALL_TOP - 1;
-
     this.wallGroup = this.game.add.group();
-    for (var y = WALL_TOP; y <= WALL_BOTTOM; y++) {
-      for (var x = WALL_LEFT; x <= WALL_RIGHT; x++) {
-        if (y == WALL_TOP || y == WALL_BOTTOM || x == WALL_LEFT || x == WALL_RIGHT) {
+    for (var y = this.WALL_TOP; y <= this.WALL_BOTTOM; y++) {
+      for (var x = this.WALL_LEFT; x <= this.WALL_RIGHT; x++) {
+        if (y == this.WALL_TOP || y == this.WALL_BOTTOM || x == this.WALL_LEFT || x == this.WALL_RIGHT) {
           // var wall = this.wallGroup.create(x*this.GRID_SIZE,y*this.GRID_SIZE,'wall')
           var wall = this.wallGroup.create(x*this.GRID_SIZE,y*this.GRID_SIZE,'wall')
           // this.game.physics.enable(wall, Phaser.Physics.ARCADE);
