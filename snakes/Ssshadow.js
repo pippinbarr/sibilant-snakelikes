@@ -1,15 +1,15 @@
 BasicGame.Ssshadow = function (game) {
-  BasicGame.Snake.call(this,game);
+  BasicGame.SnakeBaseGame.call(this,game);
 };
 
-BasicGame.Ssshadow.prototype = Object.create(BasicGame.Snake.prototype);
+BasicGame.Ssshadow.prototype = Object.create(BasicGame.SnakeBaseGame.prototype);
 BasicGame.Ssshadow.prototype.constructor = BasicGame.Ssshadow;
 
 BasicGame.Ssshadow.prototype.create = function () {
 
   // this.SNAKE_START_LENGTH = 40;
 
-  BasicGame.Snake.prototype.create.call(this);
+  BasicGame.SnakeBaseGame.prototype.create.call(this);
 
   // Data to represent the colossus by creating it out of tiles
   // This will let me specify where the target points are so that they
@@ -91,11 +91,11 @@ BasicGame.Ssshadow.prototype.create = function () {
 };
 
 BasicGame.Ssshadow.prototype.update = function () {
-  BasicGame.Snake.prototype.update.call(this);
+  BasicGame.SnakeBaseGame.prototype.update.call(this);
 };
 
 BasicGame.Ssshadow.prototype.tick = function () {
-  BasicGame.Snake.prototype.tick.call(this);
+  BasicGame.SnakeBaseGame.prototype.tick.call(this);
 
   if (!this.dead) {
     this.colossusMove();

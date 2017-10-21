@@ -25,17 +25,17 @@ games = [
 ];
 
 BasicGame.Menu = function (game) {
-	BasicGame.Snake.call(this,game);
+	BasicGame.SnakeBaseGame.call(this,game);
 };
 
-BasicGame.Menu.prototype = Object.create(BasicGame.Snake.prototype);
+BasicGame.Menu.prototype = Object.create(BasicGame.SnakeBaseGame.prototype);
 
 BasicGame.Menu.prototype.create = function () {
 
 	this.menuButtons = this.game.add.group();
 	this.menuText = this.game.add.group();
 
-	BasicGame.Snake.prototype.create.call(this);
+	BasicGame.SnakeBaseGame.prototype.create.call(this);
 
 	this.game.input.onDown.add(function() {
 		this.appleSFX.play(0);
@@ -110,7 +110,7 @@ BasicGame.Menu.prototype.menuItemTouched = function (item) {
 };
 
 BasicGame.Menu.prototype.update = function () {
-	BasicGame.Snake.prototype.update.call(this);
+	BasicGame.SnakeBaseGame.prototype.update.call(this);
 	if (this.selected && !this.selectionComplete) {
 		this.checkMenuCollision();
 		if (this.snake[0].x > this.game.width) {
@@ -223,4 +223,4 @@ BasicGame.Menu.prototype.checkBodyCollision = function () {
 BasicGame.Menu.prototype.setScoreText = function () {
 };
 
-BasicGame.Menu.prototype.constructor = BasicGame.Snake;
+BasicGame.Menu.prototype.constructor = BasicGame.SnakeBaseGame;
