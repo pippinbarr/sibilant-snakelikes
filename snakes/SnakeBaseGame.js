@@ -59,8 +59,6 @@ BasicGame.SnakeBaseGame.prototype = {
     this.createSnake();
     this.createInput();
 
-    this.moveSFX = this.game.add.audio('move',0.2);
-    this.hitSFX = this.game.add.audio('hit',0.2);
     this.appleSFX = this.game.add.audio('apple',0.2);
 
     // Set up for score
@@ -189,7 +187,6 @@ BasicGame.SnakeBaseGame.prototype = {
     }
 
     this.addTextToGrid(this.CONTROLS_X,this.CONTROLS_Y,controlsStrings,this.controlsGroup);
-    this.controlsVisible = true;
   },
 
   update: function () {
@@ -221,12 +218,6 @@ BasicGame.SnakeBaseGame.prototype = {
     this.checkAppleCollision();
     this.checkBodyCollision();
     this.checkWallCollision();
-  },
-
-  flashSnake: function () {
-    this.snake.forEach(function (bit) {
-      bit.visible = !bit.visible;
-    });
   },
 
   addSnakeBits: function () {
@@ -362,14 +353,6 @@ BasicGame.SnakeBaseGame.prototype = {
     },this);
   },
 
-  die: function () {
-    this.hitSFX.play();
-    this.dead = true;
-    this.lastNext = new Phaser.Point(this.next.x,this.next.y);
-    this.next = new Phaser.Point(0,0);
-    this.game.time.events.add(Phaser.Timer.SECOND * this.DEATH_DELAY, this.gameOver, this);
-  },
-
   gameOver: function () {
     this.setGameOverText("GAME OVER","",this.score+" POINTS","","");
   },
@@ -393,7 +376,7 @@ BasicGame.SnakeBaseGame.prototype = {
     if (this.dead) return;
     if (!this.inputEnabled) return;
 
-    if (this.controlsVisible && (this.cursors.left.isDown || this.cursors.right.isDown || this.cursors.up.isDown || this.cursors.down.isDown)) {
+    if (this.controlsGroup.visible && (this.cursors.left.isDown || this.cursors.right.isDown || this.cursors.up.isDown || this.cursors.down.isDown)) {
       this.hideControls();
       this.startAppleTimer();
     }
@@ -414,11 +397,11 @@ BasicGame.SnakeBaseGame.prototype = {
   },
 
   hideControls: function () {
-    if (this.next.x == 0 && this.next.y == 0) {
+    if (this.snake.next.x == 0 && this.snake.next.y == 0) {
       this.controlsGroup.forEach(function (letter) {
         letter.text = '';
       });
-      this.controlsVisible = false;
+      this.controlsGroup.visible = false;
     }
   },
 
@@ -435,7 +418,7 @@ BasicGame.SnakeBaseGame.prototype = {
     var d = this.swipe.check();
     if (!d) return;
 
-    if (this.controlsVisible) {
+    if (this.controlsGroup.visible) {
       this.hideControls();
       this.startAppleTimer();
     }

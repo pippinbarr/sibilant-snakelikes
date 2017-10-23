@@ -13,6 +13,9 @@ Snake = function (game,x,y) {
   this.bodyPiecesToAdd = 0;
 
   this.dead = false;
+  
+  this.hitSFX = this.game.add.audio('hit',0.2);
+  this.moveSFX = this.game.add.audio('move',0.2);
 
   this.bits = [];
   this.head = this.create(x*GRID_SIZE,y*GRID_SIZE,'head');
@@ -27,7 +30,7 @@ Snake.prototype.constructor = Snake;
 
 Snake.prototype.tick = function () {
   if (this.dead) {
-    this.flashSnake();
+    this.flash();
     return;
   }
 
@@ -60,7 +63,7 @@ Snake.prototype.move = function () {
     return;
   }
 
-  // this.moveSFX.play();
+  this.moveSFX.play();
 
   // Move every snake bit up by one
   for (var i = 0; i < this.bits.length - 1; i++) {
@@ -98,11 +101,10 @@ Snake.prototype.checkBodyCollision = function () {
 };
 
 Snake.prototype.die = function () {
-  // this.hitSFX.play();
+  this.hitSFX.play();
   this.dead = true;
-  this.lastNext = new Phaser.Point(this.next.x,this.next.y);
   this.next = new Phaser.Point(0,0);
-  this.game.time.events.add(Phaser.Timer.SECOND * this.DEATH_DELAY, this.gameOver, this);
+  // this.game.time.events.add(Phaser.Timer.SECOND * this.DEATH_DELAY, this.gameOver, this);
 };
 
 Snake.prototype.moveLeft = function () {
