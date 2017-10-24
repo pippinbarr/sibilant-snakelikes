@@ -13,12 +13,14 @@ Snake = function (game,x,y) {
   this.bodyPiecesToAdd = 0;
 
   this.dead = false;
-  
+
   this.hitSFX = this.game.add.audio('hit',0.2);
   this.moveSFX = this.game.add.audio('move',0.2);
 
   this.bits = [];
-  this.head = this.create(x*GRID_SIZE,y*GRID_SIZE,'head');
+  this.startX = x;
+  this.startY = y;
+  this.head = this.create(this.startX*GRID_SIZE,this.startY*GRID_SIZE,'head');
   this.game.physics.enable(this.head, Phaser.Physics.ARCADE);
   this.bits.unshift(this.head);
 
@@ -42,6 +44,20 @@ Snake.prototype.flash = function () {
   this.bits.forEach(function (bit) {
     bit.visible = !bit.visible;
   });
+};
+
+Snake.prototype.reset = function () {
+  this.removeAll();
+  this.add(this.head);
+  this.bits = [];
+  this.head.x = this.startX*GRID_SIZE;
+  this.head.y = this.startY*GRID_SIZE;
+  this.bits.unshift(this.head);
+
+  this.next = new Phaser.Point(0,0);
+  this.prev = new Phaser.Point(0,0);
+  
+  this.bodyPiecesToAdd = this.SNAKE_START_LENGTH;
 };
 
 Snake.prototype.grow = function () {

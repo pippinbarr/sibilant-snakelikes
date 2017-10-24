@@ -24,6 +24,7 @@
 - Presumably have a timer that records how long the game has gone on
 - Decide on how snakes get longer (bonus apples? scoring a goal? after every goal regardless of who scored?) and implement it
 - Figure out what happens if you kick the ball inside a snake (this is especially a real thing if we have the ball move to squares per kick - might be a reason not to do that - if not that you could just die if you kick the ball into another snake, which is a simple response - but if you do single moves then how can you steal the ball? Maybe, again, you just can't)
+- Self-Body collision is broken? Something to do with coordinate systems?
 
 - ~~Do a bunch of things that get the game partially working (but make sure you forget to list them in your to-dos, because I guess that wasn't necessary)~~
 

@@ -373,7 +373,7 @@ BasicGame.SnakeBaseGame.prototype = {
       this.gotoMenu();
     }
 
-    if (this.dead) return;
+    if (this.snake.dead) return;
     if (!this.inputEnabled) return;
 
     if (this.controlsGroup.visible && (this.cursors.left.isDown || this.cursors.right.isDown || this.cursors.up.isDown || this.cursors.down.isDown)) {
@@ -412,7 +412,7 @@ BasicGame.SnakeBaseGame.prototype = {
 
 
   handleTouchInput: function () {
-    if (this.dead) return;
+    if (this.snake.dead) return;
     if (!this.inputEnabled) return;
 
     var d = this.swipe.check();

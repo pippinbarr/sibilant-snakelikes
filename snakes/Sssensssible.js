@@ -1,9 +1,19 @@
+// Sssensssible Sssoccer
+//
+// A Snake version of soccer. Two snakes push a ball around with their heads, trying
+// to get it through the goal to score points, dying constantly if they run into walls or each other.
+
 BasicGame.Sssensssible = function (game) {
   BasicGame.SnakeBaseGame.call(this,game);
 };
 
 BasicGame.Sssensssible.prototype = Object.create(BasicGame.SnakeBaseGame.prototype);
 BasicGame.Sssensssible.prototype.constructor = BasicGame.Ssshadow;
+
+
+// create
+//
+// Super + sets some basic variables to control where things appear.
 
 BasicGame.Sssensssible.prototype.create = function () {
 
@@ -13,12 +23,16 @@ BasicGame.Sssensssible.prototype.create = function () {
 
   BasicGame.SnakeBaseGame.prototype.create.call(this);
 
-  this.apple.x = this.snake.head.x;
-  this.apple.y = 16 * GRID_SIZE;
+  this.resetApple();
 
   // Name the state for resetting purposes
   this.stateName = "Sssensssible";
 };
+
+
+// createWalls
+//
+// Override to draw the walls so they have gaps in them that represent the goals.
 
 BasicGame.Sssensssible.prototype.createWalls = function () {
   // Create the walls
@@ -26,6 +40,7 @@ BasicGame.Sssensssible.prototype.createWalls = function () {
   for (var y = this.WALL_TOP; y <= this.WALL_BOTTOM; y++) {
     for (var x = this.WALL_LEFT; x <= this.WALL_RIGHT; x++) {
       if (y == this.WALL_TOP || y == this.WALL_BOTTOM || x == this.WALL_LEFT || x == this.WALL_RIGHT) {
+        // Don't draw wall tiles where the goals are
         if ((y == this.WALL_TOP || y == this.WALL_BOTTOM) && x > this.WALL_LEFT + 7 && x < this.WALL_RIGHT - 7) {
           continue;
         }
@@ -35,6 +50,11 @@ BasicGame.Sssensssible.prototype.createWalls = function () {
   }
 },
 
+
+// createSnake
+//
+// Super + Creates another snake as the second player
+
 BasicGame.Sssensssible.prototype.createSnake = function() {
   BasicGame.SnakeBaseGame.prototype.createSnake.call(this);
 
@@ -43,6 +63,11 @@ BasicGame.Sssensssible.prototype.createSnake = function() {
 
   this.snakeTwo = new Snake(this,this.SNAKE_TWO_START_X,this.SNAKE_TWO_START_Y);
 };
+
+
+// createInput
+//
+// Super + Add controls for the second snake
 
 BasicGame.Sssensssible.prototype.createInput = function () {
   BasicGame.SnakeBaseGame.prototype.createInput.call(this);
@@ -63,8 +88,12 @@ BasicGame.Sssensssible.prototype.createInput = function () {
     this.swipe = new Swipe(this.game);
     this.swipe.diagonalDisabled = true;
   }
-  this.next = new Phaser.Point(0,0);
 };
+
+
+// createControls
+//
+// Super + Display controls for the second snake
 
 BasicGame.Sssensssible.prototype.createControls = function () {
   BasicGame.SnakeBaseGame.prototype.createControls.call(this);
@@ -82,9 +111,19 @@ BasicGame.Sssensssible.prototype.createControls = function () {
   this.addTextToGrid(this.CONTROLS_TWO_X,this.CONTROLS_TWO_Y,controlsStrings,this.controlsGroupTwo);
 },
 
+
+// update
+//
+// Just super, but you never know...
+
 BasicGame.Sssensssible.prototype.update = function () {
   BasicGame.SnakeBaseGame.prototype.update.call(this);
 };
+
+
+// tick
+//
+// Complete override. Does mostly the same things, but ticks the second snake too
 
 BasicGame.Sssensssible.prototype.tick = function () {
   ticker.add(Phaser.Timer.SECOND * this.SNAKE_TICK, this.tick, this);
@@ -96,6 +135,12 @@ BasicGame.Sssensssible.prototype.tick = function () {
   this.checkBodyCollision();
   this.checkWallCollision();
 };
+
+
+// checkWallCollission
+//
+// Complete override because we need to handle one snake being dead but
+// not the other
 
 BasicGame.Sssensssible.prototype.checkWallCollision = function () {
   this.wallGroup.forEach(function (wall) {
@@ -112,12 +157,18 @@ BasicGame.Sssensssible.prototype.checkWallCollision = function () {
   },this);
 }
 
+
+// checkBodyCollision
+//
+// Complete override to handle one dead snake out of two, and to check both
+// auto-collision and other-collision
+
 BasicGame.Sssensssible.prototype.checkBodyCollision = function () {
   this.snake.forEach(function (bit) {
-    if (!this.snake.dead && this.snake.head.position.equals(bit.position) && !bit == this.snake.head) {
+    if (!this.snake.dead && this.snake.head.world.equals(bit.world) && !bit == this.snake.head) {
       this.snake.die();
     }
-    if (!this.snakeTwo.dead && this.snakeTwo.head.position.equals(bit.position)) {
+    if (!this.snakeTwo.dead && this.snakeTwo.head.world.equals(bit.world)) {
       this.snakeTwo.die();
     }
 
@@ -127,10 +178,10 @@ BasicGame.Sssensssible.prototype.checkBodyCollision = function () {
   },this);
 
   this.snakeTwo.forEach(function (bit) {
-    if (!this.snake.dead && this.snake.head.position.equals(bit.position)) {
+    if (!this.snake.dead && this.snake.head.world.equals(bit.world)) {
       this.snake.die();
     }
-    if (!this.snakeTwo.dead && this.snakeTwo.head.position.equals(bit.position) && !bit == this.snakeTwo.head) {
+    if (!this.snakeTwo.dead && this.snakeTwo.head.world.equals(bit.world) && !bit == this.snakeTwo.head) {
       this.snakeTwo.die();
     }
 
@@ -140,32 +191,80 @@ BasicGame.Sssensssible.prototype.checkBodyCollision = function () {
   },this);
 };
 
+
+BasicGame.Sssensssible.prototype.resetApple = function () {
+  this.apple.x = this.SNAKE_START_X * GRID_SIZE;
+  this.apple.y = 16 * GRID_SIZE;
+};
+
+
+BasicGame.Sssensssible.prototype.resetSnakes = function () {
+  this.snake.reset();
+  this.snakeTwo.reset();
+};
+
+
+// checkAppleCollision
+//
+// This implements the idea of dribbling the ball in the direction of the snake hitting it
+
 BasicGame.Sssensssible.prototype.checkAppleCollision = function () {
   if (this.snake.head.position.equals(this.apple.position)) {
     this.appleSFX.play();
-    this.apple.position.x += this.snake.next.x*2;
-    this.apple.position.y += this.snake.next.y*2;
+    this.apple.position.x += this.snake.next.x;
+    this.apple.position.y += this.snake.next.y;
   }
 
   if (this.snakeTwo.head.position.equals(this.apple.position)) {
     this.appleSFX.play();
-    this.apple.position.x += this.snakeTwo.next.x*2;
-    this.apple.position.y += this.snakeTwo.next.y*2;
+    this.apple.position.x += this.snakeTwo.next.x;
+    this.apple.position.y += this.snakeTwo.next.y;
+  }
+
+  if (this.apple.position.y < this.WALL_TOP * GRID_SIZE) {
+    console.log("Goooooooooooooool!");
+    this.resetApple();
+    this.resetSnakes();
+  }
+  else if (this.apple.position.y > this.WALL_BOTTOM * GRID_SIZE) {
+    console.log("Goooooooooooooool! Golgolgolgolgolgooooooooooool!");
+    this.resetApple();
+    this.resetSnakes();
   }
 
 };
 
+
+// gameOver
+//
+// Complete override
+
 BasicGame.Sssensssible.prototype.gameOver = function () {
 
 };
+
+
+// repositionApple
+//
+// We don't do this, so override to cancel
 
 BasicGame.Sssensssible.prototype.repositionApple = function () {
   // We don't reposition the apple with the usual algorithm
   // because it's based on the data about the colossus
 };
 
+
+// startAppleTimer
+//
+// We don't do this, so override to cancel
+
 BasicGame.Sssensssible.prototype.startAppleTimer = function () {
 };
+
+
+// hideControlsTwo
+//
+// Handle hiding the second set of control instructions
 
 BasicGame.Sssensssible.prototype.hideControlsTwo = function () {
   if (this.snakeTwo.next.x == 0 && this.snakeTwo.next.y == 0) {
@@ -176,10 +275,14 @@ BasicGame.Sssensssible.prototype.hideControlsTwo = function () {
   }
 };
 
+
+// handleKeyboardInput
+//
+// Handle the second snake's keyboard controls
 BasicGame.Sssensssible.prototype.handleKeyboardInput = function () {
   BasicGame.SnakeBaseGame.prototype.handleKeyboardInput.call(this);
 
-  if (this.dead) return;
+  if (this.snakeTwo.dead) return;
   if (!this.inputEnabled) return;
 
   if (this.controlsGroupTwo.visible && (this.wKey.isDown || this.aKey.isDown || this.sKey.isDown || this.dKey.isDown)) {
