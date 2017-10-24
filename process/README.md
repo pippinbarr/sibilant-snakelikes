@@ -17,6 +17,16 @@
 
 ## TO-DO
 
+### Sssensssible Sssoccer
+
+- Get the game to recognise goal scoring (and the reset - I guess Snakes should reset to their positions)
+- Display the score at the top
+- Presumably have a timer that records how long the game has gone on
+- Decide on how snakes get longer (bonus apples? scoring a goal? after every goal regardless of who scored?) and implement it
+- Figure out what happens if you kick the ball inside a snake (this is especially a real thing if we have the ball move to squares per kick - might be a reason not to do that - if not that you could just die if you kick the ball into another snake, which is a simple response - but if you do single moves then how can you steal the ball? Maybe, again, you just can't)
+
+- ~~Do a bunch of things that get the game partially working (but make sure you forget to list them in your to-dos, because I guess that wasn't necessary)~~
+
 ### Ssshadow of the Colossssssusss
 
 - Add win condition (what will this be like? "BUT AT WHAT COST?!?!?!")
@@ -33,6 +43,14 @@
 
 - BUGS
   - I managed to pass through the colossus's shoulder. Probably that's it moving and me moving. Will have to try to recreate though. I just did (notably after reversing colossusMove and checkColossusCollision, so it's something deeper than that...)
+
+## 2017-10-23 20:50
+
+Spent some more time on the game today, mostly getting the Snake class working so that the snake is independent of the game. Especially important for multiple snakes.
+
+Today's major realisation came around the issues of designing what happens as you dribble the ball around and whether you can steal etc. by "tackling" and so on and so on. In particular, I started to think about the game from a more 'sport oriented' perspective where it becomes important that it's fair (so you need to resolve collisions fairly and consistently) and also that you need to have some sort of skill that can be exercised and that it's clear how you might do better. These aren't concerns I tend to have for my games, but in remediating the idea of a soccer game (and here I note that 'Sssensssible Sssoccer' might be a misnomer? I'm really just doing Sssoccer generically?) I'm having to think about those features of play. Soccer and soccer videogames are _designed_ to have those qualities... those qualities are kind of the reason that the various mechanics exist. To remediate such a game you cannot just ignore them. So despite the fact it becomes Snake, it needs to maintain that sort of 'spirit' of the mechanics. I think that's entirely doable, but it's pushing me to think about aspects of play that I find unexpected.
+
+There's also a small thought in the back of my head that Snake-based soccer is kind of cool and could be worthwhile in general. But that siren song is a dangerous one - I don't have time to make "good games"!
 
 ## 2017-10-20 12:09
 
