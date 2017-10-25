@@ -24,6 +24,7 @@
 - Implement half-life
 - Consider the problem of the ball pushed against the wall! Oopsie. (One solution would be goals the width of the thing, but that won't look at cool)
 - Handle the issue of the ball going _into_ a snake. I guess this can be checked easily enough? You die if you're currently trying to push the ball into another snake?
+- Mock up a visual of different version of the 'out of bounds' problem
 - Consider handling single snake death. Options include
   - Leave it (kind of gliding, not very powerful)
   - Hit snake pauses for long enough for the dead snake to flash and respawn
@@ -53,6 +54,21 @@
 
 - BUGS
   - I managed to pass through the colossus's shoulder. Probably that's it moving and me moving. Will have to try to recreate though. I just did (notably after reversing colossusMove and checkColossusCollision, so it's something deeper than that...)
+
+## 2017-10-25 13:36
+
+A few developments in the last couple of days.
+
+- The power of "gooooooool!" was surprising to me. Once the snakes could score goals I added a `console.log()` statement that just printed "Goooooool! Golgolgolgolgooooool!" to the console. The comparison between that and no explicit acknowledgement was kind of amazing and made me think about how important that aspect of aesthetic/visual/audio representation of excitement is to generating actual excitement. I guess screenshake is a pretty elementary version of that. Makes me think I could just literally write "GOOOOOOL!" on the screen, too. Some kind of text animation of that excitement. (Can you die during your goal celebration? Heh)
+
+- Thinking extensively about collision aesthetics. Notably how unsatisfying a moving collision looks when one snake hits the other and the other keeps moving. No solidity to it - the snake's head is "in" the other one, but the other one just keeps moving. Doesn't make sense. I have ideas for fixing it.
+
+- Thinking about the issue of the ball going against a wall and therefore being impossible to get out. Again had to come up with multiple versions of a solution that, some of which radically change how the game would work. Not clear how to choose just yet, but it may be in conversation with the remediation equation around source and target systems? As in, the most Soccer thing to do would be not to have walls in the first place, but rather an out of bounds area that would cause a reset. But that's getting very non-Snake, which is bad in another way, because the question is how would you represent Soccer in Snake, and it's true that a _wall which kills you_ is an appropriate metaphor for the ball going out of play to some extent (it's a response to the same concept)? The base response would be to let it happen, and then require both snakes to die to reset. A fudged double version would be to have an actual field of play with a wall around it so you can die out of bounds, but the ball can go out of bounds and reset without you dying too. I'm concerned that will be visually confusing so I should mock it up in Pixen.
+
+Reflecting back up at the level of this methodological thing we're doing, I'm impressed by just how much detail this commit-oriented writing (along with this journaling) is extracting from me. I'm ending up writing _very_ detailed thinking about the specific decisions being made with each commit/build. One observation is that a lot of the time you have a kind of double thing... the design thinking sometime reflects what is present in the build, but just as often the design thinking around is about absences... so things that are not in the build but perhaps ought to be. That's probably a positive, but it feels like something to think about.
+
+Anyway, this project is going well, and I'm managing to work on it in the small amounts of time I actually have available, too which is a positive.
+
 
 ## 2017-10-23 20:50
 
