@@ -19,13 +19,22 @@
 
 ### Sssensssible Sssoccer
 
-- Get the game to recognise goal scoring (and the reset - I guess Snakes should reset to their positions)
-- Display the score at the top
-- Presumably have a timer that records how long the game has gone on
-- Decide on how snakes get longer (bonus apples? scoring a goal? after every goal regardless of who scored?) and implement it
-- Figure out what happens if you kick the ball inside a snake (this is especially a real thing if we have the ball move to squares per kick - might be a reason not to do that - if not that you could just die if you kick the ball into another snake, which is a simple response - but if you do single moves then how can you steal the ball? Maybe, again, you just can't)
-- Self-Body collision is broken? Something to do with coordinate systems?
+- Implement razmatazz around goal scoring
+- Implement end of game through time
+- Implement half-life
+- Consider the problem of the ball pushed against the wall! Oopsie. (One solution would be goals the width of the thing, but that won't look at cool)
+- Handle the issue of the ball going _into_ a snake. I guess this can be checked easily enough? You die if you're currently trying to push the ball into another snake?
+- Consider handling single snake death. Options include
+  - Leave it (kind of gliding, not very powerful)
+  - Hit snake pauses for long enough for the dead snake to flash and respawn
+  - Hit snake pauses for dead snake to flash and vanish, then has a clear run at the goal before reset - if both die it's a full reset
 
+- ~~__FOR NOW IT'S BOTH GET BIGGER PER GOAL__ Decide on how snakes get longer (bonus apples? scoring a goal? after every goal regardless of who scored?) and implement it~~
+- ~~Get the game to recognise goal scoring (and the reset - I guess Snakes should reset to their positions)~~
+- ~~Display the score at the top~~
+- ~~Presumably have a timer that records how long the game has gone on~~
+- ~~Figure out what happens if you kick the ball inside a snake (~~this is especially a real thing if we have the ball move two squares per kick - might be a reason not to do that~~ - if not that you could just die if you kick the ball into another snake, which is a simple response - but if you do single moves then how can you steal the ball? Maybe, again, you just can't)~~
+- ~~Self-Body collision is broken? Something to do with coordinate systems?~~
 - ~~Do a bunch of things that get the game partially working (but make sure you forget to list them in your to-dos, because I guess that wasn't necessary)~~
 
 ### Ssshadow of the Colossssssusss

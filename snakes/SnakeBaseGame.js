@@ -206,6 +206,7 @@ BasicGame.SnakeBaseGame.prototype = {
     this.addTextToGrid(this.scoreX-scoreString.length,this.scoreY,[scoreString]);
   },
 
+
   setGameOverText: function (gameOverString,spacing,gameOverPointsString,spacing2,gameOverResultString) {
     this.addTextToGrid(this.GAME_OVER_X,this.GAME_OVER_Y,[gameOverString,spacing,gameOverPointsString,spacing2,gameOverResultString]);
   },
@@ -218,17 +219,6 @@ BasicGame.SnakeBaseGame.prototype = {
     this.checkAppleCollision();
     this.checkBodyCollision();
     this.checkWallCollision();
-  },
-
-  addSnakeBits: function () {
-    if (this.next.x == 0 && this.next.y == 0) return;
-
-    if (this.snakeBitsToAdd > 0) {
-      var bit = this.snakeBodyGroup.create(0,0,'body');
-      this.game.physics.enable(bit,Phaser.Physics.ARCADE);
-      this.snake.unshift(bit)
-      this.snakeBitsToAdd = Math.max(0,this.snakeBitsToAdd-1);
-    }
   },
 
   updateSnakePosition: function () {
@@ -275,7 +265,7 @@ BasicGame.SnakeBaseGame.prototype = {
       this.apple.y = -1000;
       this.apple.visible = false;
       this.startAppleTimer();
-      this.snake.snakeBitsToAdd += this.NEW_BODY_PIECES_PER_APPLE;
+      this.snake.bodyPiecesToAdd += this.NEW_BODY_PIECES_PER_APPLE;
       this.addToScore(this.APPLE_SCORE);
     }
   },
@@ -290,12 +280,12 @@ BasicGame.SnakeBaseGame.prototype = {
     if (!apple) apple = this.apple;
 
     apple.visible = true;
-    var x = this.getRandomLocationWithin(WALL_LEFT+1,WALL_RIGHT);
-    var y = this.getRandomLocationWithin(WALL_TOP+1,WALL_BOTTOM);
+    var x = this.getRandomLocationWithin(this.WALL_LEFT+1,this.WALL_RIGHT);
+    var y = this.getRandomLocationWithin(this.WALL_TOP+1,this.WALL_BOTTOM);
     var collisionCount = 0;
     var foundLocation = false;
     while (!foundLocation) {
-      if (this.locationHasCollisionWithGroup(x*GRID_SIZE,y*GRID_SIZE,this.snakeBodyGroup)) {
+      if (this.locationHasCollisionWithGroup(x*GRID_SIZE,y*GRID_SIZE,this.snake)) {
         collisionCount++;
         if (collisionCount > 5) {
           break;

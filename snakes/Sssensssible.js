@@ -19,11 +19,20 @@ BasicGame.Sssensssible.prototype.create = function () {
 
   this.CONTROLS_TWO_X = 8;
   this.CONTROLS_TWO_Y = 23;
-
+  this.GAME_TIME_TICK = 0.022;
+  this.EXTRA_BODY_PIECES_PER_GOAL = 3;
+  
+  this.scoreTwo = 0;
+  this.gameTimeElapsed = 0;
 
   BasicGame.SnakeBaseGame.prototype.create.call(this);
 
   this.resetApple();
+
+  this.gameTimeTicker = this.game.time.create(false);
+  this.gameTimeTicker.add(Phaser.Timer.SECOND * this.GAME_TIME_TICK, this.gameTimeTick, this);
+  this.gameTimeTicker.start();
+
 
   // Name the state for resetting purposes
   this.stateName = "Sssensssible";
@@ -91,6 +100,21 @@ BasicGame.Sssensssible.prototype.createInput = function () {
 };
 
 
+// setScoreText
+//
+// Override to display the two scores
+
+BasicGame.Sssensssible.prototype.setScoreText = function () {
+  var scoreString = this.score + " - " + this.scoreTwo;
+  if (scoreString.length < this.MAX_SCORE.toString().length) {
+    var spacesToAdd = (this.MAX_SCORE.toString().length - scoreString.length)+1;
+    scoreString = Array(spacesToAdd).join(" ") + scoreString;
+  }
+  this.addTextToGrid(this.scoreX-scoreString.length,this.scoreY,[scoreString]);
+
+};
+
+
 // createControls
 //
 // Super + Display controls for the second snake
@@ -118,8 +142,19 @@ BasicGame.Sssensssible.prototype.createControls = function () {
 
 BasicGame.Sssensssible.prototype.update = function () {
   BasicGame.SnakeBaseGame.prototype.update.call(this);
+
 };
 
+// gameTimeTick
+//
+// Handles how fast the clock moves
+
+BasicGame.Sssensssible.prototype.gameTimeTick = function () {
+  this.gameTimeTicker.add(Phaser.Timer.SECOND * this.GAME_TIME_TICK, this.gameTimeTick, this);
+
+  this.gameTimeElapsed++;
+  this.updateGameTimeText();
+};
 
 // tick
 //
@@ -131,9 +166,20 @@ BasicGame.Sssensssible.prototype.tick = function () {
   this.snake.tick();
   this.snakeTwo.tick();
 
+
   this.checkAppleCollision();
   this.checkBodyCollision();
   this.checkWallCollision();
+
+};
+
+
+BasicGame.Sssensssible.prototype.updateGameTimeText = function () {
+  var m = Math.floor(this.gameTimeElapsed/60);
+  if (m < 10) m = "0" + m;
+  var s = (this.gameTimeElapsed - m*60);
+  if (s < 10) s = "0" + s;
+  this.addTextToGrid(1,this.scoreY,[m + ":" + s]);
 };
 
 
@@ -165,10 +211,10 @@ BasicGame.Sssensssible.prototype.checkWallCollision = function () {
 
 BasicGame.Sssensssible.prototype.checkBodyCollision = function () {
   this.snake.forEach(function (bit) {
-    if (!this.snake.dead && this.snake.head.world.equals(bit.world) && !bit == this.snake.head) {
+    if (!this.snake.dead && this.snake.head.position.equals(bit.position) && bit != this.snake.head) {
       this.snake.die();
     }
-    if (!this.snakeTwo.dead && this.snakeTwo.head.world.equals(bit.world)) {
+    if (!this.snakeTwo.dead && this.snakeTwo.head.position.equals(bit.position)) {
       this.snakeTwo.die();
     }
 
@@ -178,11 +224,11 @@ BasicGame.Sssensssible.prototype.checkBodyCollision = function () {
   },this);
 
   this.snakeTwo.forEach(function (bit) {
-    if (!this.snake.dead && this.snake.head.world.equals(bit.world)) {
-      this.snake.die();
-    }
-    if (!this.snakeTwo.dead && this.snakeTwo.head.world.equals(bit.world) && !bit == this.snakeTwo.head) {
+    if (!this.snakeTwo.dead && this.snakeTwo.head.position.equals(bit.position) && bit != this.snakeTwo.head) {
       this.snakeTwo.die();
+    }
+    if (!this.snake.dead && this.snake.head.position.equals(bit.position)) {
+      this.snake.die();
     }
 
     if (this.snake.dead && this.snakeTwo.dead) {
@@ -209,6 +255,7 @@ BasicGame.Sssensssible.prototype.resetSnakes = function () {
 // This implements the idea of dribbling the ball in the direction of the snake hitting it
 
 BasicGame.Sssensssible.prototype.checkAppleCollision = function () {
+  console.log(this.score,this.scoreTwo);
   if (this.snake.head.position.equals(this.apple.position)) {
     this.appleSFX.play();
     this.apple.position.x += this.snake.next.x;
@@ -222,12 +269,18 @@ BasicGame.Sssensssible.prototype.checkAppleCollision = function () {
   }
 
   if (this.apple.position.y < this.WALL_TOP * GRID_SIZE) {
-    console.log("Goooooooooooooool!");
+    this.scoreTwo++;
+    this.snake.SNAKE_START_LENGTH += this.EXTRA_BODY_PIECES_PER_GOAL;
+    this.snakeTwo.SNAKE_START_LENGTH += this.EXTRA_BODY_PIECES_PER_GOAL;
+    this.setScoreText("");
     this.resetApple();
     this.resetSnakes();
   }
   else if (this.apple.position.y > this.WALL_BOTTOM * GRID_SIZE) {
-    console.log("Goooooooooooooool! Golgolgolgolgolgooooooooooool!");
+    this.score++;
+    this.snake.SNAKE_START_LENGTH += this.EXTRA_BODY_PIECES_PER_GOAL;
+    this.snakeTwo.SNAKE_START_LENGTH += this.EXTRA_BODY_PIECES_PER_GOAL;
+    this.setScoreText("");
     this.resetApple();
     this.resetSnakes();
   }

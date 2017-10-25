@@ -47,16 +47,22 @@ Snake.prototype.flash = function () {
 };
 
 Snake.prototype.reset = function () {
+  this.dead = false;
+  this.visible = true;
+  this.head.visible = true;
+  
   this.removeAll();
-  this.add(this.head);
-  this.bits = [];
+
   this.head.x = this.startX*GRID_SIZE;
   this.head.y = this.startY*GRID_SIZE;
+
+  this.add(this.head);
+  this.bits = [];
   this.bits.unshift(this.head);
 
   this.next = new Phaser.Point(0,0);
   this.prev = new Phaser.Point(0,0);
-  
+
   this.bodyPiecesToAdd = this.SNAKE_START_LENGTH;
 };
 
