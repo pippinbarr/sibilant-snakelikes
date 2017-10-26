@@ -8,12 +8,18 @@
 - SSSSSS
 - The Witnessssss
 - Sssuper Mario Brosss.
-- Minesssweeper
+- ... Minesssweeper
 - Missssssile Command
 - ? Asssteroidsss
 - Msss. Pacman
 
 ## TO-DO
+
+### Minesssweeper
+
+- Work out the horrible algorithm for auto-clearing tiles and marking with the number of bombs they are next to
+
+- ~~Get the basic tile-eating stuff set up~~
 
 ### Sssensssible Sssoccer
 
@@ -52,6 +58,16 @@
 
 - BUGS
   - I managed to pass through the colossus's shoulder. Probably that's it moving and me moving. Will have to try to recreate though. I just did (notably after reversing colossusMove and checkColossusCollision, so it's something deeper than that...)
+
+---
+
+## 2017-10-26 12:13
+
+Just a quick note to say I started on Minesssweeper today. I'm finding it quite productive get the basics of a game going and then stop pushing when I get to the more fine-grained work (like soccer razmatazz or shadow of the colossus spirits evanescing or whatever). Minesssweeper went pretty smoothly in terms of the basic setup. In no small part, I assume, because I'm remediating a tile based game into another tile based game. So there's a nice alignment there which helps with life - there are no kind of spatial reconfigurations/reimaginings necessary at all. So actually that's pretty powerful.
+
+The other moment of design today centred around the representation of neutral tiles on the map. I'd thought that I "should" have the apple representation since that's what the snake _eats_ in Snake, but then realised just as I was about to switch the sprite in the code that it conflicts with the meaning of tile selection in Minesweeper, which is specifically _neutral_ about the nature of any unrevealed tile (could be a bomb, could be safe). Here is makes sense that Minesweeper wins this design moment because it's the source system and because going the Snake way would specifically _break_ Minesweeper in terms of the meaning of its aesthetics. The reason I was fretting about all this in the first place was the question you always have to ask with Snake as a target system, which is "how long should the snake get and when?". In the context of this one it was easy to jump to the idea that individual tiles would be apples, since the Snake is processing them and they disappear. By having it become clear that they _cannot_ be apples, I actually end up with a very easy solution to the snake getting longer: it's _can't_ because there are no apples. This is handy in no small part because it really feels like if the snake is getting longer during play the game will become insanely difficult to the point of being unplayable. Because it would mean that the snake really just _extends_ from its starting position (the body would never be seen to move as it would permanently get longer? Unless you cleared a big area early I suppose).
+
+So anyway, some more minutiae for you.
 
 ## 2017-10-25 13:36
 
