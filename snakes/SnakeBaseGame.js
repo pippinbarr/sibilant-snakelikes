@@ -33,23 +33,16 @@ BasicGame.SnakeBaseGame.prototype = {
 
 
   create: function () {
-
+    console.log(this.map);
     this.textGrid = [];
     this.dead = false;
     this.stateName = 'Snake';
     this.inputEnabled = true;
 
-    this.NUM_ROWS = this.game.height/GRID_SIZE;
-    this.NUM_COLS = this.game.width/GRID_SIZE;
+    this.setupGridDimensions();
 
     this.CONTROLS_X = 8;
     this.CONTROLS_Y = 7;
-
-    this.WALL_LEFT = 1;
-    this.WALL_RIGHT = this.NUM_COLS-2;
-    this.WALL_TOP = 3;
-    this.WALL_BOTTOM = this.NUM_ROWS - this.WALL_TOP - 1;
-
 
     this.instructionsButtonGroup = this.game.add.group();
 
@@ -79,6 +72,16 @@ BasicGame.SnakeBaseGame.prototype = {
     ticker.start();
   },
 
+  setupGridDimensions: function () {
+    this.NUM_ROWS = this.game.height/GRID_SIZE;
+    this.NUM_COLS = this.game.width/GRID_SIZE;
+
+    this.WALL_LEFT = 1;
+    this.WALL_RIGHT = this.NUM_COLS-2;
+    this.WALL_TOP = 3;
+    this.WALL_BOTTOM = this.NUM_ROWS - this.WALL_TOP - 1;
+  },
+
   createWalls: function () {
     // Create the walls
     this.wallGroup = this.game.add.group();
@@ -86,7 +89,7 @@ BasicGame.SnakeBaseGame.prototype = {
       for (var x = this.WALL_LEFT; x <= this.WALL_RIGHT; x++) {
         if (y == this.WALL_TOP || y == this.WALL_BOTTOM || x == this.WALL_LEFT || x == this.WALL_RIGHT) {
           // var wall = this.wallGroup.create(x*GRID_SIZE,y*GRID_SIZE,'wall')
-          var wall = this.wallGroup.create(x*GRID_SIZE,y*GRID_SIZE,'wall')
+          var wall = this.wallGroup.create(x*GRID_SIZE,y*GRID_SIZE,'wall');
           // this.game.physics.enable(wall, Phaser.Physics.ARCADE);
         }
       }
@@ -328,7 +331,7 @@ BasicGame.SnakeBaseGame.prototype = {
   checkBodyCollision: function () {
     this.snake.forEach(function (bit) {
       if (this.snake.head.position.equals(bit.position) && bit != this.snake.head) {
-        this.snake.die();
+        this.die();
         return;
       }
     },this);
@@ -336,11 +339,17 @@ BasicGame.SnakeBaseGame.prototype = {
 
   checkWallCollision: function () {
     this.wallGroup.forEach(function (wall) {
-      if (this.snake.head.position.equals(wall.position)) {
+      if (this.snake.head.position.equals(wall.position) && !this.snake.dead) {
         this.die();
         return;
       }
     },this);
+  },
+
+  die: function () {
+    this.snake.die();
+    this.inputEnabled = false;
+    this.game.time.events.add(Phaser.Timer.SECOND * 2, this.gameOver, this);
   },
 
   gameOver: function () {

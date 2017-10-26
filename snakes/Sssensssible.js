@@ -8,7 +8,7 @@ BasicGame.Sssensssible = function (game) {
 };
 
 BasicGame.Sssensssible.prototype = Object.create(BasicGame.SnakeBaseGame.prototype);
-BasicGame.Sssensssible.prototype.constructor = BasicGame.Ssshadow;
+BasicGame.Sssensssible.prototype.constructor = BasicGame.Sssensssible;
 
 
 // create
@@ -21,7 +21,7 @@ BasicGame.Sssensssible.prototype.create = function () {
   this.CONTROLS_TWO_Y = 23;
   this.GAME_TIME_TICK = 0.022;
   this.EXTRA_BODY_PIECES_PER_GOAL = 3;
-  
+
   this.scoreTwo = 0;
   this.gameTimeElapsed = 0;
 
@@ -57,7 +57,7 @@ BasicGame.Sssensssible.prototype.createWalls = function () {
       }
     }
   }
-},
+};
 
 
 // createSnake

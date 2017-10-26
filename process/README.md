@@ -1,19 +1,17 @@
 ## The list of games
 
 - Tetrisss
-- Sssensssible Sssoccer
-- Ssshadow of the Colossssssusss
+- ... Sssensssible Sssoccer
+- ... Ssshadow of the Colossssssusss
 - ? Sssteven'sss Sssausssage Roll
 - Papersss, Pleassse
-- ? Sssuper Hexagon
 - SSSSSS
 - The Witnessssss
 - Sssuper Mario Brosss.
 - Minesssweeper
-- Missssssile Command (ha ha)
+- Missssssile Command
 - ? Asssteroidsss
 - Msss. Pacman
-- ??? Ssspace War!
 
 ## TO-DO
 
@@ -21,7 +19,7 @@
 
 - Implement razmatazz around goal scoring
 - Implement end of game through time
-- Implement half-life
+- Implement half-time
 - Consider the problem of the ball pushed against the wall! Oopsie. (One solution would be goals the width of the thing, but that won't look at cool)
 - Handle the issue of the ball going _into_ a snake. I guess this can be checked easily enough? You die if you're currently trying to push the ball into another snake?
 - Mock up a visual of different version of the 'out of bounds' problem
