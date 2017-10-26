@@ -44,13 +44,17 @@ BasicGame.Minesssweeper.prototype.createMap = function () {
     var row = [];
     this.map.push(row);
     for (var x = 0; x < this.WALL_RIGHT - this.WALL_LEFT - 1; x++) {
-      var tile = this.mapGroup.create((x + this.WALL_LEFT + 1)*GRID_SIZE,(y+ this.WALL_TOP + 1)*GRID_SIZE,'map_tile');
+      var sprite;
+      var type;
       if (Math.random() < 0.9 || (x + this.WALL_LEFT + 1 == this.SNAKE_START_X && y + this.WALL_TOP + 1 == this.SNAKE_START_Y)) {
-        row.push({type: "TILE", sprite: tile});
+        type = "SAFE";
+        sprite = this.mapGroup.create((x + this.WALL_LEFT + 1)*GRID_SIZE,(y+ this.WALL_TOP + 1)*GRID_SIZE,'map_tile');
       }
       else {
-        row.push({type: "BOMB", sprite: tile});
+        type = "BOMB";
+        sprite = this.mapGroup.create((x + this.WALL_LEFT + 1)*GRID_SIZE,(y+ this.WALL_TOP + 1)*GRID_SIZE,'map_tile');
       }
+      row.push({type: type, sprite: sprite});
     }
   }
 };
@@ -74,7 +78,7 @@ BasicGame.Minesssweeper.prototype.checkMapCollision = function () {
   if (tileY < 0 || tileY >= this.map.length || tileX < 0 || tileX >= this.map[0].length) return;
 
   var tile = this.map[tileY][tileX];
-  if (tile.type == "TILE") {
+  if (tile.type == "SAFE") {
     tile.sprite.visible = false;
 
     // Now we need to do the calculations on clearing the map around this square
