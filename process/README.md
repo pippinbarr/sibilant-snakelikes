@@ -17,8 +17,11 @@
 
 ### Minesssweeper
 
-- Work out the horrible algorithm for auto-clearing tiles and marking with the number of bombs they are next to
+- Need to fix up text display in all scenarios (another text grid?)
+- Bomb walls as a red-tinted version of a wall, or is that impure?
+- Add animation effect to clearing rather than insta-clear
 
+- ~~Work out the horrible algorithm for auto-clearing tiles and marking with the number of bombs they are next to~~
 - ~~Get the basic tile-eating stuff set up~~
 
 ### Sssensssible Sssoccer
