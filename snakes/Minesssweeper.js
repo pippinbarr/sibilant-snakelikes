@@ -34,6 +34,15 @@ BasicGame.Minesssweeper.prototype.create = function () {
 
   BasicGame.SnakeBaseGame.prototype.create.call(this);
 
+  this.FLIP_TICK = this.SNAKE_TICK/3;
+
+  this.toFlip = [];
+  this.nowFlipping = [];
+
+  this.flipTicker = this.game.time.create(false);
+  this.flipTicker.add(Phaser.Timer.SECOND * this.FLIP_TICK, this.flipTick, this);
+  this.flipTicker.start();
+
   // Name the state for resetting purposes
   this.stateName = "Minesssweeper";
 };
@@ -57,7 +66,7 @@ BasicGame.Minesssweeper.prototype.createMap = function () {
         type = "BOMB";
         sprite = this.mapGroup.create((x + this.WALL_LEFT + 1)*GRID_SIZE,(y+ this.WALL_TOP + 1)*GRID_SIZE,'map_tile');
       }
-      row.push({type: type, sprite: sprite});
+      row.push({type: type, sprite: sprite, x: x, y: y, toFlip: false});
     }
   }
 };
@@ -74,6 +83,19 @@ BasicGame.Minesssweeper.prototype.tick = function () {
 };
 
 
+BasicGame.Minesssweeper.prototype.flipTick = function () {
+  this.flipTicker.add(Phaser.Timer.SECOND * this.FLIP_TICK, this.flipTick, this);
+
+  this.nowFlipping = this.toFlip.slice();
+  this.toFlip = [];
+
+  console.log("FLipping " + this.nowFlipping.length + " tiles.");
+  this.nowFlipping.forEach(function (tile) {
+    this.flipTile(tile);
+  },this);
+};
+
+
 BasicGame.Minesssweeper.prototype.checkMapCollision = function () {
   var tileX = (this.snake.head.x / GRID_SIZE) - this.WALL_LEFT - 1;
   var tileY = (this.snake.head.y / GRID_SIZE) - this.WALL_TOP - 1;
@@ -82,9 +104,7 @@ BasicGame.Minesssweeper.prototype.checkMapCollision = function () {
 
   var tile = this.map[tileY][tileX];
   if (tile.type == "SAFE") {
-    // Now we need to do the calculations on clearing the map around this square
-    // based on the knowledge it gives...
-    this.processTile(tile,tileX,tileY);
+    this.flipTile(tile,tileX,tileY);
   }
   else if (tile.type == "BOMB" && !this.snake.dead) {
     tile.sprite.loadTexture('wall');
@@ -93,14 +113,15 @@ BasicGame.Minesssweeper.prototype.checkMapCollision = function () {
 };
 
 
-BasicGame.Minesssweeper.prototype.processTile = function (tile,tileX,tileY) {
-  console.log("processTile(",tileX,tileY,")");
+BasicGame.Minesssweeper.prototype.flipTile = function (tile) {
+
   tile.sprite.visible = false;
+
   var bombs = 0;
   for (var y = -1; y <= 1; y++) {
     for (var x = -1; x <= 1; x++) {
-      var neighbourX = tileX + x;
-      var neighbourY = tileY + y;
+      var neighbourX = tile.x + x;
+      var neighbourY = tile.y + y;
       // Make sure this 'neighbour' is really available
       if (neighbourY < 0 || neighbourY >= this.map.length) continue;
       if (neighbourX < 0 || neighbourX >= this.map[neighbourY].length) continue;
@@ -114,21 +135,24 @@ BasicGame.Minesssweeper.prototype.processTile = function (tile,tileX,tileY) {
   if (bombs == 0) {
     for (var y = -1; y <= 1; y++) {
       for (var x = -1; x <= 1; x++) {
-        var neighbourX = tileX + x;
-        var neighbourY = tileY + y;
+        if (x == 0 && y == 0) continue;
+
+        var neighbourX = tile.x + x;
+        var neighbourY = tile.y + y;
         // Make sure this 'neighbour' is really available
         if (neighbourY < 0 || neighbourY >= this.map.length) continue;
         if (neighbourX < 0 || neighbourX >= this.map[neighbourY].length) continue;
         var neighbour = this.map[neighbourY][neighbourX];
         // Make sure this neighbour isn't already processed
-        if (neighbour.sprite.visible && neighbour != tile) {
-          this.processTile(neighbour,neighbourX,neighbourY);
+        if (neighbour.sprite.visible && !neighbour.toFlip) {
+          neighbour.toFlip = true;
+          this.toFlip.push(neighbour);
         }
       }
     }
   }
   else {
-    this.addTextToGrid(tileX + this.WALL_LEFT + 1,tileY + this.WALL_TOP + 1,bombs+"",this.textGroup);
+    this.addTextToGrid(tile.x + this.WALL_LEFT + 1,tile.y + this.WALL_TOP + 1,bombs+"",this.textGroup);
   }
 };
 
