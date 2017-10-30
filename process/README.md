@@ -1,68 +1,14 @@
-## The list of games
+## 2017-10-30 13:54
 
-- Tetrisss
-- ... Sssensssible Sssoccer
-- ... Ssshadow of the Colossssssusss
-- ? Sssteven'sss Sssausssage Roll
-- Papersss, Pleassse
-- SSSSSS
-- The Witnessssss
-- Sssuper Mario Brosss.
-- ... Minesssweeper
-- Missssssile Command
-- ? Asssteroidsss
-- Msss. Pacman
+Okay, so one thing I just did was split the to-do list out into a separate file, because the maning of this file as 'process' was getting to be too huge. So now this file is the journal specifically, and the other file is for tracking particular plans of implementation.
 
-## TO-DO
+I've been looking at the other versions of the game I have on the list to make and fretting about them. I guess that that fretting is all "part of design" and so forth, and that's fine. I will deal with that as I go. But still, it's frequently quite hard in each case to determine what really constitutes the "spirit" of any given version of the game. I feel like with the versions so far it goes beyond a kind of joke-y recognition of certain aspects of the source game put into the target (also: metaphor? remediation? translation? How to actually describe this process usefully?). That is, it doesn't feel enough to just hint at the source game... you kind of really need to feel it in the _system_ of the new game to some extent. And so in thinking most recently about _Papersss,Pleassse_ and _The Witnessssss_ I feel less sure of myself in terms of how to do it...
 
-### Minesssweeper
+- _The Witnessssss_ is hard because the puzzles themselves are actually quite complicated feats of calculation. I can't, off the top of my head, even figure out how to do one of those "keep the white squares separate from the black squares"... it requires some kind of topological understanding I don't seem to have right now (I'm also kind of tired, admittedly). And most of the puzzle elements are like that? Well, maybe not. We have 'maze' version where it's just that certain areas are blocked off and you have to find a continuous path. We have 'dot' version, where there are dots you have to 'eat' before getting to the end. We have symmetry + maze version where you have two 'snakes' that constrain your navigation. Those don't require anything more than a defined map and the ability to eat things (and count whether they're all eaten). BUT the other interesting stuff like the 'segregation' idea, or the 'must pass this side' idea, or the 'must make this tetris shape' idea are all really kind of horrifying. And it's not like The Witness is _generating_ them, they're complicated to _design_. One _feature_ of The Witness, that is part of its spirit, is that idea of cumulative understanding. I'm just not sure I can do something like that. But then I'm also not sure that a simple maze (maybe maze + pellets) sufficiently captures a sense of the original game? And I mean are you supposed to have an overworld where you snake around and find different puzzles? Scope! Scope! My scope! So this is hard.
 
-- Need to fix up text display in all scenarios (another text grid?)
-- Bomb walls as a red-tinted version of a wall, or is that impure?
-- Add animation effect to clearing rather than insta-clear
+- _Papersss, Pleassse_ is hard because it's a beautiful and complex game and working out how to compress it down to Snake is tricky. I mean, Shadow is a bit like that too, but it has an ultimately simple core game loop or climbing and stabbing which we can fit into the language of Snake. Papers is a much more sophisticated game in terms of variety. And in particular it's such a game of information, which maybe isn't something the Snake framework is suited to? My original idea was a throw-away gag where the snake just moves to the rhythm of the great music of Papers, but then I started thinking about it eating a red or a green apple to indicate whether you give someone's passport a pass or not. And then I imagined another snake kind of "coming in" to wait for your judgement and then either retreating (red apple) or being allowed out the other side (green apple). But then _that_ begs the question of how you're actually making your decisions about which apple to eat? Like, can it be arbitrary? That seems to betray the spirit of the game, which is about rule-following plus about narrative/emotional decision making potentially in conflict with that. But how do you know the rules? How do you hear a snake's sob story? How can you tell it's the "wrong snake"? How much of the system can you represent given the components we have? HM. For that reason it's almost like the throw-away musical timing gag is more "respectful" of the game... better to have a gag than a super awkward and badly considered remediation?
 
-- ~~Work out the horrible algorithm for auto-clearing tiles and marking with the number of bombs they are next to~~
-- ~~Get the basic tile-eating stuff set up~~
-
-### Sssensssible Sssoccer
-
-- Implement razmatazz around goal scoring
-- Implement end of game through time
-- Implement half-time
-- Consider the problem of the ball pushed against the wall! Oopsie. (One solution would be goals the width of the thing, but that won't look at cool)
-- Handle the issue of the ball going _into_ a snake. I guess this can be checked easily enough? You die if you're currently trying to push the ball into another snake?
-- Mock up a visual of different version of the 'out of bounds' problem
-- Consider handling single snake death. Options include
-  - Leave it (kind of gliding, not very powerful)
-  - Hit snake pauses for long enough for the dead snake to flash and respawn
-  - Hit snake pauses for dead snake to flash and vanish, then has a clear run at the goal before reset - if both die it's a full reset
-
-- ~~__FOR NOW IT'S BOTH GET BIGGER PER GOAL__ Decide on how snakes get longer (bonus apples? scoring a goal? after every goal regardless of who scored?) and implement it~~
-- ~~Get the game to recognise goal scoring (and the reset - I guess Snakes should reset to their positions)~~
-- ~~Display the score at the top~~
-- ~~Presumably have a timer that records how long the game has gone on~~
-- ~~Figure out what happens if you kick the ball inside a snake (~~this is especially a real thing if we have the ball move two squares per kick - might be a reason not to do that~~ - if not that you could just die if you kick the ball into another snake, which is a simple response - but if you do single moves then how can you steal the ball? Maybe, again, you just can't)~~
-- ~~Self-Body collision is broken? Something to do with coordinate systems?~~
-- ~~Do a bunch of things that get the game partially working (but make sure you forget to list them in your to-dos, because I guess that wasn't necessary)~~
-
-### Ssshadow of the Colossssssusss
-
-- Add win condition (what will this be like? "BUT AT WHAT COST?!?!?!")
-  - In Shadow there's that swirling soul thing... something like that... black smoke... vanishes into black (change alpha?)... tendrils hit the avatar... he collapses...
-
-- ~~Make winning actually register~~
-- ~~__PROBABLY TOO SLOW NOW__ Slow down the colossus~~
-- ~~Make colossus move better (in more than one direction, for instance)~~
-- ~~Make snake die on impact~~
-- ~~Make apple appear at different colossus locations~~
-- ~~Make colossus move~~
-- ~~Get the colossus displaying~~
-- ~~Get basic Snake working~~
-
-- BUGS
-  - I managed to pass through the colossus's shoulder. Probably that's it moving and me moving. Will have to try to recreate though. I just did (notably after reversing colossusMove and checkColossusCollision, so it's something deeper than that...)
-
----
+I still think I "get" Sssuper Mario Brosss. (also a gag really in terms of it being unplayable for a snake), and also I think I "get" Asssteroidsss, which seems like it's possible to maintaing the classic mechanics. So I guess I should go ahead and make one or both of those and keep simmering on the more complex things. It's true, though, that to this point I haven't tackled a really complex system... tells us something about the source games, I suppose, and how much they can be boiled down. Also just tells us something about what I, personally, am capable of with design thinking? At least while I'm sitting here, feeling sleeping, having eaten a donut inside a bagel.
 
 ## 2017-10-26 12:13
 
