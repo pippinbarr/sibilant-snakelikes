@@ -20,6 +20,10 @@ Snake = function (game,x,y) {
   this.bits = [];
   this.startX = x;
   this.startY = y;
+
+  // We'll set a target for AI snakes to move towards
+  this.target = null;
+
   this.head = this.create(this.startX*GRID_SIZE,this.startY*GRID_SIZE,'head');
   this.game.physics.enable(this.head, Phaser.Physics.ARCADE);
   this.bits.unshift(this.head);
@@ -50,7 +54,7 @@ Snake.prototype.reset = function () {
   this.dead = false;
   this.visible = true;
   this.head.visible = true;
-  
+
   this.removeAll();
 
   this.head.x = this.startX*GRID_SIZE;
@@ -62,6 +66,7 @@ Snake.prototype.reset = function () {
 
   this.next = new Phaser.Point(0,0);
   this.prev = new Phaser.Point(0,0);
+  this.target = null;
 
   this.bodyPiecesToAdd = this.SNAKE_START_LENGTH;
 };
@@ -122,6 +127,43 @@ Snake.prototype.checkBodyCollision = function () {
   return false;
 };
 
+Snake.prototype.chase = function () {
+  if (this.target.x == this.head.x/GRID_SIZE && this.target.y == this.head.y/GRID_SIZE) {
+    this.stop();
+    return;
+  }
+
+  var difference = Phaser.Point.subtract(this.target,this.head);
+  console.log(difference);
+
+  if (Math.abs(difference.x) >= Math.abs(difference.y)) {
+    this.moveRight();
+  }
+  else {
+    this.moveDown();
+  }
+
+  return;
+
+  if (Math.abs(xDistance) >= Math.abs(yDistance)) {
+    // Pursue on x for this round
+    if (xDistance < 0) {
+      this.moveLeft();
+    }
+    else {
+      this.moveRight();
+    }
+  }
+  else {
+    if (yDistance < 0) {
+      this.moveUp();
+    }
+    else {
+      this.moveDown();
+    }
+  }
+};
+
 Snake.prototype.die = function () {
   this.hitSFX.play();
   this.dead = true;
@@ -144,3 +186,7 @@ Snake.prototype.moveUp = function () {
 Snake.prototype.moveDown = function () {
   if (this.prev.y == 0) this.next = new Phaser.Point(0,GRID_SIZE);
 };
+
+Snake.prototype.stop = function () {
+  this.next = new Phaser.Point(0,0);
+}

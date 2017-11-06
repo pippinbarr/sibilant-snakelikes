@@ -11,6 +11,9 @@ BasicGame.Missssssile.prototype.create = function () {
 
   this.missiles = this.game.add.group();
 
+  this.missileSnake = new Snake(this,10,10);
+  this.missileSnake.target = new Phaser.Point(15*GRID_SIZE,27*GRID_SIZE);
+
   // Name the state for resetting purposes
   this.stateName = "Missssssile";
 };
@@ -21,6 +24,10 @@ BasicGame.Missssssile.prototype.update = function () {
 
 BasicGame.Missssssile.prototype.tick = function () {
   BasicGame.SnakeBaseGame.prototype.tick.call(this);
+
+  this.missileSnake.chase();
+  this.missileSnake.grow();
+  this.missileSnake.move();
 };
 
 BasicGame.Missssssile.prototype.checkAppleCollision = function () {
