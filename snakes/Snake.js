@@ -18,13 +18,13 @@ Snake = function (game,x,y) {
   this.moveSFX = this.game.add.audio('move',0.2);
 
   this.bits = [];
-  this.startX = x;
-  this.startY = y;
+  this.start = new Phaser.Point(x,y);
 
   // We'll set a target for AI snakes to move towards
   this.target = null;
+  this.chaseDelta = new Phaser.Point(0,0);
 
-  this.head = this.create(this.startX*GRID_SIZE,this.startY*GRID_SIZE,'head');
+  this.head = this.create(this.start.x*GRID_SIZE,this.start.y*GRID_SIZE,'head');
   this.game.physics.enable(this.head, Phaser.Physics.ARCADE);
   this.bits.unshift(this.head);
 
@@ -57,8 +57,8 @@ Snake.prototype.reset = function () {
 
   this.removeAll();
 
-  this.head.x = this.startX*GRID_SIZE;
-  this.head.y = this.startY*GRID_SIZE;
+  this.head.x = this.start.x*GRID_SIZE;
+  this.head.y = this.start.y*GRID_SIZE;
 
   this.add(this.head);
   this.bits = [];
@@ -128,40 +128,63 @@ Snake.prototype.checkBodyCollision = function () {
 };
 
 Snake.prototype.chase = function () {
-  if (this.target.x == this.head.x/GRID_SIZE && this.target.y == this.head.y/GRID_SIZE) {
+
+  // If we have reached the target, we stop
+  if (this.target.position.equals(this.head.position)) {
     this.stop();
     return;
   }
 
-  var difference = Phaser.Point.subtract(this.target,this.head);
-  console.log(difference);
+  // Calculate the difference between the target and starting point
+  var dx = this.target.x - (this.start.x*GRID_SIZE);
+  var dy = this.target.y - (this.start.y*GRID_SIZE);
 
-  if (Math.abs(difference.x) >= Math.abs(difference.y)) {
-    this.moveRight();
-  }
-  else {
-    this.moveDown();
-  }
+  // Calculate the total numbe of moves needed to get from the start to the target
+  var totalMoves = Math.abs(dx) + Math.abs(dy);
 
-  return;
+  // Calculate the required delta per move
+  this.chaseDelta.x += dx / totalMoves;
+  this.chaseDelta.y += dy / totalMoves;
 
-  if (Math.abs(xDistance) >= Math.abs(yDistance)) {
-    // Pursue on x for this round
-    if (xDistance < 0) {
-      this.moveLeft();
-    }
-    else {
-      this.moveRight();
-    }
-  }
-  else {
-    if (yDistance < 0) {
-      this.moveUp();
-    }
-    else {
+  var deltaDiff = Math.abs(this.chaseDelta.x) - Math.abs(this.chaseDelta.y);
+
+  if (deltaDiff <= 0) {
+    // We need to move vertically
+    if (this.chaseDelta.y >= 0) {
       this.moveDown();
+      this.chaseDelta.y -= 1;
     }
+    else {
+      this.moveUp();
+      this.chaseDelta.y += 1;
+    }
+    // Reset the delta
   }
+  else if (deltaDiff > 0){
+    // We need to move horizontally
+    if (this.chaseDelta.x >= 0) {
+      this.moveRight();
+      this.chaseDelta.x -= 1;
+    }
+    else {
+      this.moveLeft();
+      this.chaseDelta.x += 1;
+    }
+    // Reset the delta
+  }
+  else {
+    console.log("This happened");
+  }
+
+  // Notes from the mouth of Jonathan
+
+  // delta / error term
+  // accumulate the 'error' -
+  // calculate how much x and how much y (as portion of a grid square) and accumulate them -
+  // when x gets to be greater than one square, you move in that direction (can be negative of course as well) -
+  // may or may not even need it for y, but can if need be...
+
+
 };
 
 Snake.prototype.die = function () {
