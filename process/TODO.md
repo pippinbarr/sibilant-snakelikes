@@ -9,11 +9,23 @@
 - The Witnessssss
 - Sssuper Mario Brosss.
 - ... Minesssweeper
-- Missssssile Command
+- ... Missssssile Command
 - ? Asssteroidsss
 - Msss. Pacman
 
 ## TO-DO
+
+### Missssssile Command
+
+- Add the concept of multiple missiles at the same time (along with delays between missiles etc. so it's not a nightmare initially at least)
+- Add the concept of differing speed between snake and missiles so it's more plausible you can get to them
+- Decide on whether the player snake can get longer (other than eating cities) - do you get longer for killing missiles?
+- Some kind of pausing effect on killing a missile to add impact sensation?
+- Add eating your own cities
+- Add missile death on collision
+- What happens after a missile eats a city? It's weird if it "dies" because technically it would get longer (if it's really a snake - but maybe it's not a snake after all)
+- Need a score
+- Add those other objects that can move across the screen (oh shit, THOSE can make you longer obviously ha ha ha design in the todos sorry)
 
 ### Minesssweeper
 
