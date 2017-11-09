@@ -1,3 +1,60 @@
+## 2017-11-09 11:03 in which, more about _Papersss, Pleassse_
+
+This morning I added the barest basics of this version, in keeping with the design thinking I wrote about yesterday. So there's an immigrating snake crossing from left to right across the screen through two holes in the walls. It's targeting an apple that represents, I guess, the "good life" in the other country, which is funny. Need to decide whether that's something to actively include.
+
+One mini-concern: the holes in the walls mean that the player snake could _leave_ which I don't want. But perhaps they just die instantly if they try to leave the office prematurely? Or could that be one "ending" of the game - that you run away. Maybe we hear a gunshot after you go off the screen? That might be kind of amazing actually. This would also do something for the idea of making the actual inner environment smaller, too - it would make sense to have a little bit of outer-space.
+
+One of the big challenges up-coming is the information about who to let through or not for the day. (Which reminds me that obviously I now need a representation of time. I guess just "DAY 1" or whatever and then a time of day.) I'd already decided it was based on color, speed, length. So I need to be able to generate instructions based on those _and_ have them display nicely in my extremely limited grid of letter tiles available. Note that this will be even worse if the inner area is smaller - unless I display the instructions at the bottom of the screen, below the lower bound of the walls?
+
+Also need the "payment screen" where you eat the apples you've earned over the course of the day. Which is funny. But of course yields a more complicated set of states, so I'll need some state tracking as well for that.
+
+But if we try to imagine some texts as rules... well we should look at what the source game says actually. Duh. Duh duh duh. "Must have a passport", "Arstotzkan citizens only", "All documents must be current", "Foreigners require an entry ticket", "Workers must have a work pass", "No weapons or contraband", "No entry from Impor", ...
+
+Importantly we can see there are both positive and negative rules. "Must have X", "Must not have Y". So we can imagine rules like
+
+- NO BLUE SNAKES
+- MUST BE MINIMUM 5 UNITS LONG
+- NO SNAKES LONGER THAN 3 UNITS
+- ONLY RED SNAKES
+- SLOW SNAKES NOT ADMITTED
+- NO FAST SNAKES
+
+As I type these it becomes apparent that it's unclear how to discuss the "speed" of a snake in language - how does the player know what constitutes a fast or a slow snake? I guess it's just relative to their own speed of movement which is constant. That seems pretty fair.
+
+And of course one could combine these rules as well - I think it would be easier to just stack them (one line each if at all possible?) rather than construct sentences out of them. Then we could have representations of the rules, generate the rule text, and check each snake against the current rules.
+
+Then the question would be how to generate the snakes trying to get in. If the rule is ONLY BLUE SNAKES then do I try to conspicuously have more blue snakes, or just leave that aspect to complete randomness? (I know that in Papers, Please it's a designed sequence at certain points to create narrative events, but other than that I _think_ it's just random? I could easily be wrong about that. Also, I could check but I can't be bothered right now.) Basically I think random is fine and is in the basic spirit of the thing. You have to see a snake and judge it and act. All in a potentially very small amount of time.
+
+And there are interactions between rules and snake-body that might be problematic. Say it's "only fast snakes" so you block a slow snake, but then a fast snake comes... it'll be much more likely to hit your body that's still there from blocking the slow one? Maybe not. And of course you could end up out of position relative to a fast snake especially since you can't catch up with it. But these are just "things" that I might put down to "realism". Ha ha. Realism.
+
+Although it would be easier to only write rules in one way, like "NO BLUE SNAKES", "NO BLUE OR RED SNAKES", "NO BLUE, RED, OR GREEN SNAKES" and so on, that won't be as "fun" as being able to also say "ONLY BLUE SNAKES" for example? If I only have three snake colours (in terms of labelling) it might not be so hard to randomly flip those to OK/NOT OK and then generate an appropriate text - e.g. if two are on and one off it's "NO" for the off one. If one is on it's "ONLY" for the on one. If all on then I guess we don't have a rule on color. Seems fine.
+
+Should there be a difficulty progression? There is one in Papers, Please. I guess it would be straightforward to only generate a single rule for the first day, two for the second, and then three thereafter. And then it may become apparent how to complicate these things further?
+
+Complications can also be done via the representation of the snakes as well. A "blue snake" could be various shades of blue which would be pretty fun (I'd want to be able to use tint() for that?). Like "is that snake blue? Or green?" if it's some ambiguous shade. That's fun. Likewise you could imagine a snake that comes in slow, then speeds up! Or a snake that comes in at three units, but then partway through pops out another unit. That's pretty funny. Ha ha ha ha. I'm laughing over here.
+
+FYI the available area of text (outside the walls) is 22 characters.
+
+- NO RED SNAKES (13)
+- ONLY GREEN SNAKES (17)
+- NO FAST SNAKES (14)
+- ONLY SLOW SNAKES (16)
+- NO LONG SNAKES (14)
+- ONLY SHORT SNAKES (17)
+- NO SNAKES LONGER THAN 5 UNITS (29) < e.g. can't have something this complex if I'm shooting for single line
+- ONLY 3-5 UNIT SNAKES (20) < this would fit but seems unclear
+- NO 5 UNIT SNAKES < fits, seems clearer?
+- ONLY 7 UNIT SNAKES < okay... but is "unit" appropriate? < maybe short/long is better? Although that will conflict with any idea of you getting longer when you eat your money at the end? Hmmmmmmmmm.
+
+I think it may be better to have 3/5/7 unit snakes and have either one NO or one ONLY for those lengths? It's not quite as fun in terms of variable lengths though. I guess you could ask for 3+ unit snakes. ONLY 3 OR LESS UNIT SNAKES (26)
+
+- NO LONGER THAN 6 BITS (21)
+- NO SHORTER THAN 4 BITS (22)
+
+Does 'bits' work as a term? It's something I use under the hood occasionally. Okay look this something I can solve later. Shut up Pippin.
+
+OH MY GOD YOU COULD HAVE RENEGADE SNAKES ZOOMING PAST OUTSIDE THE OFFICE!!!
+
 ## 2017-11-08 09:59 in which, _Papersss, Pleassse_
 
 Had a discussion with Rilla (aka R. aka Elmo aka Bunsen) about design "issues" in the game today. In particular I was laying out the way that the intensions of the game been shifted a lot by the experience of actually developing it. More in particular I was talking about how, after making _Ssshadow of the Colossssssusss_ and realising that the Snake version was actually a kind of "legitimate" remediation with mechanical "truthiness" to it and that could be challenging/interesting in related ways, I found myself requiring "more" of the design of the games. That is, the overall project became less about joke-y visual remixes of existing games into Snake and started to include considerations of challenge/fun/mechanics and of the "spirit" of the source games. That makes the design side a _lot_ more challenging and actually has made some of the game seem hard or impossible to really do well. Ironically, given how simple and Snake-y it is, _The Witness_ has proven very difficult to actually remediate. Perhaps because there's so little actual remediation to do, and then also because the actual puzzles in that game are weirdly complex to implement (beyond the basic, and Snake-y "eat all these dots" one). So it somehow ends up being boring and uninterestingly the same as the original beyond the "no takebacks" implied by Snake.
