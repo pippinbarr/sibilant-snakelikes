@@ -256,44 +256,8 @@ BasicGame.SnakeBaseGame.prototype = {
     this.checkWallCollision();
   },
 
-  updateSnakePosition: function () {
-    this.snake.move();
-    return;
-
-
-    if (this.next.x == 0 && this.next.y == 0) {
-      return;
-    }
-
-    this.moveSFX.play();
-
-    // Move every snake bit up by one
-    for (var i = 0; i < this.snake.length - 1; i++) {
-      this.snake[i].x = this.snake[i+1].x;
-      this.snake[i].y = this.snake[i+1].y;
-    }
-
-    // Move the snake head
-    this.snake.head.x += this.next.x;
-    this.snakeHead.y += this.next.y;
-
-    // Wrap
-    if (this.snakeHead.x >= this.game.width) {
-      this.snakeHead.x = 0;
-    }
-    else if (this.snakeHead.x < 0) {
-      this.snakeHead.x = this.game.width - GRID_SIZE;
-    }
-    if (this.snakeHead.y >= this.game.height) {
-      this.snakeHead.y = 0;
-    }
-    else if (this.snakeHead.y < 0) {
-      this.snakeHead.y = this.game.height - GRID_SIZE;
-    }
-  },
-
   checkAppleCollision: function () {
-    if (this.snake.head.position.equals(this.apple.position)) {
+    if (this.snake.head.world.equals(this.apple.world)) {
       this.appleSFX.play();
 
       this.apple.x = -1000;

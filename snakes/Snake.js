@@ -86,6 +86,10 @@ Snake.prototype.grow = function () {
 
 Snake.prototype.move = function () {
 
+  if (this.dead) {
+    return;
+  }
+  
   if (this.next.x == 0 && this.next.y == 0) {
     return;
   }
@@ -101,20 +105,6 @@ Snake.prototype.move = function () {
   // Move the snake head
   this.head.x += this.next.x;
   this.head.y += this.next.y;
-
-  // Wrap
-  if (this.head.x >= this.game.width) {
-    this.head.x = 0;
-  }
-  else if (this.head.x < 0) {
-    this.head.x = this.game.width - GRID_SIZE;
-  }
-  if (this.head.y >= this.game.height) {
-    this.head.y = 0;
-  }
-  else if (this.head.y < 0) {
-    this.head.y = this.game.height - GRID_SIZE;
-  }
 };
 
 Snake.prototype.checkBodyCollision = function () {
@@ -128,7 +118,6 @@ Snake.prototype.checkBodyCollision = function () {
 };
 
 Snake.prototype.chase = function () {
-
   // If we have reached the target, we stop
   if (this.target.position.equals(this.head.position)) {
     this.stop();
@@ -175,22 +164,13 @@ Snake.prototype.chase = function () {
   else {
     console.log("This happened");
   }
-
-  // Notes from the mouth of Jonathan
-
-  // delta / error term
-  // accumulate the 'error' -
-  // calculate how much x and how much y (as portion of a grid square) and accumulate them -
-  // when x gets to be greater than one square, you move in that direction (can be negative of course as well) -
-  // may or may not even need it for y, but can if need be...
-
-
 };
 
 Snake.prototype.die = function () {
   this.hitSFX.play();
   this.dead = true;
   this.next = new Phaser.Point(0,0);
+  this.prev = new Phaser.Point(0,0);
   // this.game.time.events.add(Phaser.Timer.SECOND * this.DEATH_DELAY, this.gameOver, this);
 };
 
