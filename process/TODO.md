@@ -4,16 +4,28 @@
 - ... Sssensssible Sssoccer
 - ... Ssshadow of the Colossssssusss
 - ? Sssteven'sss Sssausssage Roll
-- Papersss, Pleassse
+- ... Papersss, Pleassse
 - SSSSSS (Sssuper Gravitron)
 - The Witnessssss
-- Sssuper Mario Brosss.
+- ... Sssuper Mario Brosss.
 - ... Minesssweeper
 - ... Missssssile Command
 - ? Asssteroidsss
 - Msss. Pacman
 
 ## TO-DO
+
+### Sssuper Mario Brosss.
+
+- Kind of nothing potentially? I think I included everything it needed...
+
+### Papersss, Pleassse
+
+- Need to actually implement the idea of different snakes
+- And instructions
+- And generating combinations
+- Possibly 'difficulty'
+- And the 'being paid' screen
 
 ### Missssssile Command
 
