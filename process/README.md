@@ -1,3 +1,16 @@
+## 2017-11-14 11:02 in which, a quick note about commit 74c94f0 (Notebook images)
+
+I added notebook images in the last commit and, as I said in the commit message, I feel weird about leaving it at that because I feel like they somehow don't properly form a part of the story of the project in this way? Like they don't tie into the timeline? Except obviously they do if you think of the timeline as the commit history, so maybe I'm over thinking this. ANYWAY just to recap the decisions, main ideas:
+
+- Decision to only have power pellets make snake longer in Msss. Pacman (to avoid ever increasing snake issue)
+- Non-decision about ghost AI in Msss. Pacman
+- Decision to not include an 'after work' in Papersss and rather just have it be an infinite level with changing rules in real time, reduces complexity, truer to arcade style of Snake
+- (Introduces a problem of non-relevance of apples though)
+- Decision to have no boundary marker in Sssensssible in favour of screen wrap and defined goal areas
+- Decision to do menu in a pretty obvious way, including snakes that eat each line of the chosen menu item with an offset so it looks nice
+
+That's what I ultimately got to in that notebooking. Thanks bye.
+
 ## 2017-11-09 11:03 in which, more about _Papersss, Pleassse_
 
 This morning I added the barest basics of this version, in keeping with the design thinking I wrote about yesterday. So there's an immigrating snake crossing from left to right across the screen through two holes in the walls. It's targeting an apple that represents, I guess, the "good life" in the other country, which is funny. Need to decide whether that's something to actively include.
