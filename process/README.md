@@ -1,3 +1,37 @@
+## 2017-11-15 16:19 in which, thoughts about Msss. Pacman
+
+Spent time today getting Msss. Pacman working. And it does. Well, there's a maze. There's dots you eat. There's big apples you eat. You get longer. There are four ghost snakes. They move around in the maze and chase you. And that's where we are.
+
+In making this I consulted this nice explanation of Pacman ghost AIs: http://gameinternals.com/post/2072558330/understanding-pac-man-ghost-behavior. Quite a good read.
+
+But in thinking about how complex and weird the legitimate AIs are, I felt exhausted by the idea of implementing them. And _then_ I also felt like I'm not totally sure those AIs even make sense for a snake version of this? And this in particular calls back to the question of how the ghosts die and the meaning of the power pellets. If the pellets are apples and make you longer, that plays into the snake idea of "improvement/progress" which is getting longer. That being the case, it feels like, more generally, you'd want collisions of heads and bodies (and heads) to be the core mechanic for dealing with ghosts. In which case the ghost AI definitely won't make sense because it won't account for that.
+
+It also means, though, that it might be waaaay too easy for ghosts to self collide and hit each other? Buuuuut, it's possible that just having them regenerate right away and charge out again might be quite a good solution for that? I think that at least feels snake-y?
+
+Buuuuut then there's the question of to what extent it actually makes sense as a translation/remediation of Ms. Pacman? Like at that point is it more of a visual thing? And it's secretly 'just' a multiplayer snake in a maze?
+
+And that's getting back to the heart of this project and the question of what it's "really about" in terms of translation? Like, where is the spirit/soul of Ms. Pacman? If it's about eating dots and then eating ghosts then... yeah, you kind of need the ghost AI's and scatter mode and personalities and so on... if it's just "some shit in a maze" then I suppose it doesn't matter? But in writing that it's unfortunately feeling rather a lot like... it matters. Sigh.
+
+So _if_ we say that it's not just heads hitting bodies then you'd have something like
+
+- Normally the ghosts target your head, if they hit your head you die.
+- In pill-mode you can eat the ghosts's heads.
+
+Which is basically making the bodies irrelevant, right - it's just like the heads of the snakes are Ms. Pacman and ghosts. Which honestly doesn't feel legitimate in terms of Snake. So that sucks on the target system? The alternative
+
+- Normally the ghosts target your head, if your head hits any part of a ghost you die
+- If the ghosts hit your body they die
+
+That's pretty much the lightcycle/tron version of things, where it's not really so much about eating things (except the pills to get longer). It's conceptually easier and at least makes the Snake body thing make sense. But it's kind of far off from what pacman is about and particularly misses out on the mode (and behaviour) switch that the power pellets give you. So it's a bit of a conundrum?
+
+I guess it's possible to do some kind of mixed version? Like, after eating a 'power pellet' the ghosts become solid and thus can collide with each other and with you, making it possible to kill them at that time, whereas they're unkillable normally? But that seems massively out of step with the nature of Snake to me - the snake doesn't have modalities like that.
+
+HOW DO YOU ANSWER THESE FUCKING QUESTIONS???
+
+(I'm leaning toward - Snake is always solid, Ghosts maybe shouldn't even be transparent to avoid implication of insubstantiality - they're not transparent in Ms. Pacman anyway - and it's head on body collisions all around.)
+
+Ghosts could be coloured like the original ghosts. Even if that maybe gives the impression they have those AIs which they would not.
+
 ## 2017-11-14 11:02 in which, a quick note about commit 74c94f0 (Notebook images)
 
 I added notebook images in the last commit and, as I said in the commit message, I feel weird about leaving it at that because I feel like they somehow don't properly form a part of the story of the project in this way? Like they don't tie into the timeline? Except obviously they do if you think of the timeline as the commit history, so maybe I'm over thinking this. ANYWAY just to recap the decisions, main ideas:
