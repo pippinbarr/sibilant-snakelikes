@@ -23,7 +23,7 @@ BasicGame.Msss.prototype.create = function () {
     [0,0,1,2,2,2,2,1,2,2,2,1,1,2,2,2,1,2,2,2,2,1,0,0],
     [0,0,1,1,2,1,1,1,1,1,0,1,1,0,1,1,1,1,1,2,1,1,0,0],
     [1,1,1,1,2,2,2,1,0,0,0,0,0,0,0,0,1,2,2,2,1,1,1,1],
-    [0,0,0,0,0,1,2,1,0,1,1,0,0,1,1,0,1,2,1,0,0,0,0,0],
+    [0,0,0,0,0,1,2,1,0,1,0,1,1,0,1,0,1,2,1,0,0,0,0,0],
     [1,1,1,1,1,1,2,0,0,1,0,0,0,0,1,0,0,2,1,1,1,1,1,1],
     [0,0,0,0,0,1,2,1,0,1,1,1,1,1,1,0,1,2,1,0,0,0,0,0],
     [1,1,1,1,0,1,2,1,0,0,0,0,0,0,0,0,1,2,1,0,1,1,1,1],
@@ -51,12 +51,21 @@ BasicGame.Msss.prototype.create = function () {
 
   // this.snake.y = (this.WALL_BOTTOM)*GRID_SIZE;
 
-
-  this.ghost = null;
-  // this.createGhost();
+  this.createGhosts();
 
   // Name the state for resetting purposes
   this.stateName = "Msss";
+};
+
+BasicGame.Msss.prototype.createGhosts = function () {
+  this.ghosts = this.game.add.group();
+  for (var i = 0; i < 4; i++) {
+    var ghost = new Snake(this.game,this.WALL_LEFT + 9 + i,this.WALL_TOP + 12);
+    ghost.bodyPiecesToAdd = ghost.NEW_BODY_PIECES_PER_APPLE;
+    ghost.target = this.snake.head;
+    ghost.alpha = 0.5;
+    this.ghosts.add(ghost);
+  }
 };
 
 BasicGame.Msss.prototype.createApples = function () {
@@ -85,15 +94,14 @@ BasicGame.Msss.prototype.tick = function () {
   BasicGame.SnakeBaseGame.prototype.tick.call(this);
 
   // Wrap the snake around the edges, as per Pacman Physical Reality
-  if (this.snake.head.x >= this.game.width) {
-    this.snake.head.x = 0;
-  }
-  else if (this.snake.head.x < 0) {
-    this.snake.head.x = this.game.width - GRID_SIZE;
-  }
+  this.snake.wrap();
 
-  // this.ghost.chase();
-  // this.ghost.move();
+  this.ghosts.forEach(function (ghost) {
+    ghost.chaseMaze(this.map);
+    ghost.grow();
+    ghost.move();
+    ghost.wrap();
+  },this);
 };
 
 BasicGame.Msss.prototype.checkAppleCollision = function () {
@@ -110,12 +118,6 @@ BasicGame.Msss.prototype.checkAppleCollision = function () {
     }
   },this);
 
-};
-
-BasicGame.Msss.prototype.createGhost = function () {
-  this.ghost = new Snake(this,0,this.WALL_TOP + 10);
-  this.immigrant.target = this.snake.head;
-  this.game.add.sprite(this.ghost);
 };
 
 BasicGame.Msss.prototype.gameOver = function () {

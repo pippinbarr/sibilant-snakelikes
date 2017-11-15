@@ -84,7 +84,7 @@ BasicGame.Sssensssible.prototype.createSnake = function() {
   this.SNAKE_TWO_START_X = this.SNAKE_START_X;
   this.SNAKE_TWO_START_Y = this.WALL_BOTTOM - this.SNAKE_START_Y + this.WALL_TOP + 1;
 
-  this.snakeTwo = new Snake(this,this.SNAKE_TWO_START_X,this.SNAKE_TWO_START_Y);
+  this.snakeTwo = new Snake(this.game,this.SNAKE_TWO_START_X,this.SNAKE_TWO_START_Y);
 };
 
 

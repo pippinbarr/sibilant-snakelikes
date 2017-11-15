@@ -129,7 +129,7 @@ BasicGame.SnakeBaseGame.prototype = {
   },
 
   createSnake: function () {
-    this.snake = new Snake(this,this.SNAKE_START_X,this.SNAKE_START_Y);
+    this.snake = new Snake(this.game,this.SNAKE_START_X,this.SNAKE_START_Y);
   },
 
   createApple: function () {

@@ -88,7 +88,7 @@ BasicGame.Papersss.prototype.checkAppleCollision = function () {
 };
 
 BasicGame.Papersss.prototype.createImmigrant = function () {
-  this.immigrant = new Snake(this,0,this.WALL_TOP + 10);
+  this.immigrant = new Snake(this.game,0,this.WALL_TOP + 10);
   this.immigrantApple = this.game.add.sprite((this.WALL_RIGHT+1)*GRID_SIZE,(this.WALL_TOP + 10)*GRID_SIZE,'apple');
   this.immigrant.target = this.immigrantApple;
   this.game.add.sprite(this.immigrant);

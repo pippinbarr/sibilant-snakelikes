@@ -2,6 +2,7 @@
 Snake = function (game,x,y) {
   Phaser.Group.call(this, game);
 
+  this.game = game;
   this.SNAKE_START_LENGTH = 4;
   this.NEW_BODY_PIECES_PER_APPLE = 3;
   this.SNAKE_FLICKER_SPEED = 0.2;
@@ -117,7 +118,7 @@ Snake.prototype.checkBodyCollision = function () {
   return false;
 };
 
-Snake.prototype.chase = function () {
+Snake.prototype.chaseLinear = function () {
   // If we have reached the target, we stop
   if (this.target.position.equals(this.head.position)) {
     this.stop();
@@ -163,6 +164,76 @@ Snake.prototype.chase = function () {
   }
   else {
     console.log("This happened");
+  }
+};
+
+Snake.prototype.chaseMaze = function (map) {
+  // If we have reached the target, we stop
+  if (this.target.position.equals(this.head.position)) {
+    this.stop();
+    return;
+  }
+
+  var mapX = this.head.x / GRID_SIZE;
+  var mapY = this.head.y / GRID_SIZE;
+
+  var openMoves = [];
+  if (mapX - 1 >= 0) {
+    if (map[mapY][mapX - 1] != 1 && this.next.x <= 0) {
+      openMoves.push(new Phaser.Point(-GRID_SIZE,0));
+    }
+  }
+  if (mapX + 1 >= 0) {
+    if (map[mapY][mapX + 1] != 1 && this.next.x >= 0) {
+      openMoves.push(new Phaser.Point(GRID_SIZE,0));
+    }
+  }
+  if (mapY - 1 >= 0) {
+    if (map[mapY - 1][mapX] != 1 && this.next.y <= 0) {
+      openMoves.push(new Phaser.Point(0,-GRID_SIZE));
+    }
+  }
+  if (mapY + 1 >= 0) {
+    if (map[mapY + 1][mapX] != 1 && this.next.y >= 0) {
+      openMoves.push(new Phaser.Point(0,GRID_SIZE));
+    }
+  }
+
+  var next = null;
+  openMoves.forEach(function (m) {
+    if (this.head.x < this.target.x && m.x > 0) {
+      next = m;
+    }
+    else if (this.head.x > this.target.x && m.x < 0) {
+      next = m;
+    }
+    else if (this.head.y < this.target.y && m.y > 0) {
+      next = m;
+    }
+    else if (this.head.y > this.target.y && m.y < 0) {
+      next = m;
+    }
+  },this);
+
+  if (openMoves.length == 0) {
+    // console.log("OH NO! HOW THE HELL HAS THIS HAPPENED???");
+    // console.log(this.next);
+    // console.log(this.head.x,this.head.y);
+  }
+  else if (next != null && Math.random() < 0.75) {
+    this.next = next;
+  }
+  else {
+    this.next = openMoves[Math.floor(Math.random() * openMoves.length)];
+  }
+};
+
+Snake.prototype.wrap = function () {
+  if (this.head.x >= this.game.width) {
+    this.head.x = 0;
+  }
+  else if (this.head.x < 0) {
+    this.head.x = this.game.width - GRID_SIZE;
   }
 };
 

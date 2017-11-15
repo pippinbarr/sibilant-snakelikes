@@ -40,7 +40,7 @@ BasicGame.Missssssile.prototype.tick = function () {
 };
 
 BasicGame.Missssssile.prototype.addMissile = function () {
-  var missile = new Snake(this,this.WALL_LEFT + 1 + Math.floor(Math.random() * (this.WALL_RIGHT - 1 - this.WALL_LEFT)),this.WALL_TOP + 1);
+  var missile = new Snake(this.game,this.WALL_LEFT + 1 + Math.floor(Math.random() * (this.WALL_RIGHT - 1 - this.WALL_LEFT)),this.WALL_TOP + 1);
   missile.target = this.apples.getRandom();
   while (!missile.target.alive) {
     missile.target = this.apples.getRandom();
