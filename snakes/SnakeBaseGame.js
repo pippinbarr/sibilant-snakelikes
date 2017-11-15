@@ -121,7 +121,7 @@ BasicGame.SnakeBaseGame.prototype = {
     this.wallGroup = this.game.add.group();
     for (var y = 0; y < this.map.length; y++) {
       for (var x = 0; x < this.map[y].length; x++) {
-        if (this.map[y][x]) {
+        if (this.map[y][x] == 1) {
           var wall = this.wallGroup.create(x*GRID_SIZE,y*GRID_SIZE,'wall');
         }
       }

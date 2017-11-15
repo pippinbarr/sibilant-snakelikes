@@ -76,7 +76,7 @@ Snake.prototype.grow = function () {
 
   this.prev = new Phaser.Point(this.next.x,this.next.y);
 
-  if (this.bodyPiecesToAdd > 0) {
+  if (this.bodyPiecesToAdd >= 1) {
     var bit = this.create(0,0,'body');
     this.game.physics.enable(bit,Phaser.Physics.ARCADE);
     this.bits.unshift(bit)
@@ -89,7 +89,7 @@ Snake.prototype.move = function () {
   if (this.dead) {
     return;
   }
-  
+
   if (this.next.x == 0 && this.next.y == 0) {
     return;
   }

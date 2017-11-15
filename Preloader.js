@@ -18,6 +18,7 @@ BasicGame.Preloader.prototype = {
 		this.load.image('head','assets/images/head.png');
 		this.load.image('body','assets/images/body.png');
 		this.load.image('apple','assets/images/apple.png');
+		this.load.image('apple_mini','assets/images/apple_mini.png');
 		this.load.image('wall','assets/images/wall.png');
 		this.load.image('map_tile','assets/images/map_tile.png');
 		this.load.image('black','assets/images/black.png');
@@ -38,7 +39,7 @@ BasicGame.Preloader.prototype = {
 		if (this.cache.isSoundDecoded('move') && this.ready == false)
 		{
 			this.ready = true;
-			this.state.start('Sssuper');
+			this.state.start('Msss');
 		}
 
 	}
