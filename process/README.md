@@ -1,3 +1,41 @@
+## 2017-11-16 10:29 in which, very briefly, on the confusions of Msss. Pacman
+
+Last night at some point, probably while in the bath, I had a moment of what felt like lucidity about all the angst of the previous journal entry concerning design decisions in Msss. Pacman.
+
+Specifically I remembered/realised/re-realised that the core of the project is the _translation_ of the source game's spirit/mechanics/ideas into the _mechanics_ of the target game, Snake. Importantly, the _mechanics_ of Snake are held to be the priority in that description (manifesto?). When there's a conflict or something doesn't seem 'snakey', Snake has to win. It's about how _well_ you can express the source games in Snake, not about how far you can pull Snake toward the mechanics of the source games. The _point_ of the design, development and even play of these games is about those tensions and compromises. And each moment of feeling like I really understood the design came when I found a way to express concepts from source games as Snake-centred mechanics.
+
+All that is to say that in resolving the Msss. Pacman thing I have to think about Snake as my expressive form.
+
+Now, both _eating = progress/growth_ and _collision = death_ are concepts from Snake. And they are also concepts from Ms. Pacman. However, in Snake you only ever eat _non-dynamic_ objects, the apples, whereas in Ms. Pacman you eat both non-dynamic and dynamic objects (the pellets and the ghosts respectively). In Snake collision takes place with everything solid except an apple and you die. In Ms. Pacman you only get a collision death with a (non-frightened) ghost. So collision is a more severe and universal concept in Snake.
+
+Importantly, perhaps, Snake doesn't involve different _modes_ of play. There's just the snake moving around always doing the same basic thing - avoiding walls and trying to eat apples. In the versions I've made so far, that's been consistent - no modes.
+
+- In Shadow you are always trying to eat the apples and avoid the walls (and colossus)
+- In Missile you are always trying to eat the apples and avoid the walls (and block the missiles with your body, since they behave like snakes trying to eat your apples) - that is, there's a layer of narrative over the elements but you do the same things
+- In Super you are eating apples and unable to avoid walls thanks to the restructuring of space - to be fair this is in some ways a poor translation of Snake because it's prioritising the physics of Mario?
+- In Sensible you are avoiding walls and the apple has been repurposed as a ball - I'm not 100% sure that this is 'good' since it radically changes the meaning of the apple, but on the other hand it remains the 'object of desire' as a more general concept
+- In Minesweeper you are avoiding walls with incomplete information - it occurs to me that it's plausible to have hidden apples on the board in Minesweeper? There would never be any advantage to eating it, but it would pull the game closer to Snake
+- In Papers you are avoiding walls (as a matter of course) and blocking/not-blocking other snakes which are themselves pursuing the object of desire (off screen)
+
+Critically, while various of these _reframe the meaning_ of the apple, say, or of movement, etc., none of them have the idea that those meanings would shift during play in such a complex way? (Papers comes the closest, I suppose, in that it changes the meaning of blocking snakes from positive to negative - but given that in the target game that _doesn't have a meaning_ since there aren't other snakes around, I think that's permissible.)
+
+All of this suggests to me that the Snake version of Ms. Pacman should be _non-modal_.
+
+If it's non-modal then the only way you can negatively affect the ghosts is to block them with your body. The way they negatively affect you is to block you with their bodies or head (since they don't care about dying). The meaning of the pellets is the Snake meaning of getting longer. Which we might argue makes it easier for you to kill the ghosts (they're more likely to collide with your longer body and reset), but also makes it easier for you to kill yourself (which is the original Snake meaning/tension of that element).
+
+Further, if the snakes collide with your body and you with theirs it stands to reason that they should probably collide with each other's or it seems like a kind of weird dynamic? (What happens in Pacman actually?) Visually it doesn't make a lot of sense for them to overlap and it's confusing if everything is a snake. The extent to which they're even "ghost snakes" seems weird at that point. (As does the dynamic between Pacman and the ghosts really? Why can she eat them ever?)
+
+SO, we go with that model:
+
+- Snake AI is random-ish/chase-ish
+- All Snakes collide with each other and themselves
+- Ghost snakes reset to start area if they collide
+- Need some sort of timed release of snakes from start so they don't collide instantly - Maybe just check every N ticks whether there's a spot before spawning however many snakes are needed
+- You win if you eat all the pellets
+
+
+
+
 ## 2017-11-15 16:19 in which, thoughts about Msss. Pacman
 
 Spent time today getting Msss. Pacman working. And it does. Well, there's a maze. There's dots you eat. There's big apples you eat. You get longer. There are four ghost snakes. They move around in the maze and chase you. And that's where we are.
