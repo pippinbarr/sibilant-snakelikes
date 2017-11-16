@@ -13,6 +13,7 @@ Snake = function (game,x,y) {
 
   this.bodyPiecesToAdd = 0;
 
+  this.active = true;
   this.dead = false;
 
   this.hitSFX = this.game.add.audio('hit',0.2);
@@ -46,9 +47,7 @@ Snake.prototype.tick = function () {
 };
 
 Snake.prototype.flash = function () {
-  this.bits.forEach(function (bit) {
-    bit.visible = !bit.visible;
-  });
+  this.visible = !this.visible;
 };
 
 Snake.prototype.reset = function () {
@@ -73,6 +72,10 @@ Snake.prototype.reset = function () {
 };
 
 Snake.prototype.grow = function () {
+  if (this.dead) {
+    return;
+  }
+
   if (this.next.x == 0 && this.next.y == 0) return;
 
   this.prev = new Phaser.Point(this.next.x,this.next.y);
@@ -119,6 +122,10 @@ Snake.prototype.checkBodyCollision = function () {
 };
 
 Snake.prototype.chaseLinear = function () {
+  if (!this.active || this.dead) {
+    return;
+  }
+
   // If we have reached the target, we stop
   if (this.target.position.equals(this.head.position)) {
     this.stop();
@@ -168,11 +175,15 @@ Snake.prototype.chaseLinear = function () {
 };
 
 Snake.prototype.chaseMaze = function (map) {
-  // If we have reached the target, we stop
-  if (this.target.position.equals(this.head.position)) {
-    this.stop();
+  if (!this.active || this.dead) {
     return;
   }
+
+  // If we have reached the target, we stop
+  // if (this.target.position.equals(this.head.position)) {
+  //   this.stop();
+  //   return;
+  // }
 
   var mapX = this.head.x / GRID_SIZE;
   var mapY = this.head.y / GRID_SIZE;
@@ -220,7 +231,7 @@ Snake.prototype.chaseMaze = function (map) {
     // console.log(this.next);
     // console.log(this.head.x,this.head.y);
   }
-  else if (next != null && Math.random() < 0.75) {
+  else if (next != null && Math.random() < 0.25) {
     this.next = next;
   }
   else {

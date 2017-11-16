@@ -312,7 +312,7 @@ BasicGame.SnakeBaseGame.prototype = {
   locationHasCollisionWithGroup: function (x,y,group) {
     var collision = false;
     group.forEach(function (element) {
-      if (element.x == x && element.y == y) {
+      if (element.world.x == x && element.y == y) {
         collision = true;
         return;
       }

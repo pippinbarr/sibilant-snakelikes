@@ -8,6 +8,7 @@ BasicGame.Msss.prototype.constructor = BasicGame.Msss;
 BasicGame.Msss.prototype.create = function () {
 
   this.SNAKE_START_Y = 21; // So hack-y. I'm so so sorry.
+
   this.map = [
     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
@@ -51,20 +52,52 @@ BasicGame.Msss.prototype.create = function () {
 
   // this.snake.y = (this.WALL_BOTTOM)*GRID_SIZE;
 
-  this.createGhosts();
+  this.GHOST_START_X = this.WALL_LEFT + 10;
+  this.GHOST_START_Y = this.WALL_TOP + 12
+  this.ghostsToAdd = 4; // Number of ghosts we need to add to the game
+  this.ghosts = this.game.add.group();
+  this.ghostTicker = this.game.time.create(false);
+  this.GHOST_ADD_TICKS = 1;
+  this.addGhost();
+  this.ghostTicker.add(Phaser.Timer.SECOND * this.SNAKE_TICK * this.GHOST_ADD_TICKS, this.addGhost, this);
+  this.ghostTicker.start();
+
+  this.toDie = []; // Tracking things to die at end of tick
 
   // Name the state for resetting purposes
   this.stateName = "Msss";
 };
 
-BasicGame.Msss.prototype.createGhosts = function () {
-  this.ghosts = this.game.add.group();
-  for (var i = 0; i < 4; i++) {
-    var ghost = new Snake(this.game,this.WALL_LEFT + 9 + i,this.WALL_TOP + 12);
-    ghost.bodyPiecesToAdd = ghost.NEW_BODY_PIECES_PER_APPLE;
+BasicGame.Msss.prototype.addGhost = function () {
+  this.ghostTicker.add(Phaser.Timer.SECOND * this.SNAKE_TICK * this.GHOST_ADD_TICKS, this.addGhost, this);
+
+  if (this.ghostsToAdd > 0) {
+
+    var startX = this.GHOST_START_X*GRID_SIZE;
+    var startY = this.GHOST_START_Y*GRID_SIZE;
+    var canAdd = true;
+    this.ghosts.forEach(function (ghost) {
+      if (this.locationHasCollisionWithGroup(startX,startY,ghost)) {
+        canAdd = false;
+        return;
+      }
+    },this);
+
+    if (this.locationHasCollisionWithGroup(startX,startY,this.snake)) {
+      canAdd = false;
+      return;
+    }
+
+    if (!canAdd) {
+      return;
+    }
+
+    var ghost = new Snake(this.game,this.GHOST_START_X,this.GHOST_START_Y);
     ghost.target = this.snake.head;
-    ghost.alpha = 0.5;
+    ghost.active = true;
+    ghost.bodyPiecesToAdd = ghost.NEW_BODY_PIECES_PER_APPLE;
     this.ghosts.add(ghost);
+    this.ghostsToAdd--;
   }
 };
 
@@ -97,11 +130,26 @@ BasicGame.Msss.prototype.tick = function () {
   this.snake.wrap();
 
   this.ghosts.forEach(function (ghost) {
+    if (ghost.dead) {
+      ghost.flash();
+      return;
+    }
     ghost.chaseMaze(this.map);
     ghost.grow();
     ghost.move();
     ghost.wrap();
   },this);
+
+  this.checkGhostWallCollisions();
+  this.checkGhostGhostCollisions();
+  this.checkSnakeGhostCollisions();
+
+  this.toDie.forEach(function (snake) {
+    if (!snake.dead) {
+      snake.die();
+    }
+  },this);
+  this.toDie = [];
 };
 
 BasicGame.Msss.prototype.checkAppleCollision = function () {
@@ -118,6 +166,43 @@ BasicGame.Msss.prototype.checkAppleCollision = function () {
     }
   },this);
 
+};
+
+BasicGame.Msss.prototype.checkGhostWallCollisions = function () {
+  this.ghosts.forEach(function (ghost) {
+    if (ghost.dead) {
+      return;
+    }
+    if (this.locationHasCollisionWithGroup(ghost.head.world.x,ghost.head.world.y,this.wallGroup)) {
+      this.toDie.push(ghost);
+    };
+  },this);
+};
+
+BasicGame.Msss.prototype.checkGhostGhostCollisions = function () {
+  this.ghosts.forEach(function (ghost) {
+    if (ghost.dead) {
+      return;
+    }
+    this.ghosts.forEach(function (otherGhost) {
+      if (ghost != otherGhost) {
+        if (this.locationHasCollisionWithGroup(ghost.head.world.x,ghost.head.world.y,otherGhost)) {
+          this.toDie.push(ghost);
+        }
+      }
+    },this);
+    if (this.locationHasCollisionWithGroup(ghost.head.world.x,ghost.head.world.y,this.snake)) {
+      this.toDie.push(ghost);
+    }
+  },this);
+};
+
+BasicGame.Msss.prototype.checkSnakeGhostCollisions = function () {
+  this.ghosts.forEach(function (ghost) {
+    if (this.locationHasCollisionWithGroup(this.snake.head.world.x,this.snake.head.world.y,ghost)) {
+      this.toDie.push(this.snake);
+    }
+  },this);
 };
 
 BasicGame.Msss.prototype.gameOver = function () {
