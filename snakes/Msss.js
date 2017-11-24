@@ -53,6 +53,8 @@ BasicGame.Msss.prototype.create = function () {
   this.createApples();
 
   this.SNAKE_TICK = 0.3;
+  this.DEATH_PAUSE_TICKS = 0;
+  this.deathPauseTicks = 0;
 
   BasicGame.SnakeBaseGame.prototype.create.call(this);
 
@@ -78,7 +80,6 @@ BasicGame.Msss.prototype.addGhost = function () {
   this.ghostTicker.add(Phaser.Timer.SECOND * this.SNAKE_TICK * this.GHOST_ADD_TICKS, this.addGhost, this);
 
   if (this.ghostsToAdd > 0) {
-
     var startX = this.GHOST_START_X*GRID_SIZE;
     var startY = this.GHOST_START_Y*GRID_SIZE;
     var canAdd = true;
@@ -99,7 +100,7 @@ BasicGame.Msss.prototype.addGhost = function () {
     }
 
     var ghost = new Snake(this.game,this.GHOST_START_X,this.GHOST_START_Y);
-    ghost.head.tint = this.ghostColors.unshift();
+    ghost.head.tint = this.ghostColors.shift();
     ghost.target = this.snake.head;
     ghost.active = true;
     ghost.bodyPiecesToAdd = ghost.NEW_BODY_PIECES_PER_APPLE;
@@ -131,6 +132,13 @@ BasicGame.Msss.prototype.update = function () {
 };
 
 BasicGame.Msss.prototype.tick = function () {
+  console.log(this.deathPauseTicks);
+  if (this.deathPauseTicks > 0) {
+    this.deathPauseTicks--;
+    ticker.add(Phaser.Timer.SECOND * this.SNAKE_TICK, this.tick, this);
+    return;
+  }
+
   BasicGame.SnakeBaseGame.prototype.tick.call(this);
 
   // Wrap the snake around the edges, as per Pacman Physical Reality
@@ -160,10 +168,14 @@ BasicGame.Msss.prototype.tick = function () {
       } else {
         this.score = 0;
         this.setScoreText(this.score.toString());
-        this.resetBoard();
+        // this.resetBoard();
       }
     }
   },this);
+  if (this.toDie.length != 0) {
+    console.log("Add ticks");
+    this.deathPauseTicks += this.DEATH_PAUSE_TICKS;
+  }
   this.toDie = [];
 };
 
@@ -222,31 +234,54 @@ BasicGame.Msss.prototype.checkGhostWallCollisions = function () {
 
 BasicGame.Msss.prototype.checkGhostGhostCollisions = function () {
   this.ghosts.forEach(function (ghost) {
-    if (ghost.dead) {
+    if (ghost.dead || this.toDie.indexOf(ghost) != -1) {
       return;
     }
+
+    // Check if this ghost collides with any other ghost
     this.ghosts.forEach(function (otherGhost) {
-      if (otherGhost.dead || ghost == otherGhost) {
+      if (ghost == otherGhost || otherGhost.dead) {
         return;
       }
-      if (this.locationHasCollisionWithGroup(ghost.head.world.x,ghost.head.world.y,otherGhost)) {
+      // Go through each bit of the other ghost and check for collision
+      otherGhost.forEach(function (bit) {
+        if (ghost.head.position.equals(bit.position)) {
+          this.toDie.push(ghost);
+          return;
+        }
+      },this);
+    },this);
+
+    // Check if this ghost collides with the snake
+    if (!this.snake.dead) {
+      // Go through each bit of the snake and check for collision
+      this.snake.forEach(function (bit) {
+        if (ghost.head.position.equals(bit.position)) {
+          this.toDie.push(ghost);
+        }
+      },this);
+    }
+
+    // Check if this ghost collides with its own body
+    ghost.forEach(function (bit) {
+      if (bit != ghost.head && ghost.head.position.equals(bit.position)) {
         this.toDie.push(ghost);
       }
     },this);
-    if (!this.snake.dead && this.locationHasCollisionWithGroup(ghost.head.world.x,ghost.head.world.y,this.snake)) {
-      this.toDie.push(ghost);
-    }
   },this);
 };
 
 BasicGame.Msss.prototype.checkSnakeGhostCollisions = function () {
   this.ghosts.forEach(function (ghost) {
-    if (ghost.dead || this.snake.dead) {
+    if (ghost.dead || this.snake.dead || this.toDie.indexOf(this.snake) != -1) {
       return;
     }
-    if (this.locationHasCollisionWithGroup(this.snake.head.world.x,this.snake.head.world.y,ghost)) {
-      this.toDie.push(this.snake);
-    }
+    ghost.forEach(function (bit) {
+      if (this.snake.head.position.equals(bit.position)) {
+        this.toDie.push(this.snake);
+        return;
+      }
+    },this);
   },this);
 };
 
