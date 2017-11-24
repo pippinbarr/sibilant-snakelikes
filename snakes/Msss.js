@@ -43,6 +43,12 @@ BasicGame.Msss.prototype.create = function () {
     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
   ];
+  this.ghostColors = [
+    0xff0000,
+    0xffaaaa,
+    0x00ffff,
+    0xffa500,
+  ];
 
   this.createApples();
 
@@ -54,15 +60,15 @@ BasicGame.Msss.prototype.create = function () {
 
   this.GHOST_START_X = this.WALL_LEFT + 10;
   this.GHOST_START_Y = this.WALL_TOP + 12
-  this.ghostsToAdd = 4; // Number of ghosts we need to add to the game
+  this.ghostsToAdd = 0; // Number of ghosts we need to add to the game
   this.ghosts = this.game.add.group();
   this.ghostTicker = this.game.time.create(false);
-  this.GHOST_ADD_TICKS = 1;
-  this.addGhost();
-  this.ghostTicker.add(Phaser.Timer.SECOND * this.SNAKE_TICK * this.GHOST_ADD_TICKS, this.addGhost, this);
-  this.ghostTicker.start();
+  this.GHOST_ADD_TICKS = 10;
 
+  this.DEAD_GHOST_GHOST_RESET_TICKS = 10;
   this.toDie = []; // Tracking things to die at end of tick
+
+  this.APPLE_SCORE = 25;
 
   // Name the state for resetting purposes
   this.stateName = "Msss";
@@ -93,6 +99,7 @@ BasicGame.Msss.prototype.addGhost = function () {
     }
 
     var ghost = new Snake(this.game,this.GHOST_START_X,this.GHOST_START_Y);
+    ghost.head.tint = this.ghostColors.unshift();
     ghost.target = this.snake.head;
     ghost.active = true;
     ghost.bodyPiecesToAdd = ghost.NEW_BODY_PIECES_PER_APPLE;
@@ -147,25 +154,59 @@ BasicGame.Msss.prototype.tick = function () {
   this.toDie.forEach(function (snake) {
     if (!snake.dead) {
       snake.die();
+      // If this was a ghost dying it should respawn
+      if (snake != this.snake) {
+        this.game.time.events.add(Phaser.Timer.SECOND * this.SNAKE_TICK * this.DEAD_GHOST_GHOST_RESET_TICKS, this.resetGhost, this, snake);
+      } else {
+        this.score = 0;
+        this.setScoreText(this.score.toString());
+        this.resetBoard();
+      }
     }
   },this);
   this.toDie = [];
 };
 
+BasicGame.Msss.prototype.resetGhost = function(ghost) {
+  this.ghosts.remove(ghost);
+  this.ghostsToAdd++;
+  this.ghostColors.push(ghost.head.tint);
+};
+
+BasicGame.Msss.prototype.resetBoard = function() {
+  this.ghosts.removeAll();
+  this.ghostsToAdd = 4;
+  this.ghostColors = [
+    0xff0000,
+    0xffaaaa,
+    0x00ffff,
+    0xffa500,
+  ];
+  this.snake.reset();
+  this.apples.removeAll();
+  this.miniApples.removeAll();
+  this.createApples();
+
+}
+
 BasicGame.Msss.prototype.checkAppleCollision = function () {
   this.apples.forEach(function (apple) {
     if (this.snake.head.position.equals(apple.position)) {
+      this.addToScore(this.APPLE_SCORE);
       this.apples.remove(apple);
       this.snake.bodyPiecesToAdd += this.snake.NEW_BODY_PIECES_PER_APPLE;
     }
   },this);
   this.miniApples.forEach(function (miniApple) {
     if (this.snake.head.position.equals(miniApple.position)) {
+      this.addToScore(this.APPLE_SCORE/25);
       this.miniApples.remove(miniApple);
       this.snake.bodyPiecesToAdd += (this.snake.NEW_BODY_PIECES_PER_APPLE/25);
     }
   },this);
-
+  if (this.apples.children.length == 0 && this.miniApples.children.length == 0) {
+    console.log("GAME OVER MAN! YOU WIN!");
+  }
 };
 
 BasicGame.Msss.prototype.checkGhostWallCollisions = function () {
@@ -185,13 +226,14 @@ BasicGame.Msss.prototype.checkGhostGhostCollisions = function () {
       return;
     }
     this.ghosts.forEach(function (otherGhost) {
-      if (ghost != otherGhost) {
-        if (this.locationHasCollisionWithGroup(ghost.head.world.x,ghost.head.world.y,otherGhost)) {
-          this.toDie.push(ghost);
-        }
+      if (otherGhost.dead || ghost == otherGhost) {
+        return;
+      }
+      if (this.locationHasCollisionWithGroup(ghost.head.world.x,ghost.head.world.y,otherGhost)) {
+        this.toDie.push(ghost);
       }
     },this);
-    if (this.locationHasCollisionWithGroup(ghost.head.world.x,ghost.head.world.y,this.snake)) {
+    if (!this.snake.dead && this.locationHasCollisionWithGroup(ghost.head.world.x,ghost.head.world.y,this.snake)) {
       this.toDie.push(ghost);
     }
   },this);
@@ -199,11 +241,40 @@ BasicGame.Msss.prototype.checkGhostGhostCollisions = function () {
 
 BasicGame.Msss.prototype.checkSnakeGhostCollisions = function () {
   this.ghosts.forEach(function (ghost) {
+    if (ghost.dead || this.snake.dead) {
+      return;
+    }
     if (this.locationHasCollisionWithGroup(this.snake.head.world.x,this.snake.head.world.y,ghost)) {
       this.toDie.push(this.snake);
     }
   },this);
 };
+
+BasicGame.Msss.prototype.checkBodyCollision = function () {
+  this.snake.forEach(function (bit) {
+    if (this.snake.head.position.equals(bit.position) && bit != this.snake.head) {
+      this.toDie.push(this.snake);
+      return;
+    }
+  },this);
+},
+
+BasicGame.Msss.prototype.checkWallCollision = function () {
+  this.wallGroup.forEach(function (wall) {
+    if (this.snake.head.position.equals(wall.position) && !this.snake.dead) {
+      this.toDie.push(this.snake);
+      return;
+    }
+  },this);
+},
+
+BasicGame.Msss.prototype.hideControls = function () {
+  BasicGame.SnakeBaseGame.prototype.hideControls.call(this);
+  this.ghostsToAdd = 4;
+  this.ghostTicker.add(Phaser.Timer.SECOND * this.SNAKE_TICK * this.GHOST_ADD_TICKS, this.addGhost, this);
+  this.ghostTicker.start();
+};
+
 
 BasicGame.Msss.prototype.gameOver = function () {
 

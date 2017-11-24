@@ -1,25 +1,29 @@
 ## The list of games
 
-- Tetrisss
+- ~~Tetrisss~~
 - ... Sssensssible Sssoccer
 - ... Ssshadow of the Colossssssusss
-- ? Sssteven'sss Sssausssage Roll
+- ~~? Sssteven'sss Sssausssage Roll~~
 - ... Papersss, Pleassse
-- SSSSSS (Sssuper Gravitron)
-- The Witnessssss
+- ~~SSSSSS (Sssuper Gravitron)~~
+- ~~The Witnessssss~~
 - ... Sssuper Mario Brosss.
 - ... Minesssweeper
 - ... Missssssile Command
-- ? Asssteroidsss
+- ~~? Asssteroidsss~~
 - ... Msss. Pacman
 
 ## TO-DO
 
 ### Msss. Pacman
 
-- Handle win state on all pellets eaten (just reset the game but keep the score right?)
-- Handle ghost death (delete the dead one and add one to the ghosts to add)
+- ~~Only start adding ghosts when the snake starts moving~~
+- ~~Handle win state on all pellets eaten (just reset the game but keep the score right?)~~
+- ~~Handle ghost death (delete the dead one and add one to the ghosts to add)~~
+
+- BUG: Ghosts end up under the pellets after dying (depth stuff, sad!)
 - BUG: snakes often seem to move one extra space post collision?
+- ~~BUG: some pretty messed-up ghost colors~~
 
 ### Sssuper Mario Brosss.
 
@@ -30,7 +34,7 @@
 - Need to actually implement the idea of different snakes
 - And instructions
 - And generating combinations
-- Possibly 'difficulty'
+- Possibly 'difficulty'?
 - ~~__NOT DOING THIS ANYMORE__ And the 'being paid' screen~~
 
 ### Missssssile Command
@@ -48,11 +52,11 @@
 ### Minesssweeper
 
 - Need to fix up text display in all scenarios (another text grid?)
-- Bomb walls as a red-tinted version of a wall, or is that impure?
-- Add animation effect to clearing rather than insta-clear
 
 - ~~Work out the horrible algorithm for auto-clearing tiles and marking with the number of bombs they are next to~~
 - ~~Get the basic tile-eating stuff set up~~
+- ~~__IT'S IMPURE__ Bomb walls as a red-tinted version of a wall, or is that impure?~~
+- ~~Add animation effect to clearing rather than insta-clear~~
 
 ### Sssensssible Sssoccer
 
