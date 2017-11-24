@@ -11,9 +11,15 @@
 - ... Minesssweeper
 - ... Missssssile Command
 - ? Asssteroidsss
-- Msss. Pacman
+- ... Msss. Pacman
 
 ## TO-DO
+
+### Msss. Pacman
+
+- Handle win state on all pellets eaten (just reset the game but keep the score right?)
+- Handle ghost death (delete the dead one and add one to the ghosts to add)
+- BUG: snakes often seem to move one extra space post collision?
 
 ### Sssuper Mario Brosss.
 
@@ -25,7 +31,7 @@
 - And instructions
 - And generating combinations
 - Possibly 'difficulty'
-- And the 'being paid' screen
+- ~~__NOT DOING THIS ANYMORE__ And the 'being paid' screen~~
 
 ### Missssssile Command
 
