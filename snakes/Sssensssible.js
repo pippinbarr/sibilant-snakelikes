@@ -29,32 +29,32 @@ BasicGame.Sssensssible.prototype.create = function () {
     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-    [0,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,0],
-    [0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0],
-    [0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0],
-    [0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0],
-    [0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0],
-    [0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0],
-    [0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0],
-    [0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0],
-    [0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0],
-    [0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0],
-    [0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0],
-    [0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0],
-    [0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0],
-    [0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0],
-    [0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0],
-    [0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0],
-    [0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0],
-    [0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0],
-    [0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0],
-    [0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0],
-    [0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0],
-    [0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0],
-    [0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0],
-    [0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0],
-    [0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0],
-    [0,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,0],
+    [0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0],
     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
@@ -180,13 +180,30 @@ BasicGame.Sssensssible.prototype.tick = function () {
   this.snake.tick();
   this.snakeTwo.tick();
 
+  // Wrap the snake around the edges
+  this.snake.wrap();
+  this.snakeTwo.wrap();
+  this.wrapApple();
 
-  this.checkAppleCollision();
   this.checkBodyCollision();
   this.checkWallCollision();
-
+  this.checkAppleCollision();
 };
 
+BasicGame.Sssensssible.prototype.wrapApple = function () {
+  if (this.apple.x >= this.game.width) {
+    this.head.x = 0;
+  }
+  else if (this.apple.x < 0) {
+    this.apple.x = this.game.width - GRID_SIZE;
+  }
+  if (this.apple.y < 0) {
+    this.apple.y = this.game.height - GRID_SIZE;
+  }
+  else if (this.apple.y >= this.game.height) {
+    this.apple.y = 0;
+  }
+};
 
 BasicGame.Sssensssible.prototype.updateGameTimeText = function () {
   var m = Math.floor(this.gameTimeElapsed/60);
@@ -267,22 +284,78 @@ BasicGame.Sssensssible.prototype.resetSnakes = function () {
 // checkAppleCollision
 //
 // This implements the idea of dribbling the ball in the direction of the snake hitting it
+// Also checks for goals and various possible collisions that kill the dribbling snake
 
 BasicGame.Sssensssible.prototype.checkAppleCollision = function () {
-  console.log(this.score,this.scoreTwo);
+
   if (this.snake.head.position.equals(this.apple.position)) {
-    this.appleSFX.play();
-    this.apple.position.x += this.snake.next.x;
-    this.apple.position.y += this.snake.next.y;
+    var appleNext = new Phaser.Point(this.apple.x,this.apple.y);
+    appleNext.x += this.snake.next.x;
+    appleNext.y += this.snake.next.y;
+
+    this.wallGroup.forEach(function (wall) {
+      if (wall.position.equals(appleNext)) {
+        this.snake.die();
+        return;
+      }
+    },this);
+
+    this.snake.forEach(function (bit) {
+      if (bit.position.equals(appleNext)) {
+        this.snake.die();
+        return;
+      }
+    },this);
+
+    this.snakeTwo.forEach(function (bit) {
+      if (bit.position.equals(appleNext)) {
+        this.snake.die();
+        return;
+      }
+    },this);
+
+    if (!this.snake.dead) {
+      this.appleSFX.play();
+      this.apple.position.x += this.snake.next.x;
+      this.apple.position.y += this.snake.next.y;
+    }
   }
 
   if (this.snakeTwo.head.position.equals(this.apple.position)) {
-    this.appleSFX.play();
-    this.apple.position.x += this.snakeTwo.next.x;
-    this.apple.position.y += this.snakeTwo.next.y;
+    var appleNext = new Phaser.Point(this.apple.x,this.apple.y);
+    appleNext.x += this.snakeTwo.next.x;
+    appleNext.y += this.snakeTwo.next.y;
+
+    this.wallGroup.forEach(function (wall) {
+      if (wall.position.equals(appleNext)) {
+        this.snakeTwo.die();
+        return;
+      }
+    },this);
+
+    this.snake.forEach(function (bit) {
+      if (bit.position.equals(appleNext)) {
+        this.snakeTwo.die();
+        return;
+      }
+    },this);
+
+    this.snakeTwo.forEach(function (bit) {
+      if (bit.position.equals(appleNext)) {
+        this.snakeTwo.die();
+        return;
+      }
+    },this);
+
+    if (!this.snakeTwo.dead) {
+      this.appleSFX.play();
+      this.apple.position.x += this.snakeTwo.next.x;
+      this.apple.position.y += this.snakeTwo.next.y;
+    }
   }
 
-  if (this.apple.position.y < this.WALL_TOP * GRID_SIZE) {
+  // Check for goals
+  if (this.apple.position.y < 6*GRID_SIZE && this.apple.position.y > 3*GRID_SIZE && this.apple.position.x >= 8*GRID_SIZE && this.apple.position.x < 16*GRID_SIZE) {
     this.scoreTwo++;
     this.snake.SNAKE_START_LENGTH += this.EXTRA_BODY_PIECES_PER_GOAL;
     this.snakeTwo.SNAKE_START_LENGTH += this.EXTRA_BODY_PIECES_PER_GOAL;
@@ -290,7 +363,7 @@ BasicGame.Sssensssible.prototype.checkAppleCollision = function () {
     this.resetApple();
     this.resetSnakes();
   }
-  else if (this.apple.position.y > this.WALL_BOTTOM * GRID_SIZE) {
+  else if (this.apple.position.y > 25 * GRID_SIZE && this.apple.position.y < 28 * GRID_SIZE && this.apple.position.x >= 8*GRID_SIZE && this.apple.position.x < 16*GRID_SIZE) {
     this.score++;
     this.snake.SNAKE_START_LENGTH += this.EXTRA_BODY_PIECES_PER_GOAL;
     this.snakeTwo.SNAKE_START_LENGTH += this.EXTRA_BODY_PIECES_PER_GOAL;

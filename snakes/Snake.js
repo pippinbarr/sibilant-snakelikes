@@ -246,6 +246,12 @@ Snake.prototype.wrap = function () {
   else if (this.head.x < 0) {
     this.head.x = this.game.width - GRID_SIZE;
   }
+  if (this.head.y < 0) {
+    this.head.y = this.game.height - GRID_SIZE;
+  }
+  else if (this.head.y >= this.game.height) {
+    this.head.y = 0;
+  }
 };
 
 Snake.prototype.die = function () {
