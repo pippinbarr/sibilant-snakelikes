@@ -1,3 +1,14 @@
+## 2017-11-25 17:31 in which we think about the current state of things
+
+Every game has code that does something at this point. One is super thin (Papersss), but the rest tend to get across at least the basic point. I think I understand, in terms of design, what each of the games needs in order to be considered complete
+
+I've certainly noticed, lately, that it's not as interesting to think about the games. I suppose because the design stuff is mostly settled, and the implementation stuff has largely all been successfully in conversation with the design to the extent that perhaps there just aren't so many decisions for me to make about things any more, just a need to actually make the things work and Put It Out there.
+
+It's probably pretty good timing to just finish this up in the next week or two and then move on. I'd like to turn my attention to a series of Tank games based on the Unity tutorial as a way of thinking about what we can look at during CART 415. Tankses. That project would be about a meditation on the Unity engine in conversation with a specific game. So it would actually fit very nicely in with the work I'm doing right now on translation in a way. Not so much translation, but the possibilities of a specific language (Unity) in conveying things from a ba... well, anyway, that would be the next project I think, since it would allow me to specifically address my teaching for early next year.
+
+So Sibilant Snakelikes... I guess I just plow ahead. I'm Mr. Plow. That's my name. That name again is Mr. Plow.
+
+
 ## 2017-11-16 10:29 in which, very briefly, on the confusions of Msss. Pacman
 
 Last night at some point, probably while in the bath, I had a moment of what felt like lucidity about all the angst of the previous journal entry concerning design decisions in Msss. Pacman.
