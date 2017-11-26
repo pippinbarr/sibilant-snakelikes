@@ -56,19 +56,20 @@ BasicGame.Msss.prototype.create = function () {
   this.DEATH_PAUSE_TICKS = 0;
   this.deathPauseTicks = 0;
 
+  this.ghosts = this.game.add.group();
+
   BasicGame.SnakeBaseGame.prototype.create.call(this);
 
   // this.snake.y = (this.WALL_BOTTOM)*GRID_SIZE;
-
   this.GHOST_START_X = this.WALL_LEFT + 10;
   this.GHOST_START_Y = this.WALL_TOP + 12
   this.ghostsToAdd = 0; // Number of ghosts we need to add to the game
-  this.ghosts = this.game.add.group();
   this.ghostTicker = this.game.time.create(false);
   this.GHOST_ADD_TICKS = 10;
 
   this.DEAD_GHOST_GHOST_RESET_TICKS = 10;
   this.toDie = []; // Tracking things to die at end of tick
+
 
   this.APPLE_SCORE = 25;
 
@@ -123,8 +124,6 @@ BasicGame.Msss.prototype.createApples = function () {
       }
     }
   }
-
-  // this.apples.create((this.WALL_LEFT + 3) * GRID_SIZE,(this.WALL_BOTTOM - 1) * GRID_SIZE,'apple');
 };
 
 BasicGame.Msss.prototype.update = function () {
@@ -166,9 +165,8 @@ BasicGame.Msss.prototype.tick = function () {
       if (snake != this.snake) {
         this.game.time.events.add(Phaser.Timer.SECOND * this.SNAKE_TICK * this.DEAD_GHOST_GHOST_RESET_TICKS, this.resetGhost, this, snake);
       } else {
-        this.score = 0;
         this.setScoreText(this.score.toString());
-        // this.resetBoard();
+        this.gameOver();
       }
     }
   },this);
@@ -216,8 +214,14 @@ BasicGame.Msss.prototype.checkAppleCollision = function () {
       this.snake.bodyPiecesToAdd += (this.snake.NEW_BODY_PIECES_PER_APPLE/25);
     }
   },this);
-  if (this.apples.children.length == 0 && this.miniApples.children.length == 0) {
-    console.log("GAME OVER MAN! YOU WIN!");
+
+  if (this.apples.children.length == 0 && this.miniApples.children.length == 0 && !this.snake.dead) {
+    this.game.time.events.add(Phaser.Timer.SECOND * this.SNAKE_TICK * 10,this.resetBoard,this);
+    this.ghostsToAdd = 0;
+    this.ghosts.forEach(function (ghost) {
+      ghost.dead = true;
+    },this);
+    this.snake.dead = true;
   }
 };
 
@@ -312,7 +316,7 @@ BasicGame.Msss.prototype.hideControls = function () {
 
 
 BasicGame.Msss.prototype.gameOver = function () {
-
+  this.setGameOverText("GAME OVER","",this.score+" POINTS","","");
 };
 
 

@@ -17,17 +17,19 @@
 
 ### Msss. Pacman
 
+- Done?
+
+- ~~Still need a game over~~
 - ~~Only start adding ghosts when the snake starts moving~~
 - ~~Handle win state on all pellets eaten (just reset the game but keep the score right?)~~
 - ~~Handle ghost death (delete the dead one and add one to the ghosts to add)~~
-
-- BUG: Ghosts end up under the pellets after dying (depth stuff, sad!)
-- BUG: snakes often seem to move one extra space post collision?
+- ~~__ACTUALLY JUST THE LOCATION I CREATED THE GHOSTS GROUP IN__ BUG: Ghosts end up under the pellets after dying (depth stuff, sad!)~~
+- ~~__FIXED WHEN I REWORKED ALL THE COLLISION CODE__ BUG: snakes often seem to move one extra space post collision?~~
 - ~~BUG: some pretty messed-up ghost colors~~
 
 ### Sssuper Mario Brosss.
 
-- Kind of nothing potentially? I think I included everything it needed...
+- Done?
 
 ### Papersss, Pleassse
 
@@ -51,7 +53,7 @@
 
 ### Minesssweeper
 
-- Pretty much done???
+- Done?
 
 - ~~Need to fix up text display in all scenarios (another text grid?)~~
 - ~~Work out the horrible algorithm for auto-clearing tiles and marking with the number of bombs they are next to~~
