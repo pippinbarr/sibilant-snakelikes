@@ -51,8 +51,9 @@
 
 ### Minesssweeper
 
-- Need to fix up text display in all scenarios (another text grid?)
+- Pretty much done???
 
+- ~~Need to fix up text display in all scenarios (another text grid?)~~
 - ~~Work out the horrible algorithm for auto-clearing tiles and marking with the number of bombs they are next to~~
 - ~~Get the basic tile-eating stuff set up~~
 - ~~__IT'S IMPURE__ Bomb walls as a red-tinted version of a wall, or is that impure?~~

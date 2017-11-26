@@ -17,7 +17,7 @@ BasicGame.Minesssweeper.prototype.constructor = BasicGame.Minesssweeper;
 
 BasicGame.Minesssweeper.prototype.create = function () {
   this.SNAKE_START_X = 11;
-  this.SNAKE_START_Y = 27;
+  this.SNAKE_START_Y = 26;
 
   this.NUM_ROWS = this.game.height/GRID_SIZE;
   this.NUM_COLS = this.game.width/GRID_SIZE;
@@ -27,7 +27,9 @@ BasicGame.Minesssweeper.prototype.create = function () {
   this.WALL_TOP = 3;
   this.WALL_BOTTOM = this.NUM_ROWS - this.WALL_TOP - 1;
 
-  this.BOMB_CHANCE = 0.1;
+  this.BOMB_CHANCE = 0.08;
+  this.totalSafe = 0;
+  this.totalFlipped = 0;
 
   this.setupGridDimensions();
   this.createMap();
@@ -57,14 +59,19 @@ BasicGame.Minesssweeper.prototype.createMap = function () {
     for (var x = 0; x < this.WALL_RIGHT - this.WALL_LEFT - 1; x++) {
       var sprite;
       var type;
-      if (Math.random() < 1 - this.BOMB_CHANCE || (x + this.WALL_LEFT + 1 == this.SNAKE_START_X && y + this.WALL_TOP + 1 == this.SNAKE_START_Y)) {
+      if (y == 0 || y == this.WALL_BOTTOM - this.WALL_TOP - 2 || x == 0 || x == this.WALL_RIGHT - this.WALL_LEFT - 2) {
+        type = "WALL";
+        sprite = this.mapGroup.create((x + this.WALL_LEFT + 1)*GRID_SIZE,(y + this.WALL_TOP + 1)*GRID_SIZE,'wall');
+      }
+      else if (Math.random() < 1 - this.BOMB_CHANCE || (x + this.WALL_LEFT + 1 == this.SNAKE_START_X && y + this.WALL_TOP + 1 == this.SNAKE_START_Y)) {
         type = "SAFE";
-        sprite = this.mapGroup.create((x + this.WALL_LEFT + 1)*GRID_SIZE,(y+ this.WALL_TOP + 1)*GRID_SIZE,'map_tile');
+        sprite = this.mapGroup.create((x + this.WALL_LEFT + 1)*GRID_SIZE,(y + this.WALL_TOP + 1)*GRID_SIZE,'map_tile');
+        this.totalSafe++;
         // sprite.visible = false;
       }
       else {
         type = "BOMB";
-        sprite = this.mapGroup.create((x + this.WALL_LEFT + 1)*GRID_SIZE,(y+ this.WALL_TOP + 1)*GRID_SIZE,'map_tile');
+        sprite = this.mapGroup.create((x + this.WALL_LEFT + 1)*GRID_SIZE,(y + this.WALL_TOP + 1)*GRID_SIZE,'map_tile');
       }
       row.push({type: type, sprite: sprite, x: x, y: y, toFlip: false});
     }
@@ -79,7 +86,9 @@ BasicGame.Minesssweeper.prototype.createMap = function () {
 BasicGame.Minesssweeper.prototype.tick = function () {
   BasicGame.SnakeBaseGame.prototype.tick.call(this);
 
-  this.checkMapCollision();
+  if (!this.controlsGroup.visible) {
+    this.checkMapCollision();
+  }
 };
 
 
@@ -89,7 +98,6 @@ BasicGame.Minesssweeper.prototype.flipTick = function () {
   this.nowFlipping = this.toFlip.slice();
   this.toFlip = [];
 
-  console.log("FLipping " + this.nowFlipping.length + " tiles.");
   this.nowFlipping.forEach(function (tile) {
     this.flipTile(tile);
   },this);
@@ -106,7 +114,7 @@ BasicGame.Minesssweeper.prototype.checkMapCollision = function () {
   if (tile.type == "SAFE") {
     this.flipTile(tile,tileX,tileY);
   }
-  else if (tile.type == "BOMB" && !this.snake.dead) {
+  else if ((tile.type == "WALL" || tile.type == "BOMB") && !this.snake.dead) {
     tile.sprite.loadTexture('wall');
     this.die();
   }
@@ -115,7 +123,14 @@ BasicGame.Minesssweeper.prototype.checkMapCollision = function () {
 
 BasicGame.Minesssweeper.prototype.flipTile = function (tile) {
 
+  if (tile.sprite.visible == false) return;
+
   tile.sprite.visible = false;
+  this.totalFlipped++;
+
+  if (this.totalFlipped == this.totalSafe) {
+    this.gameOver("YOU WIN");
+  }
 
   var bombs = 0;
   for (var y = -1; y <= 1; y++) {
@@ -144,7 +159,7 @@ BasicGame.Minesssweeper.prototype.flipTile = function (tile) {
         if (neighbourX < 0 || neighbourX >= this.map[neighbourY].length) continue;
         var neighbour = this.map[neighbourY][neighbourX];
         // Make sure this neighbour isn't already processed
-        if (neighbour.sprite.visible && !neighbour.toFlip) {
+        if (neighbour.sprite.visible && !neighbour.toFlip && neighbour.type != "WALL") {
           neighbour.toFlip = true;
           this.toFlip.push(neighbour);
         }
@@ -156,6 +171,30 @@ BasicGame.Minesssweeper.prototype.flipTile = function (tile) {
   }
 };
 
+BasicGame.Minesssweeper.prototype.gameOver = function (message) {
+  this.snake.dead = true;
+  for (var y = this.WALL_TOP; y <= this.WALL_BOTTOM - this.WALL_TOP + 1; y++) {
+    for (var x = this.WALL_LEFT; x <= this.WALL_RIGHT - this.WALL_LEFT; x++) {
+      this.textGrid[y][x].text = ' ';
+    }
+  }
+  for (var y = 0; y < this.map.length; y++) {
+    for (var x = 0; x < this.map[y].length; x++) {
+      if (this.map[y][x].type == "BOMB") {
+        this.map[y][x].sprite.loadTexture('wall');
+      }
+      else if (this.map[y][x].type == "SAFE") {
+        this.map[y][x].sprite.visible = false;
+      }
+    }
+  }
+  if (message) {
+    this.setGameOverText(message,"",this.score+" POINTS","","");
+  }
+  else {
+    this.setGameOverText("GAME OVER","",this.score+" POINTS","","");
+  }
+},
 
 // repositionApple
 //
