@@ -63,9 +63,11 @@
 
 ### Sssensssible Sssoccer
 
-- Implement razmatazz around goal scoring (flashing "GOAL!"?)
-- Game over: Implement end of game through time
-- Implement half-time?
+- Done?
+
+- ~~Implement razmatazz around goal scoring (flashing "GOAL!"?)~~
+- ~~Game over: Implement end of game through time~~
+- ~~Implement half-time?~~
 
 - ~~Consider the problem of the ball pushed against the wall! Oopsie. (One solution would be goals the width of the thing, but that won't look at cool)~~
 - ~~Handle the issue of the ball going _into_ a snake. I guess this can be checked easily enough? You die if you're currently trying to push the ball into another snake?~~

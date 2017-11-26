@@ -164,11 +164,46 @@ BasicGame.Sssensssible.prototype.update = function () {
 // Handles how fast the clock moves
 
 BasicGame.Sssensssible.prototype.gameTimeTick = function () {
-  this.gameTimeTicker.add(Phaser.Timer.SECOND * this.GAME_TIME_TICK, this.gameTimeTick, this);
-
   this.gameTimeElapsed++;
+
   this.updateGameTimeText();
+
+  if (this.gameTimeElapsed == 45*60) {
+    this.halfTime();
+  }
+  else if (this.gameTimeElapsed == 90*60) {
+    this.fullTime();
+  }
+  else {
+    this.gameTimeTicker.add(Phaser.Timer.SECOND * this.GAME_TIME_TICK, this.gameTimeTick, this);
+  }
 };
+
+
+BasicGame.Sssensssible.prototype.halfTime = function () {
+  this.hideControls();
+  this.hideControlsTwo();
+  this.addTextToGrid(7,16,["HALF-TIME"],this.textGroup);
+  this.snake.dead = true;
+  this.snakeTwo.dead = true;
+  this.game.time.events.add(Phaser.Timer.SECOND * this.SNAKE_TICK * 30, function () {
+    this.gameTimeTicker.add(Phaser.Timer.SECOND * this.GAME_TIME_TICK, this.gameTimeTick, this);
+    this.addTextToGrid(7,16,["         "],this.textGroup);
+    this.snake.reset();
+    this.snakeTwo.reset();
+    this.resetApple();
+  },this);
+};
+
+
+BasicGame.Sssensssible.prototype.fullTime = function () {
+  this.hideControls();
+  this.hideControlsTwo();
+  this.addTextToGrid(7,16,["FULL-TIME"],this.textGroup);
+  this.snake.dead = true;
+  this.snakeTwo.dead = true;
+};
+
 
 // tick
 //
@@ -207,8 +242,9 @@ BasicGame.Sssensssible.prototype.wrapApple = function () {
 
 BasicGame.Sssensssible.prototype.updateGameTimeText = function () {
   var m = Math.floor(this.gameTimeElapsed/60);
-  if (m < 10) m = "0" + m;
   var s = (this.gameTimeElapsed - m*60);
+
+  if (m < 10) m = "0" + m;
   if (s < 10) s = "0" + s;
   this.addTextToGrid(1,this.scoreY,[m + ":" + s]);
 };
@@ -355,25 +391,45 @@ BasicGame.Sssensssible.prototype.checkAppleCollision = function () {
   }
 
   // Check for goals
-  if (this.apple.position.y < 6*GRID_SIZE && this.apple.position.y > 3*GRID_SIZE && this.apple.position.x >= 8*GRID_SIZE && this.apple.position.x < 16*GRID_SIZE) {
+  if (!this.snake.dead && this.apple.position.y < 6*GRID_SIZE && this.apple.position.y > 3*GRID_SIZE && this.apple.position.x >= 8*GRID_SIZE && this.apple.position.x < 16*GRID_SIZE) {
     this.scoreTwo++;
     this.snake.SNAKE_START_LENGTH += this.EXTRA_BODY_PIECES_PER_GOAL;
     this.snakeTwo.SNAKE_START_LENGTH += this.EXTRA_BODY_PIECES_PER_GOAL;
-    this.setScoreText("");
-    this.resetApple();
-    this.resetSnakes();
+    this.goal();
   }
-  else if (this.apple.position.y > 25 * GRID_SIZE && this.apple.position.y < 28 * GRID_SIZE && this.apple.position.x >= 8*GRID_SIZE && this.apple.position.x < 16*GRID_SIZE) {
+  else if (!this.snake.dead && this.apple.position.y > 25 * GRID_SIZE && this.apple.position.y < 28 * GRID_SIZE && this.apple.position.x >= 8*GRID_SIZE && this.apple.position.x < 16*GRID_SIZE) {
     this.score++;
     this.snake.SNAKE_START_LENGTH += this.EXTRA_BODY_PIECES_PER_GOAL;
     this.snakeTwo.SNAKE_START_LENGTH += this.EXTRA_BODY_PIECES_PER_GOAL;
-    this.setScoreText("");
-    this.resetApple();
-    this.resetSnakes();
+    this.goal();
   }
-
 };
 
+BasicGame.Sssensssible.prototype.goal = function () {
+  this.setScoreText("");
+  this.snake.dead = true;
+  this.snakeTwo.dead = true;
+  this.goalString = "GOOOOOOOOAAAAAAAAAL!!!";
+  this.goalStringIndex = 0;
+  this.game.time.events.add(Phaser.Timer.SECOND * this.SNAKE_TICK * 0.25, this.goalText, this);
+};
+
+BasicGame.Sssensssible.prototype.goalText = function () {
+  if (!this.appleSFX.loop) this.appleSFX.loopFull();
+  this.addTextToGrid(this.goalStringIndex + 1,16,[this.goalString.charAt(this.goalStringIndex)],this.textGroup);
+  this.goalStringIndex++;
+  if (this.goalStringIndex < this.goalString.length) {
+    this.game.time.events.add(Phaser.Timer.SECOND * this.SNAKE_TICK * 0.25, this.goalText, this);
+  }
+  else {
+    this.game.time.events.add(Phaser.Timer.SECOND * this.SNAKE_TICK * 15, function () {
+      this.resetApple();
+      this.resetSnakes();
+      this.addTextToGrid(0,16,["                        "],this.textGroup)
+      this.appleSFX.stop();
+    }, this);
+  }
+};
 
 // gameOver
 //

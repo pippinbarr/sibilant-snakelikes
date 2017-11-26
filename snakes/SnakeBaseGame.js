@@ -201,7 +201,7 @@ BasicGame.SnakeBaseGame.prototype = {
 
   createInstructions: function () {
     var instructionsY = this.NUM_ROWS - 2;
-    var instructionsX = 1;
+    var instructionsX = 2;
 
     if (this.game.device.desktop) {
       this.addTextToGrid(instructionsX,instructionsY,["R=RESTART M=MENU"],this.textGroup);
