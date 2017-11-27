@@ -86,9 +86,10 @@
 
 ### Ssshadow of the Colossssssusss
 
-- Add win condition (what will this be like? "BUT AT WHAT COST?!?!?!")
-  - In Shadow there's that swirling soul thing... something like that... black smoke... vanishes into black (change alpha?)... tendrils hit the avatar... he collapses...
+- Done? (Except for bugs?)
 
+- ~~Add win condition (what will this be like? "BUT AT WHAT COST?!?!?!")~~
+  - ~~In Shadow there's that swirling soul thing... something like that... black smoke... vanishes into black (change alpha?)... tendrils hit the avatar... he collapses...~~
 - ~~Make winning actually register~~
 - ~~__PROBABLY TOO SLOW NOW__ Slow down the colossus~~
 - ~~Make colossus move better (in more than one direction, for instance)~~

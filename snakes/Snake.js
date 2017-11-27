@@ -15,6 +15,7 @@ Snake = function (game,x,y) {
 
   this.active = true;
   this.dead = false;
+  this.tint = 0xffffff;
 
   this.hitSFX = this.game.add.audio('hit',0.2);
   this.moveSFX = this.game.add.audio('move',0.2);
@@ -27,6 +28,7 @@ Snake = function (game,x,y) {
   this.chaseDelta = new Phaser.Point(0,0);
 
   this.head = this.create(this.start.x*GRID_SIZE,this.start.y*GRID_SIZE,'head');
+  this.head.tint = this.tint;
   this.game.physics.enable(this.head, Phaser.Physics.ARCADE);
   this.bits.unshift(this.head);
 
@@ -35,6 +37,14 @@ Snake = function (game,x,y) {
 
 Snake.prototype = Object.create(Phaser.Group.prototype);
 Snake.prototype.constructor = Snake;
+
+Snake.prototype.setTint = function (tint) {
+  this.tint = tint;
+  this.head.tint = this.tint;
+  this.bits.forEach(function (bit) {
+    bit.tint = this.tint;
+  },this);
+};
 
 Snake.prototype.tick = function () {
   if (this.dead) {
@@ -82,6 +92,7 @@ Snake.prototype.grow = function () {
 
   if (this.bodyPiecesToAdd >= 1) {
     var bit = this.create(0,0,'body');
+    bit.tint = this.tint;
     this.game.physics.enable(bit,Phaser.Physics.ARCADE);
     this.bits.unshift(bit)
     this.bodyPiecesToAdd = Math.max(0,this.bodyPiecesToAdd-1);
@@ -129,6 +140,7 @@ Snake.prototype.chaseLinear = function () {
   // If we have reached the target, we stop
   if (this.target.position.equals(this.head.position)) {
     this.stop();
+    this.visible = false;
     return;
   }
 

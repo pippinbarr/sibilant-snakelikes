@@ -47,6 +47,44 @@ BasicGame.Ssshadow.prototype.create = function () {
     y: -1
   }
 
+  this.createColossus();
+
+  // To store the snakes the colossus turns into
+  this.colossusSnakes = this.game.add.group();
+
+
+  // Name the state for resetting purposes
+  this.stateName = "Ssshadow";
+};
+
+BasicGame.Ssshadow.prototype.update = function () {
+  BasicGame.SnakeBaseGame.prototype.update.call(this);
+};
+
+BasicGame.Ssshadow.prototype.tick = function () {
+  BasicGame.SnakeBaseGame.prototype.tick.call(this);
+
+  if (!this.snake.dead) {
+    this.colossusMove();
+    this.checkColossusCollision();
+  }
+  else {
+    this.colossusSnakes.forEach(function (snake) {
+      snake.grow();
+      snake.chaseLinear();
+      snake.move();
+      if (snake.target.position.equals(snake.head.position)) {
+        var bit = snake.bits.shift();
+        if (bit) {
+          bit.visible = false;
+        }
+      }
+    },this);
+  }
+};
+
+BasicGame.Ssshadow.prototype.createColossus = function () {
+
   // The colossus will be represented as a group
   this.colossus = this.game.add.group();
 
@@ -58,8 +96,8 @@ BasicGame.Ssshadow.prototype.create = function () {
       var bit = null;
       if (this.colossusData[y][x] == 2) {
         // If this is the first apple, then add an apple at that location
-        this.apple.x = x * this.GRID_SIZE;
-        this.apple.y = y * this.GRID_SIZE,'apple';
+        this.apple.x = x * GRID_SIZE;
+        this.apple.y = y * GRID_SIZE;
         this.colossus.add(this.apple);
         // Track the apple
         this.currentAppleBitPosition.x = x;
@@ -68,8 +106,10 @@ BasicGame.Ssshadow.prototype.create = function () {
       }
       else if (this.colossusData[y][x] > 0) {
         // If this is either a bit of body or a future apple site, add a body tile
-        bit = this.game.add.sprite(x * this.GRID_SIZE,y*this.GRID_SIZE,'body');
+        bit = this.game.add.sprite(x * GRID_SIZE,y*GRID_SIZE,'body');
         this.colossusBits[y][x] = bit;
+
+        // this.colossus.create(x * GRID_SIZE,y*GRID_SIZE,'body');
       }
 
       // If a bit was created, we add it to the main group that makes up the colossus
@@ -83,25 +123,9 @@ BasicGame.Ssshadow.prototype.create = function () {
   }
 
   // Move the entire colossus group to a starting position
-  this.colossus.x = 12 * this.GRID_SIZE;
-  this.colossus.y = 12 * this.GRID_SIZE;
-
-  // Name the state for resetting purposes
-  this.stateName = "Ssshadow";
+  this.colossus.x = 12 * GRID_SIZE;
+  this.colossus.y = 12 * GRID_SIZE;
 };
-
-BasicGame.Ssshadow.prototype.update = function () {
-  BasicGame.SnakeBaseGame.prototype.update.call(this);
-};
-
-BasicGame.Ssshadow.prototype.tick = function () {
-  BasicGame.SnakeBaseGame.prototype.tick.call(this);
-
-  if (!this.dead) {
-    this.colossusMove();
-    this.checkColossusCollision();
-  }
-}
 
 BasicGame.Ssshadow.prototype.colossusMove = function () {
 
@@ -110,8 +134,8 @@ BasicGame.Ssshadow.prototype.colossusMove = function () {
 
   // Generate a random move in both directions
   var move = {
-    x: Math.floor(-1 + Math.random() * 3) * this.GRID_SIZE,
-    y: Math.floor(-1 + Math.random() * 3) * this.GRID_SIZE
+    x: Math.floor(-1 + Math.random() * 3) * GRID_SIZE,
+    y: Math.floor(-1 + Math.random() * 3) * GRID_SIZE
   };
 
   // If colossus would move on both axes, zero one out so it moves
@@ -165,7 +189,7 @@ BasicGame.Ssshadow.prototype.colossusMove = function () {
 BasicGame.Ssshadow.prototype.checkAppleCollision = function () {
   // Check if the snake's head is over the apple
   // We use world position because the apple is in a group
-  if (this.snakeHead.position.equals(this.apple.world)) {
+  if (!this.snake.dead && this.snake.head.position.equals(this.apple.world)) {
     // Play the sound
     this.appleSFX.play();
     // Increase snake size
@@ -179,9 +203,9 @@ BasicGame.Ssshadow.prototype.checkAppleCollision = function () {
     // Increment the apple index
     this.currentAppleIndex++;
     // Check if that was the final apple or not
-    if (this.currentAppleIndex > this.FINAL_APPLE_INDEX) {
+    if (this.currentAppleIndex > this.FINAL_APPLE_INDEX && !this.snake.dead) {
       // That was the final apple!
-      console.log("You defeated the colossus!")
+      this.gameWon();
     }
     else {
       // If wasn't the final apple so we go through the colossus data to find
@@ -192,8 +216,8 @@ BasicGame.Ssshadow.prototype.checkAppleCollision = function () {
             // Get rid of the tile at that location
             this.colossusBits[y][x].destroy();
             // Move the apple to that location
-            this.apple.position.x = (x * this.GRID_SIZE);
-            this.apple.position.y = (y * this.GRID_SIZE);
+            this.apple.position.x = (x * GRID_SIZE);
+            this.apple.position.y = (y * GRID_SIZE);
             // Store the location in the colossusBits of the apple
             this.currentAppleBitPosition.x = x;
             this.currentAppleBitPosition.y = y;
@@ -210,7 +234,7 @@ BasicGame.Ssshadow.prototype.checkColossusCollision = function () {
   // Go through all the colossus elements
   this.colossus.forEach(function (bit) {
     // Check if there's a collision was with a body tile (not the apple)
-    if (this.snakeHead.position.equals(bit.world) && bit != this.apple) {
+    if (this.snake.head.position.equals(bit.world) && bit != this.apple) {
       // Death if so
       this.die();
       return;
@@ -219,8 +243,28 @@ BasicGame.Ssshadow.prototype.checkColossusCollision = function () {
 };
 
 BasicGame.Ssshadow.prototype.gameOver = function () {
-
+  this.setGameOverText("GAME OVER","",this.score+" POINTS","","");
 };
+
+BasicGame.Ssshadow.prototype.gameWon = function () {
+  this.snake.dead = true;
+
+  this.game.time.events.add(Phaser.Timer.SECOND * 2, function () {
+    this.setGameOverText("GAME OVER","",this.score+" POINTS","","");
+  }, this);
+
+  this.colossus.forEach(function (bit) {
+    if (!bit) return;
+    this.game.time.events.add(Phaser.Timer.SECOND * this.SNAKE_TICK * Math.floor(Math.random() * 10), function () {
+      var snake = new Snake(this.game,bit.world.x/GRID_SIZE,bit.world.y/GRID_SIZE);
+      snake.setTint(0x444444);
+      snake.alpha = 0.75;
+      snake.target = this.snake.head;
+      this.colossusSnakes.add(snake);
+      bit.visible = false;
+    },this);
+  },this);
+}
 
 
 BasicGame.Ssshadow.prototype.repositionApple = function () {
