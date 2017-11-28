@@ -140,7 +140,6 @@ Snake.prototype.chaseLinear = function () {
   // If we have reached the target, we stop
   if (this.target.position.equals(this.head.position)) {
     this.stop();
-    this.visible = false;
     return;
   }
 
