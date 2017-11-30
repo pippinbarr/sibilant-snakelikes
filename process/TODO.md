@@ -33,9 +33,11 @@
 
 ### Papersss, Pleassse
 
-- Add points for successful/unsuccessful blocks and let-throughs (lose points for bad work)
 - Add 'difficulty' < This can be implemented by changing the rate at which the rules change
+- Add other outside snakes?
+- Kill snake if it tries to leave the screen
 
+- ~~Add points for successful/unsuccessful blocks and let-throughs (lose points for bad work)~~
 - ~~__NOT DOING THIS ANYMORE__ And the 'being paid' screen~~
 - ~~Need to actually implement the idea of different snakes~~
 - ~~And instructions~~

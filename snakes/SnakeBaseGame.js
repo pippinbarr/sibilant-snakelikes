@@ -67,7 +67,7 @@ BasicGame.SnakeBaseGame.prototype = {
 
 
   create: function () {
-    console.log(this.map);
+    // console.log(this.map);
     this.textGrid = [];
     this.dead = false;
     this.stateName = 'Snake';
@@ -153,7 +153,6 @@ BasicGame.SnakeBaseGame.prototype = {
   },
 
   createTexts: function () {
-
     this.instructionsGroup = this.game.add.group();
     this.controlsGroup = this.game.add.group();
 
