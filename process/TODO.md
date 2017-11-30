@@ -33,15 +33,17 @@
 
 ### Papersss, Pleassse
 
-- Need to actually implement the idea of different snakes
-- And instructions
-- And generating combinations
-- Possibly 'difficulty'?
+- Add points for successful/unsuccessful blocks and let-throughs (lose points for bad work)
+- Add 'difficulty' < This can be implemented by changing the rate at which the rules change
+
 - ~~__NOT DOING THIS ANYMORE__ And the 'being paid' screen~~
+- ~~Need to actually implement the idea of different snakes~~
+- ~~And instructions~~
+- ~~And generating combinations~~
 
 ### Missssssile Command
 
-- Done?
+- Done? (Well except for difficulty levels.)
 
 - ~~__ACTUALLY, NO, SINCE WE DON'T WANT THE SNAKE TO GET ARBITRARILY LONGER OR THE GAME WILL BECOME TRIVIAL__ Add those other objects that can move across the screen (oh shit, THOSE can make you longer obviously ha ha ha design in the todos sorry)~~
 - ~~Add proper game over for end of apples or snake death~~
