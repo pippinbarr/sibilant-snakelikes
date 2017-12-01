@@ -181,7 +181,7 @@ Snake.prototype.chaseLinear = function () {
     // Reset the delta
   }
   else {
-    console.log("This happened");
+    // console.log("This happened");
   }
 };
 

@@ -68,8 +68,10 @@ BasicGame.Papersss.prototype.create = function () {
 
   this.generateRules();
   this.displayRules();
-  this.chanceForNewRules = 0.1;
+  this.DIFFICULTY_INCREMENT = 0.0125;
+  this.chanceForNewRules = 0.02;
 
+  this.NEXT_IMMIGRANT_DELAY_TICKS = 40;
 
   // Name the state for resetting purposes
   this.stateName = "Papersss";
@@ -81,6 +83,12 @@ BasicGame.Papersss.prototype.update = function () {
 
 BasicGame.Papersss.prototype.tick = function () {
   BasicGame.SnakeBaseGame.prototype.tick.call(this);
+
+  if (this.snake.head.x < 0 || this.snake.head.x >= this.game.width || this.snake.head.y < 0 || this.snake.head.y >= this.game.height) {
+    this.snake.die();
+    if (this.immigrant) this.immigrant.stop();
+    this.game.time.events.add(Phaser.Timer.SECOND * this.SNAKE_TICK * 10,this.gameOver,this);
+  }
 };
 
 BasicGame.Papersss.prototype.immigrantTick = function () {
@@ -107,6 +115,7 @@ BasicGame.Papersss.prototype.immigrantTick = function () {
   if (this.immigrant.head.position.equals(this.immigrant.target.position)) {
     if (this.checkRules()) {
       this.addToScore(this.APPLE_SCORE);
+      this.chanceForNewRules += this.DIFFICULTY_INCREMENT;
     }
     else {
       this.addToScore(-this.APPLE_SCORE);
@@ -126,12 +135,25 @@ BasicGame.Papersss.prototype.checkAppleCollision = function () {
   },this);
 };
 
+BasicGame.Papersss.prototype.checkWallCollision = function () {
+  this.wallGroup.forEach(function (wall) {
+    if (this.snake.head.position.equals(wall.position) && !this.snake.dead) {
+      this.snake.die();
+      if (this.immigrant) this.immigrant.stop();
+      this.game.time.events.add(Phaser.Timer.SECOND * this.SNAKE_TICK * 10,this.gameOver,this);
+      return;
+    }
+  },this);
+},
+
 BasicGame.Papersss.prototype.checkSnakeImmigrantCollision = function () {
   if (this.immigrant.dead || this.snake.dead || !this.immigrant.target) return;
 
   this.immigrant.forEach(function (bit) {
     if (this.snake.head.position.equals(bit.position)) {
       this.snake.die();
+      if (this.immigrant) this.immigrant.stop();
+      this.game.time.events.add(Phaser.Timer.SECOND * this.SNAKE_TICK * 10,this.gameOver,this);
       if (bit == this.immigrant.head) {
         this.immigrant.die();
       }
@@ -145,6 +167,8 @@ BasicGame.Papersss.prototype.checkSnakeImmigrantCollision = function () {
       this.immigrant.die();
       if (bit == this.snake.head) {
         this.snake.die();
+        if (this.immigrant) this.immigrant.stop();
+        this.game.time.events.add(Phaser.Timer.SECOND * this.SNAKE_TICK * 10,this.gameOver,this);
       }
       else {
         if (this.checkRules()) {
@@ -152,6 +176,7 @@ BasicGame.Papersss.prototype.checkSnakeImmigrantCollision = function () {
         }
         else {
           this.addToScore(this.APPLE_SCORE);
+          this.chanceForNewRules += this.DIFFICULTY_INCREMENT;
         }
         this.immigrant.die();
         this.resetImmigrant();
@@ -176,7 +201,7 @@ BasicGame.Papersss.prototype.resetImmigrant = function () {
       this.displayRules();
     }
   },this);
-  this.game.time.events.add(Phaser.Timer.SECOND * this.SNAKE_TICK * 20,function () {
+  this.game.time.events.add(Phaser.Timer.SECOND * this.SNAKE_TICK * this.NEXT_IMMIGRANT_DELAY_TICKS,function () {
     this.createImmigrant();
   },this);
 };
@@ -231,9 +256,9 @@ BasicGame.Papersss.prototype.checkRules = function () {
 };
 
 
-BasicGame.Papersss.prototype.gameOver = function () {
-
-};
+// BasicGame.Papersss.prototype.gameOver = function () {
+//
+// };
 
 
 BasicGame.Papersss.prototype.repositionApple = function () {
@@ -333,7 +358,7 @@ BasicGame.Papersss.prototype.displayRules = function () {
 
 
 BasicGame.Papersss.prototype.createImmigrant = function () {
-  this.immigrant = new Snake(this.game,0,this.WALL_TOP + 10);
+  this.immigrant = new Snake(this.game,-1,this.WALL_TOP + 10);
   this.immigrantApple = this.game.add.sprite(this.game.width + 10*GRID_SIZE,(this.WALL_TOP + 10)*GRID_SIZE,'apple');
   this.immigrant.target = this.immigrantApple;
 
@@ -370,7 +395,7 @@ BasicGame.Papersss.prototype.createImmigrant = function () {
   r = Math.random();
 
   if (r < 0.33) {
-  // if (r < 1.0) {
+    // if (r < 1.0) {
     this.IMMIGRANT_TICK = this.FAST_TICK;
   }
   else if (r < 0.66) {
