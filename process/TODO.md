@@ -17,7 +17,9 @@
 
 ### Menu
 
-- Make it
+- Need to think about nicer timings (it's very abrupt!)
+
+- ~~Make it~~
 
 ### Msss. Pacman
 

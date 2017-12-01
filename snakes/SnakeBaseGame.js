@@ -175,14 +175,15 @@ BasicGame.SnakeBaseGame.prototype = {
     }
   },
 
-  addTextToGrid(startX,startY,text,group,buttonGroup,callback) {
+  addTextToGrid(startX,startY,text,group,buttonGroup,callback,itemIndex) {
+
     var x = startX;
     var y = startY;
 
     for (var i = 0; i < text.length; i++) {
       x = startX;
       for (var j = 0; j < text[i].length; j++) {
-        this.textGrid[y][x].text = text[i].charAt(j);
+        this.textGrid[y][x].text = text[i].charAt(j).toUpperCase();
         if (group) {
           group.add(this.textGrid[y][x]);
         }
@@ -191,6 +192,7 @@ BasicGame.SnakeBaseGame.prototype = {
           sprite.inputEnabled = true;
           sprite.name = text;
           sprite.events.onInputDown.add(callback,this);
+          sprite.itemIndex = itemIndex;
         }
         x++;
       }

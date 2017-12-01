@@ -1,27 +1,12 @@
 games = [
-	// "Anthropomorphism",
-	// "Apocalypticism",
-	// "Asceticism",
-	// "Capitalism",
-	// "Casualism",
-	// "Conservatism",
-	// "Determinism",
-	// "Dualism",
-	// "Existentialism",
-	// "Holism",
-	// "Idealism",
-	// "Monism",
-	// "Narcissism",
-	// "Nihilism",
-	// "Optimism",
-	// "Pessimism",
-	// "Positivism",
-	// "Post-Apocalypticism",
-	// "Romanticism",
-	// "Stoicism",
-	// "Utilitarianism",
-	"",
-	"pippinbarr.com"
+	{name: ["Ssshadow","of the","Colossssssusss"], class: "Ssshadow"},
+	{name: ["Missssssile","Command"], class: "Missssssile"},
+	{name: ["Msss","Pacman"], class: "Msss"},
+	{name: ["Papersss","Pleassse"], class: "Papersss"},
+	{name: ["Sssensssible","Sssoccer"], class: "Sssensssible"},
+	{name: ["Minesssweeper"], class: "Minesssweeper"},
+	{name: ["Sssuper","Mario","Brosss"], class: "Sssuper"},
+	{name: ["WWW.PIPPINBARR.COM"], class: "Homepage"},
 ];
 
 BasicGame.Menu = function (game) {
@@ -34,55 +19,73 @@ BasicGame.Menu.prototype.create = function () {
 
 	this.menuButtons = this.game.add.group();
 	this.menuText = this.game.add.group();
+	this.snakes = this.game.add.group();
+
+	this.TITLE = "SIBILANT SNAKELIKES";
+
+	var x = 2;
+	var y = 1;
+	this.apples = this.game.add.group();
+	for (var i = 0; i < this.TITLE.length; i++) {
+		if (this.TITLE.charAt(i) == ' ') continue;
+		this.apples.create(x*GRID_SIZE + i*GRID_SIZE,y*GRID_SIZE,'apple');
+	}
 
 	BasicGame.SnakeBaseGame.prototype.create.call(this);
 
-	this.game.input.onDown.add(function() {
-		this.appleSFX.play(0);
-	},this);
+	this.snakes.add(this.snake);
 
-	this.TITLE = "SIBILANT SNAKELIKES";
+	// this.game.input.onDown.add(function() {
+	// 	this.appleSFX.play(0);
+	// },this);
+
 	this.SNAKE_TICK = 0.02;
 
-	this.createMenu();
 
-	this.snakeHead.y = menuTop*this.GRID_SIZE;
 	if (this.game.device.desktop) {
-		this.snakeHead.x = 0;
+		this.snake.head.x = 0;
 		this.upKey = this.game.input.keyboard.addKey(Phaser.Keyboard.UP);
 		this.downKey = this.game.input.keyboard.addKey(Phaser.Keyboard.DOWN);
 		this.enterKey = this.game.input.keyboard.addKey(Phaser.Keyboard.ENTER);
 	}
 	else {
-		this.snakeHead.x = -1*this.GRID_SIZE;
+		this.snake.head.x = -1*GRID_SIZE;
 	}
 
-	this.next = new Phaser.Point(0,0);
-	this.prev = new Phaser.Point(0,0);
+	this.snake.next = new Phaser.Point(0,0);
+	this.snake.prev = new Phaser.Point(0,0);
+
+	this.currentItem = 0;
 	this.selected = undefined;
-	this.selectionComplete = false;
+
+	this.createMenu();
+
+	this.snake.head.y = games[this.currentItem].y*GRID_SIZE;
+
+};
+
+BasicGame.Menu.prototype.tick = function () {
+	ticker.add(Phaser.Timer.SECOND * this.SNAKE_TICK, this.tick, this);
+	this.snakes.forEach(function (snake) {
+		snake.tick();
+	},this);
 };
 
 BasicGame.Menu.prototype.createMenu = function () {
 
 	var x = 2;
-	var y = 2
+	var y = 1;
 	this.addTextToGrid(x,y,[this.TITLE]);
-
-	var uppercaseGameNames = games.slice(0);
-	uppercaseGameNames.forEach(function(element,index,array) {
-		array[index] = element.toUpperCase();
-	});
 
 	menuTop = 4;
 	x = 2;
 	y = menuTop;
 
-	for (var i = 0; i < uppercaseGameNames.length; i++) {
-		if (uppercaseGameNames[i] != "") {
-			this.addTextToGrid(x,y,[uppercaseGameNames[i]],this.menuText,this.menuButtons,this.menuItemTouched);
-		}
-		y++;
+	for (var i = 0; i < games.length; i++) {
+		this.addTextToGrid(x,y,games[i].name,this.textGroup,this.menuButtons,this.menuItemTouched,i);
+		games[i].x = x;
+		games[i].y = y;
+		y += games[i].name.length + 1;
 	}
 
 	menuBottom = menuTop + games.length - 1;
@@ -98,32 +101,27 @@ BasicGame.Menu.prototype.createMenu = function () {
 };
 
 
-BasicGame.Menu.prototype.menuItemTouched = function (item) {
-	this.appleSFX.play();
-
-	if (this.selected) return;
-	this.snakeHead.y = item.y;
-	for (var i = 0; i < this.snake.length; i++) {
-		if (this.snake[i] != this.snakeHead) this.snake[i].y = item.y;
-	}
-	this.selectMenuItem();
-};
-
 BasicGame.Menu.prototype.update = function () {
 	BasicGame.SnakeBaseGame.prototype.update.call(this);
 	if (this.selected && !this.selectionComplete) {
 		this.checkMenuCollision();
-		if (this.snake[0].x > this.game.width) {
-			if (this.selected == "Post-Apocalypticism") {
-				this.game.state.start("PostApocalypticism")
-			}
-			else if (this.selected == "pippinbarr.com") {
-				window.location = "http://www.pippinbarr.com/games/";
+		var complete = true;
+		this.snakes.forEach(function (snake) {
+			snake.forEach(function (bit) {
+				if (bit.x < this.game.width) {
+					complete = false;
+					return;
+				}
+			},this);
+			if (complete == false) return;
+		},this);
+		if (complete) {
+			if (games[this.currentItem].class == "Homepage") {
+				window.location = "http://www.pippinbarr.com/";
 			}
 			else {
-				this.game.state.start(this.selected);
+				this.game.state.start(games[this.currentItem].class);
 			}
-			this.selectionComplete = true;
 		}
 	}
 };
@@ -132,65 +130,69 @@ BasicGame.Menu.prototype.handleKeyboardInput = function () {
 
 	if (this.selected) return;
 
-	if (this.upKey.downDuration(10)) {
-		this.moveSFX.play();
-		if (this.snakeHead.y/this.GRID_SIZE == menuTop + games.length - 1) {
-			this.snakeHead.y -= 2*this.GRID_SIZE;
-		}
-		else if (this.snakeHead.y/this.GRID_SIZE > menuTop) {
-			this.snakeHead.y -= this.GRID_SIZE;
-		}
-		else {
-			this.snakeHead.y = (menuTop - 1)*this.GRID_SIZE + games.length*this.GRID_SIZE;
-		}
+	if (this.downKey.downDuration(10)) {
+		this.snake.moveSFX.play();
+		this.currentItem = (this.currentItem + 1) % games.length;
+		this.snake.head.y = games[this.currentItem].y*GRID_SIZE;
 	}
-	else if (this.downKey.downDuration(10)) {
-		this.moveSFX.play();
-		if (this.snakeHead.y/this.GRID_SIZE == menuTop + games.length - 3) {
-			this.snakeHead.y += 2*this.GRID_SIZE;
-		}
-		else if (this.snakeHead.y/this.GRID_SIZE < menuBottom) {
-			this.snakeHead.y += this.GRID_SIZE;
-		}
-		else {
-			this.snakeHead.y = menuTop*this.GRID_SIZE;
-		}
+	else if (this.upKey.downDuration(10)) {
+		this.snake.moveSFX.play();
+		this.currentItem = (this.currentItem - 1);
+		if (this.currentItem < 0) this.currentItem = games.length - 1;
+		this.snake.head.y = games[this.currentItem].y*GRID_SIZE;
 	}
 	else if (this.enterKey.downDuration(10)) {
 		this.selectMenuItem()
 	}
+};
 
-	for (var i = 0; i < this.snake.length; i++) {
-		this.snake[i].y = this.snakeHead.y;
-	}
+
+BasicGame.Menu.prototype.menuItemTouched = function (item) {
+	if (this.selected) return;
+
+	this.appleSFX.play();
+
+	this.currentItem = item.itemIndex;
+	this.snake.head.y = games[this.currentItem].y*GRID_SIZE;
+	console.log(this.snake.head.y);
+
+	this.selectMenuItem();
 };
 
 BasicGame.Menu.prototype.selectMenuItem = function () {
-	this.next = new Phaser.Point(this.GRID_SIZE,0);
-	this.selected = games[this.snakeHead.y/this.GRID_SIZE-menuTop];
+	this.snake.next = new Phaser.Point(GRID_SIZE,0);
+	this.selected = games[this.currentItem].class;
 	this.appleSFX.play();
+	console.log(this.snake.head.x);
+
+	for (var i = 1; i < games[this.currentItem].name.length; i++) {
+		var snake = new Snake(this.game,this.snake.x/GRID_SIZE - i*3,games[this.currentItem].y+i);
+		snake.next = new Phaser.Point(GRID_SIZE,0);
+		this.snakes.add(snake);
+		console.log(snake.head.x);
+	}
 };
 
 BasicGame.Menu.prototype.checkMenuCollision = function () {
-	if (this.snakeHead.x >= this.game.width) return;
-	if (this.snakeHead.x < 0) return;
 
-	var x = this.snakeHead.x/this.GRID_SIZE;
-	var y = this.snakeHead.y/this.GRID_SIZE;
+	this.snakes.forEach(function (snake) {
+		if (snake.head.x >= this.game.width) return;
+		if (snake.head.x < 0) return;
 
-	if (this.textGrid[y][x].text != '') {
-		this.textGrid[y][x].text = '';
-		this.snakeBitsToAdd += 1;
-	}
+		console.log(snake.head.x);
+
+		var x = snake.head.x/GRID_SIZE;
+		var y = snake.head.y/GRID_SIZE;
+
+		if (this.textGrid[y][x].text != '') {
+			this.textGrid[y][x].text = '';
+			snake.bodyPiecesToAdd += 1;
+		}
+	},this);
 };
 
 BasicGame.Menu.prototype.updateSnakePosition = function () {
-	for (var i = 0; i < this.snake.length - 1; i++) {
-		this.snake[i].x = this.snake[i+1].x;
-		this.snake[i].y = this.snake[i+1].y;
-	}
-	this.snakeHead.x += this.next.x;
-	this.snakeHead.y += this.next.y;
+
 };
 
 BasicGame.Menu.prototype.createInput = function () {
