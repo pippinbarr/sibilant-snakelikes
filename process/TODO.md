@@ -15,9 +15,15 @@
 
 ## TO-DO
 
+### TOUCH/MOBILE
+
+- Test what it looks like
+- Test swipe controls in different games
+- Add two player swipe controls to Sssensssible
+
 ### Menu
 
-- Need to think about nicer timings (it's very abrupt!)
+- ~~Need to think about nicer timings (it's very abrupt!)~~
 
 - ~~Make it~~
 
@@ -53,8 +59,9 @@
 
 ### Missssssile Command
 
-- Done? (Well except for difficulty levels.)
+- Done?
 
+- ~~Add difficulty increase over time = more missiles per tick~~
 - ~~__ACTUALLY, NO, SINCE WE DON'T WANT THE SNAKE TO GET ARBITRARILY LONGER OR THE GAME WILL BECOME TRIVIAL__ Add those other objects that can move across the screen (oh shit, THOSE can make you longer obviously ha ha ha design in the todos sorry)~~
 - ~~Add proper game over for end of apples or snake death~~
 - ~~Add the concept of multiple missiles at the same time (along with delays between missiles etc. so it's not a nightmare initially at least)~~
@@ -83,7 +90,6 @@
 - ~~Implement razmatazz around goal scoring (flashing "GOAL!"?)~~
 - ~~Game over: Implement end of game through time~~
 - ~~Implement half-time?~~
-
 - ~~Consider the problem of the ball pushed against the wall! Oopsie. (One solution would be goals the width of the thing, but that won't look at cool)~~
 - ~~Handle the issue of the ball going _into_ a snake. I guess this can be checked easily enough? You die if you're currently trying to push the ball into another snake?~~
 - ~~Mock up a visual of different version of the 'out of bounds' problem~~
@@ -115,4 +121,4 @@
 - ~~Get basic Snake working~~
 
 - BUGS
-  - It is possible to pass through the colossus if it moves in the opposite direction to you (e.g. up as you come down) at least for one tile amounts
+  - ~~It is possible to pass through the colossus if it moves in the opposite direction to you (e.g. up as you come down) at least for one tile amounts~~

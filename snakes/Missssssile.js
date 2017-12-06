@@ -18,7 +18,9 @@ BasicGame.Missssssile.prototype.create = function () {
   this.apples.create((this.WALL_RIGHT - 8) * GRID_SIZE,(this.WALL_BOTTOM - 1) * GRID_SIZE,'apple');
 
   this.missileTimer = this.game.time.create(false);
-  this.ticksPerNewMissile = 100;
+  this.MIN_TICKS_PER_NEW_MISSILE = 10;
+  this.MAX_TICKS_PER_NEW_MISSILE = 100;
+  this.ticksPerNewMissile = this.MAX_TICKS_PER_NEW_MISSILE;
 
   this.missileTicker = this.game.time.create(false);
   this.missileTicker.add(Phaser.Timer.SECOND * this.SNAKE_TICK * 2, this.missileTick, this);
@@ -58,7 +60,6 @@ BasicGame.Missssssile.prototype.missileTick = function () {
     snake.move();
   },this);
   this.checkMissileWallCollision();
-
 };
 
 
@@ -95,6 +96,10 @@ BasicGame.Missssssile.prototype.checkSnakeMissileCollision = function () {
       if (this.snake.dead) return;
       if (missile.head.position.equals(snakeBit.position)) {
         missile.die();
+        this.MAX_TICKS_PER_NEW_MISSILE = this.MAX_TICKS_PER_NEW_MISSILE - 5;
+        if (this.MAX_TICKS_PER_NEW_MISSILE < this.MIN_TICKS_PER_NEW_MISSILE) this.MAX_TICKS_PER_NEW_MISSILE = this.MIN_TICKS_PER_NEW_MISSILE;
+        this.ticksPerNewMissile = this.MIN_TICKS_PER_NEW_MISSILE + Math.floor(Math.random() * (this.MAX_TICKS_PER_NEW_MISSILE - this.MIN_TICKS_PER_NEW_MISSILE));
+
         this.addToScore(this.APPLE_SCORE);
         this.game.time.events.add(Phaser.Timer.SECOND * this.SNAKE_TICK * 2 * 8, function () {
           this.missiles.remove(missile);
