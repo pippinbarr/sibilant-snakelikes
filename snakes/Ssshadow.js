@@ -9,6 +9,9 @@ BasicGame.Ssshadow.prototype.create = function () {
 
   // this.SNAKE_START_LENGTH = 40;
 
+  // The colossus will be represented as a group
+  this.colossus = this.game.add.group();
+
   BasicGame.SnakeBaseGame.prototype.create.call(this);
 
   // Data to represent the colossus by creating it out of tiles
@@ -73,12 +76,14 @@ BasicGame.Ssshadow.prototype.colossusTick = function () {
 };
 
 BasicGame.Ssshadow.prototype.tick = function () {
-  BasicGame.SnakeBaseGame.prototype.tick.call(this);
 
   if (!this.snake.dead) {
     this.checkColossusCollision();
   }
-  else {
+
+  BasicGame.SnakeBaseGame.prototype.tick.call(this);
+
+  if (this.snake.dead) {
     this.colossusSnakes.forEach(function (snake) {
       snake.grow();
       snake.chaseLinear();
@@ -94,9 +99,6 @@ BasicGame.Ssshadow.prototype.tick = function () {
 };
 
 BasicGame.Ssshadow.prototype.createColossus = function () {
-
-  // The colossus will be represented as a group
-  this.colossus = this.game.add.group();
 
   // Go through the data for the colossus and add the appropriate tiles
   // in the appropriate locations to the colossusGroup
@@ -209,9 +211,9 @@ BasicGame.Ssshadow.prototype.checkAppleCollision = function () {
     this.snakeBitsToAdd += this.NEW_BODY_PIECES_PER_APPLE;
     // Create a replace bit so that after the apple gets eaten the colossus
     // has a body tile at that location from then on
-    var replacementBit = this.game.add.sprite(this.apple.x,this.apple.y,'body');
-    this.colossus.add(replacementBit);
-    this.colossusBits[this.currentAppleBitPosition.y][this.currentAppleBitPosition.x] = replacementBit;
+    // var replacementBit = this.game.add.sprite(this.apple.x,this.apple.y,'body');
+    // this.colossus.add(replacementBit);
+    // this.colossusBits[this.currentAppleBitPosition.y][this.currentAppleBitPosition.x] = replacementBit;
 
     // Increment the apple index
     this.currentAppleIndex++;
@@ -247,7 +249,7 @@ BasicGame.Ssshadow.prototype.checkColossusCollision = function () {
   // Go through all the colossus elements
   this.colossus.forEach(function (bit) {
     // Check if there's a collision was with a body tile (not the apple)
-    if (this.snake.head.position.equals(bit.world) && bit != this.apple) {
+    if (this.snake.head.world.equals(bit.world) && bit != this.apple) {
       // Death if so
       this.die();
       return;
