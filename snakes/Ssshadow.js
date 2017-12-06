@@ -52,6 +52,9 @@ BasicGame.Ssshadow.prototype.create = function () {
   // To store the snakes the colossus turns into
   this.colossusSnakes = this.game.add.group();
 
+  this.COLOSSUS_TICK = this.SNAKE_TICK * 9;
+  this.colossusTicker = this.game.time.create(false);
+  this.colossusTicker.add(Phaser.Timer.SECOND * this.COLOSSUS_TICK, this.colossusTick, this);
 
   // Name the state for resetting purposes
   this.stateName = "Ssshadow";
@@ -61,11 +64,18 @@ BasicGame.Ssshadow.prototype.update = function () {
   BasicGame.SnakeBaseGame.prototype.update.call(this);
 };
 
+BasicGame.Ssshadow.prototype.colossusTick = function () {
+  this.colossusTicker.add(Phaser.Timer.SECOND * this.COLOSSUS_TICK, this.colossusTick, this);
+
+  if (!this.snake.dead) {
+    this.colossusMove();
+  }
+};
+
 BasicGame.Ssshadow.prototype.tick = function () {
   BasicGame.SnakeBaseGame.prototype.tick.call(this);
 
   if (!this.snake.dead) {
-    this.colossusMove();
     this.checkColossusCollision();
   }
   else {
@@ -130,7 +140,7 @@ BasicGame.Ssshadow.prototype.createColossus = function () {
 BasicGame.Ssshadow.prototype.colossusMove = function () {
 
   // Only move sometimes
-  if (Math.random() > this.colossusMoveChance) return;
+  // if (Math.random() > this.colossusMoveChance) return;
 
   // Generate a random move in both directions
   var move = {
@@ -150,13 +160,16 @@ BasicGame.Ssshadow.prototype.colossusMove = function () {
   // Go through every bit in the colossus to check collisions
   this.colossus.forEach(function (colossusBit) {
     // Calculate the position this bit in the colossus would be in if you moved it up
-    var newPosition = colossusBit.world.clone();
+    var newPosition = new Phaser.Point(colossusBit.world.x,colossusBit.world.y);
     newPosition.x += move.x;
     newPosition.y += move.y;
 
     // Go through every bit in the snake
     this.snake.forEach(function (snakeBit) {
       // Check if the colossus would hit it, if so fail
+      if (snakeBit == this.snake.head) {
+        return;
+      }
       if (snakeBit.world.equals(newPosition)) {
         canMove = false;
         return;
@@ -241,6 +254,11 @@ BasicGame.Ssshadow.prototype.checkColossusCollision = function () {
     }
   },this);
 };
+
+BasicGame.Ssshadow.prototype.hideControls = function () {
+  BasicGame.SnakeBaseGame.prototype.hideControls.call(this);
+  this.colossusTicker.start();
+}
 
 BasicGame.Ssshadow.prototype.gameOver = function () {
   this.setGameOverText("GAME OVER","",this.score+" POINTS","","");

@@ -101,7 +101,7 @@
 
 ### Ssshadow of the Colossssssusss
 
-- Done? (Except for bugs?)
+- Done?
 
 - ~~Add win condition (what will this be like? "BUT AT WHAT COST?!?!?!")~~
   - ~~In Shadow there's that swirling soul thing... something like that... black smoke... vanishes into black (change alpha?)... tendrils hit the avatar... he collapses...~~
@@ -115,4 +115,4 @@
 - ~~Get basic Snake working~~
 
 - BUGS
-  - I managed to pass through the colossus's shoulder. Probably that's it moving and me moving. Will have to try to recreate though. I just did (notably after reversing colossusMove and checkColossusCollision, so it's something deeper than that...)
+  - It is possible to pass through the colossus if it moves in the opposite direction to you (e.g. up as you come down) at least for one tile amounts

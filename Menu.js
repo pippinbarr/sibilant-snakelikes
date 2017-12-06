@@ -120,7 +120,9 @@ BasicGame.Menu.prototype.update = function () {
 				window.location = "http://www.pippinbarr.com/";
 			}
 			else {
-				this.game.state.start(games[this.currentItem].class);
+				this.game.time.events.add(Phaser.Timer.SECOND * 1, function () {
+					this.game.state.start(games[this.currentItem].class);
+				},this);
 			}
 		}
 	}
