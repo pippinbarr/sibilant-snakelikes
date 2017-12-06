@@ -87,6 +87,9 @@
 
 - Done?
 
+- "BUG": Snakes collided with one another and the game didn't reset, may not have implemented resets??? Idiot?
+- It would be nice to display the score on the side? And reset/menu on the other side? And the instructions for the top snake upside down to imply orientation? Just how painful might this turn out to be? (Probably not so bad? Maybe move the gooooooal to occur near the goal in question - and also flipped/oriented appropriately... hacky but it'll work I think?)
+
 - ~~Implement razmatazz around goal scoring (flashing "GOAL!"?)~~
 - ~~Game over: Implement end of game through time~~
 - ~~Implement half-time?~~

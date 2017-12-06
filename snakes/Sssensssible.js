@@ -138,15 +138,15 @@ BasicGame.Sssensssible.prototype.createControls = function () {
 
   var controlsStrings2 = [];
   if (this.game.device.desktop) {
-    controlsStrings = ["WASD","CONTROLS","SNAKE"];
+    controlsStrings2 = ["WASD","CONTROLS","SNAKE"];
   }
 
   else {
-    controlsStrings = ["SWIPES","CONTROL","SNAKE"];
+    controlsStrings2 = ["SWIPES","CONTROL","SNAKE"];
   }
 
   this.controlsGroupTwo = this.game.add.group();
-  this.addTextToGrid(this.CONTROLS_TWO_X,this.CONTROLS_TWO_Y,controlsStrings,this.controlsGroupTwo);
+  this.addTextToGrid(this.CONTROLS_TWO_X,this.CONTROLS_TWO_Y,controlsStrings2,this.controlsGroupTwo);
 },
 
 
@@ -498,4 +498,74 @@ BasicGame.Sssensssible.prototype.handleKeyboardInput = function () {
   else if (this.sKey.isDown) {
     this.snakeTwo.moveDown();
   }
+};
+
+
+BasicGame.Sssensssible.prototype.handleTouchInput = function () {
+  if (this.snake.dead) return;
+  if (!this.inputEnabled) return;
+
+  var input = this.swipe.check();
+  if (!input) return;
+
+
+  if (input.y < this.game.height/2) {
+    if (this.controlsGroup.visible) {
+      this.hideControls();
+      // this.startAppleTimer();
+    }
+
+    switch (input.direction) {
+      case this.swipe.DIRECTION_LEFT:
+      this.snake.moveLeft();
+      break;
+
+      case this.swipe.DIRECTION_RIGHT:
+      this.snake.moveRight();
+      break;
+
+      case this.swipe.DIRECTION_UP:
+      this.snake.moveUp();
+      break;
+
+      case this.swipe.DIRECTION_DOWN:
+      this.snake.moveDown();
+      break;
+    }
+  }
+
+
+  if (this.snakeTwo.dead) return;
+  if (!this.inputEnabled) return;
+
+  if (input.y > this.game.height/2) {
+    if (this.controlsGroupTwo.visible) {
+      if (this.snake.next.x == 0 && this.snake.next.y == 0) {
+        this.controlsGroupTwo.forEach(function (letter) {
+          letter.text = '';
+        });
+        this.controlsGroupTwo.visible = false;
+      }    // this.startAppleTimer();
+    }
+
+    switch (input.direction) {
+      case this.swipe.DIRECTION_LEFT:
+      this.snakeTwo.moveLeft();
+      break;
+
+      case this.swipe.DIRECTION_RIGHT:
+      this.snakeTwo.moveRight();
+      break;
+
+      case this.swipe.DIRECTION_UP:
+      this.snakeTwo.moveUp();
+      break;
+
+      case this.swipe.DIRECTION_DOWN:
+      this.snakeTwo.moveDown();
+      break;
+    }
+  }
+
+  this.currentSwipe = null;
 };

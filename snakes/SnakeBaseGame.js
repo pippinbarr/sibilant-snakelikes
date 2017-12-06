@@ -412,6 +412,7 @@ BasicGame.SnakeBaseGame.prototype = {
     if (!this.inputEnabled) return;
 
     var d = this.swipe.check();
+    this.currentSwipe = d;
     if (!d) return;
 
     if (this.controlsGroup.visible) {
@@ -421,19 +422,19 @@ BasicGame.SnakeBaseGame.prototype = {
 
     switch (d.direction) {
       case this.swipe.DIRECTION_LEFT:
-      this.snake.left();
+      this.snake.moveLeft();
       break;
 
       case this.swipe.DIRECTION_RIGHT:
-      this.snake.right();
+      this.snake.moveRight();
       break;
 
       case this.swipe.DIRECTION_UP:
-      this.snake.up();
+      this.snake.moveUp();
       break;
 
       case this.swipe.DIRECTION_DOWN:
-      this.snake.down();
+      this.snake.moveDown();
       break;
     }
   },
