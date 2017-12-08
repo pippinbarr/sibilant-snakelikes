@@ -166,8 +166,9 @@ BasicGame.SnakeBaseGame.prototype = {
     for (var y = 0; y < this.NUM_ROWS; y++) {
       this.textGrid.push([]);
       for (var x = 0; x < this.NUM_COLS; x++) {
-        var char = this.game.add.bitmapText(GRID_SIZE*0.5 + x*GRID_SIZE, y*GRID_SIZE, 'atari','',this.FONT_SIZE,this.textGroup);
+        var char = this.game.add.bitmapText(GRID_SIZE*0.5 + x*GRID_SIZE, (y*GRID_SIZE)+GRID_SIZE/2, 'atari','',this.FONT_SIZE,this.textGroup);
         char.anchor.x = 0.5;
+        char.anchor.y = 0.5;
         char.tint = 0xffffff;
         char.scale.y = 24/this.FONT_SIZE;
         this.textGrid[y].push(char);
@@ -175,18 +176,26 @@ BasicGame.SnakeBaseGame.prototype = {
     }
   },
 
-  addTextToGrid(startX,startY,text,group,buttonGroup,callback,itemIndex) {
+  addTextToGrid(startX,startY,text,group,buttonGroup,callback,itemIndex,rotation) {
 
     var x = startX;
     var y = startY;
 
+    if (!rotation) rotation = 0;
+
     for (var i = 0; i < text.length; i++) {
-      x = startX;
+
+      if (rotation == 0 || rotation == Math.PI) x = startX;
+      else y = startY;
+
       for (var j = 0; j < text[i].length; j++) {
         this.textGrid[y][x].text = text[i].charAt(j).toUpperCase();
+        this.textGrid[y][x].rotation = rotation;
+
         if (group) {
           group.add(this.textGrid[y][x]);
         }
+
         if (buttonGroup) {
           var sprite = buttonGroup.create(x*GRID_SIZE,y*GRID_SIZE,'black');
           sprite.inputEnabled = true;
@@ -194,9 +203,36 @@ BasicGame.SnakeBaseGame.prototype = {
           sprite.events.onInputDown.add(callback,this);
           sprite.itemIndex = itemIndex;
         }
-        x++;
+
+        switch (rotation) {
+          case 0:
+          x++;
+          break;
+          case Math.PI/2:
+          y++;
+          break;
+          case Math.PI:
+          x--;
+          break;
+          case 3*Math.PI/2:
+          y--;
+          break;
+        }
       }
-      y++;
+      switch (rotation) {
+        case 0:
+        y++;
+        break;
+        case Math.PI/2:
+        x--;
+        break;
+        case Math.PI:
+        y--;
+        break;
+        case 3*Math.PI/2:
+        x++;
+        break;
+      }
     }
   },
 
@@ -393,12 +429,12 @@ BasicGame.SnakeBaseGame.prototype = {
   },
 
   hideControls: function () {
-    if (this.snake.next.x == 0 && this.snake.next.y == 0) {
+    // if (this.snake.next.x == 0 && this.snake.next.y == 0) {
       this.controlsGroup.forEach(function (letter) {
         letter.text = '';
       });
       this.controlsGroup.visible = false;
-    }
+    // }
   },
 
   startAppleTimer: function () {

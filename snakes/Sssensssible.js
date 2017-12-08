@@ -17,8 +17,6 @@ BasicGame.Sssensssible.prototype.constructor = BasicGame.Sssensssible;
 
 BasicGame.Sssensssible.prototype.create = function () {
 
-  this.CONTROLS_TWO_X = 8;
-  this.CONTROLS_TWO_Y = 23;
   this.GAME_TIME_TICK = 0.022;
   this.EXTRA_BODY_PIECES_PER_GOAL = 3;
 
@@ -29,10 +27,10 @@ BasicGame.Sssensssible.prototype.create = function () {
     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
     [0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0],
     [0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0],
     [0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
@@ -60,6 +58,8 @@ BasicGame.Sssensssible.prototype.create = function () {
     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
   ];
 
+  this.SNAKE_START_Y++;
+
   BasicGame.SnakeBaseGame.prototype.create.call(this);
 
   this.resetApple();
@@ -79,6 +79,8 @@ BasicGame.Sssensssible.prototype.create = function () {
 // Super + Creates another snake as the second player
 
 BasicGame.Sssensssible.prototype.createSnake = function() {
+
+
   BasicGame.SnakeBaseGame.prototype.createSnake.call(this);
 
   this.SNAKE_TWO_START_X = this.SNAKE_START_X;
@@ -119,13 +121,25 @@ BasicGame.Sssensssible.prototype.createInput = function () {
 // Override to display the two scores
 
 BasicGame.Sssensssible.prototype.setScoreText = function () {
-  var scoreString = this.score + " - " + this.scoreTwo;
-  if (scoreString.length < this.MAX_SCORE.toString().length) {
-    var spacesToAdd = (this.MAX_SCORE.toString().length - scoreString.length)+1;
-    scoreString = Array(spacesToAdd).join(" ") + scoreString;
-  }
-  this.addTextToGrid(this.scoreX-scoreString.length,this.scoreY,[scoreString]);
+  var scoreString = this.scoreTwo + " - " + this.score;
 
+  if (this.game.device.desktop) {
+    if (scoreString.length < this.MAX_SCORE.toString().length) {
+      var spacesToAdd = (this.MAX_SCORE.toString().length - scoreString.length)+1;
+      scoreString = Array(spacesToAdd).join(" ") + scoreString;
+    }
+    console.log(this.NUM_ROWS/2);
+    this.addTextToGrid(this.scoreX-scoreString.length,this.scoreY,[scoreString]);
+  } else {
+    if (scoreString.length < this.MAX_SCORE.toString().length) {
+      var spacesToAdd = (this.MAX_SCORE.toString().length - scoreString.length)+1;
+      scoreString = Array(spacesToAdd/2).join(" ") + scoreString + Array(spacesToAdd/2).join(" ");
+    }
+    console.log(scoreString.length);
+    this.addTextToGrid(1,this.NUM_ROWS/2+Math.floor(scoreString.length/2),[scoreString],null,null,null,null,3*Math.PI/2);
+    // this.addTextToGrid(1,10,[scoreString],null,null,null,null,3*Math.PI/2);
+
+  }
 };
 
 
@@ -134,19 +148,34 @@ BasicGame.Sssensssible.prototype.setScoreText = function () {
 // Super + Display controls for the second snake
 
 BasicGame.Sssensssible.prototype.createControls = function () {
+
+  if (!this.game.device.desktop) {
+    this.CONTROLS_X = 8;
+    this.CONTROLS_Y = 22;
+  }
+
   BasicGame.SnakeBaseGame.prototype.createControls.call(this);
 
   var controlsStrings2 = [];
+  this.controlsGroupTwo = this.game.add.group();
+
   if (this.game.device.desktop) {
+    this.CONTROLS_TWO_X = this.CONTROLS_X;
+    this.CONTROLS_TWO_Y = 23;
+
     controlsStrings2 = ["WASD","CONTROLS","SNAKE"];
+    this.addTextToGrid(this.CONTROLS_TWO_X,this.CONTROLS_TWO_Y,controlsStrings2,this.controlsGroupTwo);
   }
 
   else {
+    this.CONTROLS_TWO_X = 15;
+    this.CONTROLS_TWO_Y = 10;
+
     controlsStrings2 = ["SWIPES","CONTROL","SNAKE"];
+    // controlsStrings2 = ["WIPE"];
+    this.addTextToGrid(this.CONTROLS_TWO_X,this.CONTROLS_TWO_Y,controlsStrings2,this.controlsGroupTwo,null,null,null,Math.PI);
   }
 
-  this.controlsGroupTwo = this.game.add.group();
-  this.addTextToGrid(this.CONTROLS_TWO_X,this.CONTROLS_TWO_Y,controlsStrings2,this.controlsGroupTwo);
 },
 
 
@@ -183,7 +212,8 @@ BasicGame.Sssensssible.prototype.gameTimeTick = function () {
 BasicGame.Sssensssible.prototype.halfTime = function () {
   this.hideControls();
   this.hideControlsTwo();
-  this.addTextToGrid(7,16,["HALF-TIME"],this.textGroup);
+  this.addTextToGrid(7,18,["HALF-TIME"],this.textGroup);
+  this.addTextToGrid(15,14,["HALF-TIME"],this.textGroup,null,null,null,Math.PI);
   this.snake.dead = true;
   this.snakeTwo.dead = true;
   this.game.time.events.add(Phaser.Timer.SECOND * this.SNAKE_TICK * 30, function () {
@@ -199,7 +229,8 @@ BasicGame.Sssensssible.prototype.halfTime = function () {
 BasicGame.Sssensssible.prototype.fullTime = function () {
   this.hideControls();
   this.hideControlsTwo();
-  this.addTextToGrid(7,16,["FULL-TIME"],this.textGroup);
+  this.addTextToGrid(7,18,["FULL-TIME"],this.textGroup);
+  this.addTextToGrid(15,14,["FULL-TIME"],this.textGroup,null,null,null,Math.PI);
   this.snake.dead = true;
   this.snakeTwo.dead = true;
 };
@@ -246,8 +277,31 @@ BasicGame.Sssensssible.prototype.updateGameTimeText = function () {
 
   if (m < 10) m = "0" + m;
   if (s < 10) s = "0" + s;
-  this.addTextToGrid(1,this.scoreY,[m + ":" + s]);
+
+  var timeString = m + ":" + s;
+
+  if (this.game.device.desktop) {
+    this.addTextToGrid(1,this.scoreY,[timeString]);
+  } else {
+    this.addTextToGrid(this.NUM_COLS - 2,this.NUM_ROWS/2 - Math.floor(timeString.length/2),[timeString],null,null,null,null,Math.PI/2);
+  }
 };
+
+BasicGame.Sssensssible.prototype.createInstructions = function () {
+  var instructionsY = this.NUM_ROWS - 2;
+  var instructionsX = 2;
+
+  if (this.game.device.desktop) {
+    this.addTextToGrid(instructionsX,instructionsY,["R=RESTART M=MENU"],this.textGroup);
+  }
+  else {
+    this.addTextToGrid(instructionsX,instructionsY,["RESTART"],this.textGroup,this.instructionsButtonGroup,this.restart);
+    this.addTextToGrid(instructionsX+9,instructionsY,["MENU"],this.textGroup,this.instructionsButtonGroup,this.gotoMenu);
+    this.addTextToGrid(this.NUM_COLS-3,1,["RESTART"],this.textGroup,this.instructionsButtonGroup,this.restart,null,Math.PI);
+    this.addTextToGrid(this.NUM_COLS-12,1,["MENU"],this.textGroup,this.instructionsButtonGroup,this.gotoMenu,null,Math.PI);
+  }
+}
+
 
 
 // checkWallCollission
@@ -395,38 +449,54 @@ BasicGame.Sssensssible.prototype.checkAppleCollision = function () {
     this.scoreTwo++;
     this.snake.SNAKE_START_LENGTH += this.EXTRA_BODY_PIECES_PER_GOAL;
     this.snakeTwo.SNAKE_START_LENGTH += this.EXTRA_BODY_PIECES_PER_GOAL;
-    this.goal();
+    this.goal(true);
   }
   else if (!this.snake.dead && this.apple.position.y > 25 * GRID_SIZE && this.apple.position.y < 28 * GRID_SIZE && this.apple.position.x >= 8*GRID_SIZE && this.apple.position.x < 16*GRID_SIZE) {
     this.score++;
     this.snake.SNAKE_START_LENGTH += this.EXTRA_BODY_PIECES_PER_GOAL;
     this.snakeTwo.SNAKE_START_LENGTH += this.EXTRA_BODY_PIECES_PER_GOAL;
-    this.goal();
+    this.goal(false);
   }
 };
 
-BasicGame.Sssensssible.prototype.goal = function () {
+BasicGame.Sssensssible.prototype.goal = function (snakeOneScored) {
   this.setScoreText("");
   this.snake.dead = true;
   this.snakeTwo.dead = true;
   this.goalString = "GOOOOOOOOAAAAAAAAAL!!!";
   this.goalStringIndex = 0;
-  this.game.time.events.add(Phaser.Timer.SECOND * this.SNAKE_TICK * 0.25, this.goalText, this);
+
+  this.hideControls();
+  this.hideControlsTwo();
+
+  this.game.time.events.add(Phaser.Timer.SECOND * this.SNAKE_TICK * 0.25, this.goalText, this, snakeOneScored);
 };
 
-BasicGame.Sssensssible.prototype.goalText = function () {
+BasicGame.Sssensssible.prototype.goalText = function (snakeOneScored) {
   if (!this.appleSFX.loop) this.appleSFX.loopFull();
-  this.addTextToGrid(this.goalStringIndex + 1,16,[this.goalString.charAt(this.goalStringIndex)],this.textGroup);
+
+  if (!snakeOneScored) {
+    this.addTextToGrid(this.goalString.length - this.goalStringIndex,24,[this.goalString.charAt(this.goalStringIndex)],this.textGroup,null,null,null,Math.PI);
+  }
+  else {
+    this.addTextToGrid(this.goalStringIndex + 1,8,[this.goalString.charAt(this.goalStringIndex)],this.textGroup,null,null,null,0);
+  }
   this.goalStringIndex++;
   if (this.goalStringIndex < this.goalString.length) {
-    this.game.time.events.add(Phaser.Timer.SECOND * this.SNAKE_TICK * 0.25, this.goalText, this);
+    this.game.time.events.add(Phaser.Timer.SECOND * this.SNAKE_TICK * 0.25, this.goalText, this, snakeOneScored);
   }
   else {
     this.game.time.events.add(Phaser.Timer.SECOND * this.SNAKE_TICK * 15, function () {
       this.resetApple();
       this.resetSnakes();
-      this.addTextToGrid(0,16,["                        "],this.textGroup)
+      if (!snakeOneScored) {
+        this.addTextToGrid(0,24,["                        "],this.textGroup)
+      }
+      else {
+        this.addTextToGrid(0,8,["                        "],this.textGroup)
+      }
       this.appleSFX.stop();
+      this.appleSFX.loop = false;
     }, this);
   }
 };
@@ -463,12 +533,12 @@ BasicGame.Sssensssible.prototype.startAppleTimer = function () {
 // Handle hiding the second set of control instructions
 
 BasicGame.Sssensssible.prototype.hideControlsTwo = function () {
-  if (this.snakeTwo.next.x == 0 && this.snakeTwo.next.y == 0) {
+  // if (this.snakeTwo.next.x == 0 && this.snakeTwo.next.y == 0) {
     this.controlsGroupTwo.forEach(function (letter) {
       letter.text = '';
     });
     this.controlsGroupTwo.visible = false;
-  }
+  // }
 };
 
 
@@ -510,10 +580,7 @@ BasicGame.Sssensssible.prototype.handleTouchInput = function () {
 
 
   if (input.y < this.game.height/2) {
-    if (this.controlsGroup.visible) {
-      this.hideControls();
-      // this.startAppleTimer();
-    }
+    this.hideControlsTwo();
 
     switch (input.direction) {
       case this.swipe.DIRECTION_LEFT:
@@ -539,14 +606,7 @@ BasicGame.Sssensssible.prototype.handleTouchInput = function () {
   if (!this.inputEnabled) return;
 
   if (input.y > this.game.height/2) {
-    if (this.controlsGroupTwo.visible) {
-      if (this.snake.next.x == 0 && this.snake.next.y == 0) {
-        this.controlsGroupTwo.forEach(function (letter) {
-          letter.text = '';
-        });
-        this.controlsGroupTwo.visible = false;
-      }    // this.startAppleTimer();
-    }
+    this.hideControls();
 
     switch (input.direction) {
       case this.swipe.DIRECTION_LEFT:
