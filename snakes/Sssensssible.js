@@ -312,16 +312,22 @@ BasicGame.Sssensssible.prototype.createInstructions = function () {
 BasicGame.Sssensssible.prototype.checkWallCollision = function () {
   this.wallGroup.forEach(function (wall) {
     if (!this.snake.dead && this.snake.head.position.equals(wall.position)) {
-      this.snake.die();
+      this.killSnake(this.snake);
     }
     if (!this.snakeTwo.dead && this.snakeTwo.head.position.equals(wall.position)) {
-      this.snakeTwo.die();
-    }
-
-    if (this.snake.dead && this.snakeTwo.dead) {
-      return;
+      this.killSnake(this.snakeTwo);
     }
   },this);
+};
+
+
+BasicGame.Sssensssible.prototype.killSnake = function (snake) {
+  if (snake.dead) return;
+  snake.die();
+  this.game.time.events.add(Phaser.Timer.SECOND * this.SNAKE_TICK * 15,function () {
+    snake.reset()
+  },this);
+
 }
 
 
@@ -332,11 +338,15 @@ BasicGame.Sssensssible.prototype.checkWallCollision = function () {
 
 BasicGame.Sssensssible.prototype.checkBodyCollision = function () {
   this.snake.forEach(function (bit) {
+    if (this.snake.dead) return;
     if (!this.snake.dead && this.snake.head.position.equals(bit.position) && bit != this.snake.head) {
-      this.snake.die();
+      this.killSnake(this.snake);
     }
     if (!this.snakeTwo.dead && this.snakeTwo.head.position.equals(bit.position)) {
-      this.snakeTwo.die();
+      this.killSnake(this.snakeTwo);
+      if (bit == this.snake.head) {
+        this.killSnake(this.snake);
+      }
     }
 
     if (this.snake.dead && this.snakeTwo.dead) {
@@ -345,11 +355,15 @@ BasicGame.Sssensssible.prototype.checkBodyCollision = function () {
   },this);
 
   this.snakeTwo.forEach(function (bit) {
+    if (this.snakeTwo.dead) return;
     if (!this.snakeTwo.dead && this.snakeTwo.head.position.equals(bit.position) && bit != this.snakeTwo.head) {
-      this.snakeTwo.die();
+      this.killSnake(this.snakeTwo);
     }
     if (!this.snake.dead && this.snake.head.position.equals(bit.position)) {
-      this.snake.die();
+      this.killSnake(this.snake);
+      if (bit == this.snakeTwo.head) {
+        this.killSnake(this.snakeTwo);
+      }
     }
 
     if (this.snake.dead && this.snakeTwo.dead) {
@@ -385,21 +399,21 @@ BasicGame.Sssensssible.prototype.checkAppleCollision = function () {
 
     this.wallGroup.forEach(function (wall) {
       if (wall.position.equals(appleNext)) {
-        this.snake.die();
+        this.killSnake(this.snake);
         return;
       }
     },this);
 
     this.snake.forEach(function (bit) {
       if (bit.position.equals(appleNext)) {
-        this.snake.die();
+        this.killSnake(this.snake);
         return;
       }
     },this);
 
     this.snakeTwo.forEach(function (bit) {
       if (bit.position.equals(appleNext)) {
-        this.snake.die();
+        this.killSnake(this.snake);
         return;
       }
     },this);
@@ -418,21 +432,21 @@ BasicGame.Sssensssible.prototype.checkAppleCollision = function () {
 
     this.wallGroup.forEach(function (wall) {
       if (wall.position.equals(appleNext)) {
-        this.snakeTwo.die();
+        this.killSnake(this.snakeTwo);
         return;
       }
     },this);
 
     this.snake.forEach(function (bit) {
       if (bit.position.equals(appleNext)) {
-        this.snakeTwo.die();
+        this.killSnake(this.snakeTwo);
         return;
       }
     },this);
 
     this.snakeTwo.forEach(function (bit) {
       if (bit.position.equals(appleNext)) {
-        this.snakeTwo.die();
+        this.killSnake(this.snakeTwo);
         return;
       }
     },this);
