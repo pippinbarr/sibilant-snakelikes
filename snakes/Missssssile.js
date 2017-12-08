@@ -75,7 +75,7 @@ BasicGame.Missssssile.prototype.addMissile = function () {
 };
 
 BasicGame.Missssssile.prototype.checkSnakeMissileCollision = function () {
-
+  if (this.snake.dead) return;
   this.missiles.forEach(function (missile) {
     if (missile.dead) return;
     missile.forEach(function (missileBit) {

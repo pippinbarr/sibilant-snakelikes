@@ -91,6 +91,9 @@ BasicGame.Papersss.prototype.hideControls = function () {
 BasicGame.Papersss.prototype.tick = function () {
   BasicGame.SnakeBaseGame.prototype.tick.call(this);
 
+  this.checkSnakeImmigrantCollision();
+
+  if (this.snake.dead) return;
   if (this.snake.head.x < 0 || this.snake.head.x >= this.game.width || this.snake.head.y < 0 || this.snake.head.y >= this.game.height) {
     this.snake.die();
     if (this.immigrant) this.immigrant.stop();
@@ -114,7 +117,6 @@ BasicGame.Papersss.prototype.immigrantTick = function () {
     return;
   }
 
-
   this.immigrant.chaseLinear();
   this.immigrant.grow();
   this.immigrant.move();
@@ -136,15 +138,16 @@ BasicGame.Papersss.prototype.immigrantTick = function () {
 };
 
 BasicGame.Papersss.prototype.checkAppleCollision = function () {
-  this.apples.forEach(function (apple) {
-    if (this.snake.head.position.equals(apple.position)) {
-      this.apples.remove(apple);
-      this.snake.bodyPiecesToAdd = this.snake.NEW_BODY_PIECES_PER_APPLE;
-    }
-  },this);
+  // this.apples.forEach(function (apple) {
+  //   if (this.snake.head.position.equals(apple.position)) {
+  //     this.apples.remove(apple);
+  //     this.snake.bodyPiecesToAdd = this.snake.NEW_BODY_PIECES_PER_APPLE;
+  //   }
+  // },this);
 };
 
 BasicGame.Papersss.prototype.checkWallCollision = function () {
+  if (this.snake.dead) return;
   this.wallGroup.forEach(function (wall) {
     if (this.snake.head.position.equals(wall.position) && !this.snake.dead) {
       this.snake.die();
@@ -156,12 +159,16 @@ BasicGame.Papersss.prototype.checkWallCollision = function () {
 },
 
 BasicGame.Papersss.prototype.checkSnakeImmigrantCollision = function () {
+
+  if (!this.immigrant) return;
   if (this.immigrant.dead || this.snake.dead || !this.immigrant.target) return;
+  // if (this.immigrant.dead || this.snake.dead) return;
 
   this.immigrant.forEach(function (bit) {
-    if (this.snake.head.position.equals(bit.position)) {
+    if (this.snake.head.position.equals(bit.world)) {
+      console.log("Death during immigrant loop");
       this.snake.die();
-      if (this.immigrant) this.immigrant.stop();
+      this.immigrant.stop();
       this.game.time.events.add(Phaser.Timer.SECOND * this.SNAKE_TICK * 10,this.gameOver,this);
       if (bit == this.immigrant.head) {
         this.immigrant.die();
@@ -172,11 +179,12 @@ BasicGame.Papersss.prototype.checkSnakeImmigrantCollision = function () {
   if (this.immigrant.dead || this.snake.dead) return;
 
   this.snake.forEach(function (bit) {
-    if (this.immigrant.head.position.equals(bit.position)) {
+    if (this.immigrant.head.position.equals(bit.world)) {
+      console.log("Death during snake loop");
       this.immigrant.die();
       if (bit == this.snake.head) {
         this.snake.die();
-        if (this.immigrant) this.immigrant.stop();
+        this.immigrant.stop();
         this.game.time.events.add(Phaser.Timer.SECOND * this.SNAKE_TICK * 10,this.gameOver,this);
       }
       else {
@@ -187,7 +195,6 @@ BasicGame.Papersss.prototype.checkSnakeImmigrantCollision = function () {
           this.addToScore(this.APPLE_SCORE);
           this.chanceForNewRules += this.DIFFICULTY_INCREMENT;
         }
-        this.immigrant.die();
         this.resetImmigrant();
       }
     }

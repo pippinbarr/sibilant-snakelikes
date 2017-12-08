@@ -373,6 +373,7 @@ BasicGame.SnakeBaseGame.prototype = {
   },
 
   checkWallCollision: function () {
+    if (this.snake.dead) return;
     this.wallGroup.forEach(function (wall) {
       if (this.snake.head.position.equals(wall.position) && !this.snake.dead) {
         this.die();
@@ -432,10 +433,10 @@ BasicGame.SnakeBaseGame.prototype = {
 
   hideControls: function () {
     // if (this.snake.next.x == 0 && this.snake.next.y == 0) {
-      this.controlsGroup.forEach(function (letter) {
-        letter.text = '';
-      });
-      this.controlsGroup.visible = false;
+    this.controlsGroup.forEach(function (letter) {
+      letter.text = '';
+    });
+    this.controlsGroup.visible = false;
     // }
   },
 

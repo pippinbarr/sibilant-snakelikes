@@ -49,6 +49,7 @@
 
 ### Papersss, Pleassse
 
+- ~~BUG: Can pass through some snake tails (in some directions??)~~
 - ~~ADD: Play apple sound on successful immigration (they eat it!)~~
 - ~~BUG: Audio dies?~~
 - ~~__NOT REALLY__ BUG: Immigrant too fast on start?~~
@@ -64,7 +65,6 @@
 - ~~And generating combinations~~
 
 ### Missssssile Command
-
 
 - ~~Add difficulty increase over time = more missiles per tick~~
 - ~~__ACTUALLY, NO, SINCE WE DON'T WANT THE SNAKE TO GET ARBITRARILY LONGER OR THE GAME WILL BECOME TRIVIAL__ Add those other objects that can move across the screen (oh shit, THOSE can make you longer obviously ha ha ha design in the todos sorry)~~
