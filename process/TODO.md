@@ -87,6 +87,9 @@
 
 - Done?
 
+- ~~OOPS: Was displaying an upside down half-time and full-time in desktop~~
+- ~~BUG: Half time isn't ending~~
+- ~~BUG: On each restart the snakes move a unit closer to the center???~~
 - ~~"BUG": Snakes collided with one another and the game didn't reset, may not have implemented resets??? Idiot?~~
 - ~~__ENDED UP WITH SCORE ON LEFT, TIME ON BOTTOM, AND INDIVIDUAL RESTART/MENU BUTTONS FOR EACH PLAYER, ORIENTED APPROPRIATELY__ It would be nice to display the score on the side? And reset/menu on the other side?~~
 - ~~The instructions for the top snake should be upside down to imply orientation? Just how painful might this turn out to be? (Probably not so bad? Maybe move the gooooooal to occur near the goal in question - and also flipped/oriented appropriately... hacky but it'll work I think?)~~

@@ -58,8 +58,6 @@ BasicGame.Sssensssible.prototype.create = function () {
     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
   ];
 
-  this.SNAKE_START_Y++;
-
   BasicGame.SnakeBaseGame.prototype.create.call(this);
 
   this.resetApple();
@@ -151,7 +149,7 @@ BasicGame.Sssensssible.prototype.createControls = function () {
 
   if (!this.game.device.desktop) {
     this.CONTROLS_X = 8;
-    this.CONTROLS_Y = 22;
+    this.CONTROLS_Y = 23;
   }
 
   BasicGame.SnakeBaseGame.prototype.createControls.call(this);
@@ -169,7 +167,7 @@ BasicGame.Sssensssible.prototype.createControls = function () {
 
   else {
     this.CONTROLS_TWO_X = 15;
-    this.CONTROLS_TWO_Y = 10;
+    this.CONTROLS_TWO_Y = 9;
 
     controlsStrings2 = ["SWIPES","CONTROL","SNAKE"];
     // controlsStrings2 = ["WIPE"];
@@ -212,13 +210,21 @@ BasicGame.Sssensssible.prototype.gameTimeTick = function () {
 BasicGame.Sssensssible.prototype.halfTime = function () {
   this.hideControls();
   this.hideControlsTwo();
-  this.addTextToGrid(7,18,["HALF-TIME"],this.textGroup);
-  this.addTextToGrid(15,14,["HALF-TIME"],this.textGroup,null,null,null,Math.PI);
+  if (this.game.device.desktop) {
+    this.addTextToGrid(7,14,["HALF-TIME"],this.textGroup);
+  }
+  else {
+    this.addTextToGrid(7,18,["HALF-TIME"],this.textGroup);
+    this.addTextToGrid(15,14,["HALF-TIME"],this.textGroup,null,null,null,Math.PI);
+  }
   this.snake.dead = true;
   this.snakeTwo.dead = true;
   this.game.time.events.add(Phaser.Timer.SECOND * this.SNAKE_TICK * 30, function () {
     this.gameTimeTicker.add(Phaser.Timer.SECOND * this.GAME_TIME_TICK, this.gameTimeTick, this);
-    this.addTextToGrid(7,16,["         "],this.textGroup);
+    this.addTextToGrid(7,14,["            "],this.textGroup);
+    if (!this.game.device.desktop) {
+      this.addTextToGrid(7,18,["            "],this.textGroup);
+    }
     this.snake.reset();
     this.snakeTwo.reset();
     this.resetApple();
@@ -229,8 +235,13 @@ BasicGame.Sssensssible.prototype.halfTime = function () {
 BasicGame.Sssensssible.prototype.fullTime = function () {
   this.hideControls();
   this.hideControlsTwo();
-  this.addTextToGrid(7,18,["FULL-TIME"],this.textGroup);
-  this.addTextToGrid(15,14,["FULL-TIME"],this.textGroup,null,null,null,Math.PI);
+  if (this.game.device.desktop) {
+    this.addTextToGrid(7,14,["FULL-TIME"],this.textGroup);
+  }
+  else {
+    this.addTextToGrid(7,18,["FULL-TIME"],this.textGroup);
+    this.addTextToGrid(15,14,["FULL-TIME"],this.textGroup,null,null,null,Math.PI);
+  }
   this.snake.dead = true;
   this.snakeTwo.dead = true;
 };
@@ -548,10 +559,10 @@ BasicGame.Sssensssible.prototype.startAppleTimer = function () {
 
 BasicGame.Sssensssible.prototype.hideControlsTwo = function () {
   // if (this.snakeTwo.next.x == 0 && this.snakeTwo.next.y == 0) {
-    this.controlsGroupTwo.forEach(function (letter) {
-      letter.text = '';
-    });
-    this.controlsGroupTwo.visible = false;
+  this.controlsGroupTwo.forEach(function (letter) {
+    letter.text = '';
+  });
+  this.controlsGroupTwo.visible = false;
   // }
 };
 

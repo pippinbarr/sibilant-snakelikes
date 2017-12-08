@@ -67,6 +67,7 @@ BasicGame.SnakeBaseGame.prototype = {
 
 
   create: function () {
+
     // console.log(this.map);
     this.textGrid = [];
     this.dead = false;
