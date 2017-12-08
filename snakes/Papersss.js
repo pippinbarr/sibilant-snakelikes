@@ -44,10 +44,12 @@ BasicGame.Papersss.prototype.create = function () {
   ];
 
   this.SNAKE_START_Y = 18;
+  this.immigrantGroup = this.game.add.group();
+
 
   BasicGame.SnakeBaseGame.prototype.create.call(this);
 
-  this.game.sound.mute = true;
+  // this.game.sound.mute = true;
 
   // this.snake.y = (this.WALL_BOTTOM)*GRID_SIZE;
 
@@ -64,7 +66,6 @@ BasicGame.Papersss.prototype.create = function () {
   this.immigrantTicker.start();
 
   this.immigrant = null;
-  this.createImmigrant();
 
   this.generateRules();
   this.displayRules();
@@ -79,6 +80,12 @@ BasicGame.Papersss.prototype.create = function () {
 
 BasicGame.Papersss.prototype.update = function () {
   BasicGame.SnakeBaseGame.prototype.update.call(this);
+};
+
+BasicGame.Papersss.prototype.hideControls = function () {
+  BasicGame.SnakeBaseGame.prototype.hideControls.call(this);
+  this.createImmigrant();
+
 };
 
 BasicGame.Papersss.prototype.tick = function () {
@@ -116,9 +123,11 @@ BasicGame.Papersss.prototype.immigrantTick = function () {
     if (this.checkRules()) {
       this.addToScore(this.APPLE_SCORE);
       this.chanceForNewRules += this.DIFFICULTY_INCREMENT;
+      this.appleSFX.play();
     }
     else {
       this.addToScore(-this.APPLE_SCORE);
+      this.appleSFX.play();
     }
     this.resetImmigrant();
   }
@@ -405,5 +414,5 @@ BasicGame.Papersss.prototype.createImmigrant = function () {
     this.IMMIGRANT_TICK = this.SNAKE_TICK;
   };
 
-  this.game.add.sprite(this.immigrant);
+  this.immigrantGroup.add(this.immigrant);
 };

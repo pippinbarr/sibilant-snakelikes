@@ -48,8 +48,10 @@
 
 ### Papersss, Pleassse
 
-- Done?
-
+- ~~ADD: Play apple sound on successful immigration (they eat it!)~~
+- ~~BUG: Audio dies?~~
+- ~~__NOT REALLY__ BUG: Immigrant too fast on start?~~
+- ~~BUG: Immigrants in foreground of snake~~
 - ~~__LEANING TO NO__ Add other outside snakes?~~
 - ~~Add 'difficulty' < This can be implemented by changing the rate at which the rules change~~
 - ~~Add actual game overs~~
