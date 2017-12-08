@@ -161,6 +161,8 @@ BasicGame.Ssshadow.prototype.colossusMove = function () {
 
   // Go through every bit in the colossus to check collisions
   this.colossus.forEach(function (colossusBit) {
+    if (!canMove) return;
+
     // Calculate the position this bit in the colossus would be in if you moved it up
     var newPosition = new Phaser.Point(colossusBit.world.x,colossusBit.world.y);
     newPosition.x += move.x;

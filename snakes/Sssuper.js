@@ -155,6 +155,32 @@ BasicGame.Sssuper.prototype.handleKeyboardInput = function () {
   }
 };
 
+
+BasicGame.Sssuper.prototype.handleTouchInput = function () {
+  if (this.snake.dead) return;
+  if (!this.inputEnabled) return;
+
+  var d = this.swipe.check();
+  this.currentSwipe = d;
+  if (!d) return;
+
+  if (this.controlsGroup.visible) {
+    this.hideControls();
+    this.startAppleTimer();
+  }
+
+  switch (d.direction) {
+    case this.swipe.DIRECTION_LEFT:
+    this.snake.moveLeft();
+    break;
+
+    case this.swipe.DIRECTION_RIGHT:
+    this.snake.moveRight();
+    break;
+  }
+};
+
+
 // Overrides to avoid default behaviour
 
 BasicGame.Sssuper.prototype.createWalls = function () {
