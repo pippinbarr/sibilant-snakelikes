@@ -363,6 +363,7 @@ BasicGame.SnakeBaseGame.prototype = {
   },
 
   checkBodyCollision: function () {
+    if (this.snake.dead) return;
     this.snake.forEach(function (bit) {
       if (this.snake.head.position.equals(bit.position) && bit != this.snake.head) {
         this.die();

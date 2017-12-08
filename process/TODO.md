@@ -30,9 +30,11 @@
 - ~~Need to think about nicer timings (it's very abrupt!)~~
 - ~~Make it~~
 
-### Msss. Pacman
+### Base
 
-- Done?
+- ~~Self collision loops collision sound~~
+
+### Msss. Pacman
 
 - ~~Still need a game over~~
 - ~~Only start adding ghosts when the snake starts moving~~
@@ -44,7 +46,6 @@
 
 ### Sssuper Mario Brosss.
 
-- Done?
 
 ### Papersss, Pleassse
 
@@ -64,7 +65,6 @@
 
 ### Missssssile Command
 
-- Done?
 
 - ~~Add difficulty increase over time = more missiles per tick~~
 - ~~__ACTUALLY, NO, SINCE WE DON'T WANT THE SNAKE TO GET ARBITRARILY LONGER OR THE GAME WILL BECOME TRIVIAL__ Add those other objects that can move across the screen (oh shit, THOSE can make you longer obviously ha ha ha design in the todos sorry)~~
@@ -80,7 +80,6 @@
 
 ### Minesssweeper
 
-- Done?
 
 - ~~Need to fix up text display in all scenarios (another text grid?)~~
 - ~~Work out the horrible algorithm for auto-clearing tiles and marking with the number of bombs they are next to~~
@@ -90,8 +89,7 @@
 
 ### Sssensssible Sssoccer
 
-- Done?
-
+- ~~BUG: Need to cancel looping apple sound (or just eliminate that with a single apple...)~~
 - ~~OOPS: Was displaying an upside down half-time and full-time in desktop~~
 - ~~BUG: Half time isn't ending~~
 - ~~BUG: On each restart the snakes move a unit closer to the center???~~
@@ -118,8 +116,7 @@
 
 ### Ssshadow of the Colossssssusss
 
-- Done?
-
+- ~~Colossus "favours" bottom right (should probably always move every tick if possible)~~
 - ~~Add win condition (what will this be like? "BUT AT WHAT COST?!?!?!")~~
   - ~~In Shadow there's that swirling soul thing... something like that... black smoke... vanishes into black (change alpha?)... tendrils hit the avatar... he collapses...~~
 - ~~Make winning actually register~~

@@ -141,22 +141,29 @@ BasicGame.Ssshadow.prototype.createColossus = function () {
 
 BasicGame.Ssshadow.prototype.colossusMove = function () {
 
-  // Only move sometimes
-  // if (Math.random() > this.colossusMoveChance) return;
+  var moves = [
+    {x:GRID_SIZE,y:0},
+    {x:-GRID_SIZE,y:0},
+    {x:0,y:GRID_SIZE},
+    {x:0,y:-GRID_SIZE}
+  ]
 
-  // Generate a random move in both directions
-  var move = {
-    x: Math.floor(-1 + Math.random() * 3) * GRID_SIZE,
-    y: Math.floor(-1 + Math.random() * 3) * GRID_SIZE
-  };
+  var legalMoves = [];
+  moves.forEach(function (move) {
+    if (this.checkColossusMove(move)) {
+      legalMoves.push(move);
+    }
+  },this);
 
-  // If colossus would move on both axes, zero one out so it moves
-  // like the snake does (no diagonals)
-  if (move.x != 0 && move.y != 0) {
-    if (Math.random() < 0.5) move.x = 0;
-    else move.y = 0;
-  }
+  if (legalMoves.length == 0) return;
 
+  var move = legalMoves[Math.floor(Math.random() * legalMoves.length)];
+
+  this.colossus.x += move.x;
+  this.colossus.y += move.y;
+};
+
+BasicGame.Ssshadow.prototype.checkColossusMove = function (move) {
   var canMove = true;
 
   // Go through every bit in the colossus to check collisions
@@ -195,13 +202,8 @@ BasicGame.Ssshadow.prototype.colossusMove = function () {
     if (!canMove) return;
   },this);
 
-  // Check if the colossus can actually move after all that
-  if (canMove) {
-    // Move it!
-    this.colossus.x += move.x;
-    this.colossus.y += move.y;
-  }
-};
+  return canMove;
+}
 
 BasicGame.Ssshadow.prototype.checkAppleCollision = function () {
   // Check if the snake's head is over the apple

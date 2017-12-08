@@ -498,7 +498,7 @@ BasicGame.Sssensssible.prototype.goal = function (snakeOneScored) {
 };
 
 BasicGame.Sssensssible.prototype.goalText = function (snakeOneScored) {
-  if (!this.appleSFX.loop) this.appleSFX.loopFull();
+  this.appleSFX.play();
 
   if (!snakeOneScored) {
     this.addTextToGrid(this.goalString.length - this.goalStringIndex,24,[this.goalString.charAt(this.goalStringIndex)],this.textGroup,null,null,null,Math.PI);
@@ -508,7 +508,7 @@ BasicGame.Sssensssible.prototype.goalText = function (snakeOneScored) {
   }
   this.goalStringIndex++;
   if (this.goalStringIndex < this.goalString.length) {
-    this.game.time.events.add(Phaser.Timer.SECOND * this.SNAKE_TICK * 0.25, this.goalText, this, snakeOneScored);
+    this.game.time.events.add(Phaser.Timer.SECOND * this.SNAKE_TICK * 0.5, this.goalText, this, snakeOneScored);
   }
   else {
     this.game.time.events.add(Phaser.Timer.SECOND * this.SNAKE_TICK * 15, function () {
