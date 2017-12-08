@@ -18,7 +18,7 @@ Snake = function (game,x,y) {
   this.tint = 0xffffff;
 
   this.hitSFX = this.game.add.audio('hit',0.2);
-  this.moveSFX = this.game.add.audio('move',0.2);
+  this.moveSFX = this.game.add.audio('move',0.5);
 
   this.bits = [];
   this.start = new Phaser.Point(x,y);

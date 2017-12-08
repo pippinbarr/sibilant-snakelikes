@@ -269,7 +269,7 @@ BasicGame.Sssensssible.prototype.tick = function () {
 
 BasicGame.Sssensssible.prototype.wrapApple = function () {
   if (this.apple.x >= this.game.width) {
-    this.head.x = 0;
+    this.apple.x = 0;
   }
   else if (this.apple.x < 0) {
     this.apple.x = this.game.width - GRID_SIZE;

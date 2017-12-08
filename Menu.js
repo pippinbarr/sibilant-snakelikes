@@ -62,6 +62,7 @@ BasicGame.Menu.prototype.create = function () {
 
 	this.snake.head.y = games[this.currentItem].y*GRID_SIZE;
 
+	this.snake.moveSFX.volume = 0;
 };
 
 BasicGame.Menu.prototype.tick = function () {
@@ -156,7 +157,6 @@ BasicGame.Menu.prototype.menuItemTouched = function (item) {
 
 	this.currentItem = item.itemIndex;
 	this.snake.head.y = games[this.currentItem].y*GRID_SIZE;
-	console.log(this.snake.head.y);
 
 	this.selectMenuItem();
 };
@@ -165,13 +165,12 @@ BasicGame.Menu.prototype.selectMenuItem = function () {
 	this.snake.next = new Phaser.Point(GRID_SIZE,0);
 	this.selected = games[this.currentItem].class;
 	this.appleSFX.play();
-	console.log(this.snake.head.x);
 
 	for (var i = 1; i < games[this.currentItem].name.length; i++) {
 		var snake = new Snake(this.game,this.snake.x/GRID_SIZE - i*3,games[this.currentItem].y+i);
 		snake.next = new Phaser.Point(GRID_SIZE,0);
 		this.snakes.add(snake);
-		console.log(snake.head.x);
+		snake.moveSFX.volume = 0;
 	}
 };
 
@@ -180,8 +179,6 @@ BasicGame.Menu.prototype.checkMenuCollision = function () {
 	this.snakes.forEach(function (snake) {
 		if (snake.head.x >= this.game.width) return;
 		if (snake.head.x < 0) return;
-
-		console.log(snake.head.x);
 
 		var x = snake.head.x/GRID_SIZE;
 		var y = snake.head.y/GRID_SIZE;

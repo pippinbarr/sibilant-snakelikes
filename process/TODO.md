@@ -15,16 +15,19 @@
 
 ## TO-DO
 
+### AUDIO
+
+- ~~FIX the hideous popping sound of movement at fast ticks~~
+
 ### TOUCH/MOBILE
 
-- Test what it looks like
-- Test swipe controls in different games
-- Add two player swipe controls to Sssensssible
+- ~~Test what it looks like~~
+- ~~Test swipe controls in different games~~
+- ~~Add two player swipe controls to Sssensssible~~
 
 ### Menu
 
 - ~~Need to think about nicer timings (it's very abrupt!)~~
-
 - ~~Make it~~
 
 ### Msss. Pacman
@@ -125,6 +128,4 @@
 - ~~Make colossus move~~
 - ~~Get the colossus displaying~~
 - ~~Get basic Snake working~~
-
-- BUGS
-  - ~~It is possible to pass through the colossus if it moves in the opposite direction to you (e.g. up as you come down) at least for one tile amounts~~
+- ~~BUG: It is possible to pass through the colossus if it moves in the opposite direction to you (e.g. up as you come down) at least for one tile amounts~~
