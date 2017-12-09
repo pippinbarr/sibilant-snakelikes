@@ -83,7 +83,7 @@ BasicGame.Menu.prototype.createMenu = function () {
 	y = menuTop;
 
 	for (var i = 0; i < games.length; i++) {
-		this.addTextToGrid(x,y,games[i].name,this.textGroup,this.menuButtons,this.menuItemTouched,i);
+		this.addTextToGrid(x,y,games[i].name,null,this.menuButtons,this.menuItemTouched,i);
 		games[i].x = x;
 		games[i].y = y;
 		y += games[i].name.length + 1;
@@ -121,7 +121,7 @@ BasicGame.Menu.prototype.update = function () {
 				window.location = "http://www.pippinbarr.com/";
 			}
 			else {
-				this.game.time.events.add(Phaser.Timer.SECOND * 1, function () {
+				this.game.time.events.add(Phaser.Timer.SECOND * this.SNAKE_TICK * 32, function () {
 					this.game.state.start(games[this.currentItem].class);
 				},this);
 			}

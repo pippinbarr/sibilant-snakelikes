@@ -72,7 +72,7 @@ BasicGame.Papersss.prototype.create = function () {
   this.DIFFICULTY_INCREMENT = 0.0125;
   this.chanceForNewRules = 0.02;
 
-  this.NEXT_IMMIGRANT_DELAY_TICKS = 40;
+  this.NEXT_IMMIGRANT_DELAY_TICKS = 30;
 
   // Name the state for resetting purposes
   this.stateName = "Papersss";
@@ -85,7 +85,6 @@ BasicGame.Papersss.prototype.update = function () {
 BasicGame.Papersss.prototype.hideControls = function () {
   BasicGame.SnakeBaseGame.prototype.hideControls.call(this);
   this.createImmigrant();
-
 };
 
 BasicGame.Papersss.prototype.tick = function () {
@@ -113,15 +112,11 @@ BasicGame.Papersss.prototype.immigrantTick = function () {
     return;
   }
 
-  if (this.immigrant.target == null) {
-    return;
-  }
-
-  this.immigrant.chaseLinear();
+  if (this.immigrant.target) this.immigrant.chaseLinear();
   this.immigrant.grow();
   this.immigrant.move();
 
-  if (this.immigrant.head.position.equals(this.immigrant.target.position)) {
+  if (this.immigrant.target != null && this.immigrant.head.position.equals(this.immigrant.target.position)) {
     if (this.checkRules()) {
       this.addToScore(this.APPLE_SCORE);
       this.chanceForNewRules += this.DIFFICULTY_INCREMENT;
@@ -131,6 +126,9 @@ BasicGame.Papersss.prototype.immigrantTick = function () {
       this.addToScore(-this.APPLE_SCORE);
       this.appleSFX.play();
     }
+    this.immigrant.target = null;
+    this.immigrant.next.x = GRID_SIZE;
+  } else if (this.immigrant.target == null && this.immigrant.head.x > this.game.width + this.immigrant.length*GRID_SIZE) {
     this.resetImmigrant();
   }
 
@@ -161,15 +159,15 @@ BasicGame.Papersss.prototype.checkWallCollision = function () {
 BasicGame.Papersss.prototype.checkSnakeImmigrantCollision = function () {
 
   if (!this.immigrant) return;
-  if (this.immigrant.dead || this.snake.dead || !this.immigrant.target) return;
+
+  if (this.immigrant.dead || this.snake.dead) return;
   // if (this.immigrant.dead || this.snake.dead) return;
 
   this.immigrant.forEach(function (bit) {
     if (this.snake.head.position.equals(bit.world)) {
-      console.log("Death during immigrant loop");
       this.snake.die();
       this.immigrant.stop();
-      this.game.time.events.add(Phaser.Timer.SECOND * this.SNAKE_TICK * 10,this.gameOver,this);
+      this.game.time.events.add(Phaser.Timer.SECOND * this.SNAKE_TICK * 12,this.gameOver,this);
       if (bit == this.immigrant.head) {
         this.immigrant.die();
       }
@@ -180,12 +178,11 @@ BasicGame.Papersss.prototype.checkSnakeImmigrantCollision = function () {
 
   this.snake.forEach(function (bit) {
     if (this.immigrant.head.position.equals(bit.world)) {
-      console.log("Death during snake loop");
       this.immigrant.die();
       if (bit == this.snake.head) {
         this.snake.die();
-        this.immigrant.stop();
-        this.game.time.events.add(Phaser.Timer.SECOND * this.SNAKE_TICK * 10,this.gameOver,this);
+        // this.immigrant.stop();
+        this.game.time.events.add(Phaser.Timer.SECOND * this.SNAKE_TICK * 12,this.gameOver,this);
       }
       else {
         if (this.checkRules()) {
@@ -195,30 +192,43 @@ BasicGame.Papersss.prototype.checkSnakeImmigrantCollision = function () {
           this.addToScore(this.APPLE_SCORE);
           this.chanceForNewRules += this.DIFFICULTY_INCREMENT;
         }
-        this.resetImmigrant();
+        this.game.time.events.add(Phaser.Timer.SECOND * this.SNAKE_TICK * 12,this.resetImmigrant,this);
       }
     }
   },this);
 };
 
 
-BasicGame.Papersss.prototype.resetImmigrant = function () {
-  if (!this.immigrant.target) return;
 
-  this.immigrant.target.destroy();
-  this.immigrant.target = null;
+
+
+
+BasicGame.Papersss.prototype.resetImmigrant = function () {
+  // if (!this.immigrant.target) return;
+
+  if (this.snake.dead) return;
 
   // Need to start a new immigrant after a delay
-  this.game.time.events.add(Phaser.Timer.SECOND * this.IMMIGRANT_TICK * 5,function () {
+  // this.game.time.events.add(Phaser.Timer.SECOND * this.IMMIGRANT_TICK * 5,function () {
+    // if (!this.immigrant) return;
+
+    if (this.immigrant.target) this.immigrant.target.destroy();
+    this.immigrant.target = null;
+
     this.immigrant.destroy();
     this.immigrant = null;
+
     if (Math.random() < this.chanceForNewRules) {
       this.generateRules();
       this.displayRules();
     }
-  },this);
+  // },this);
+  // if (!this.immigrant) return;
+
   this.game.time.events.add(Phaser.Timer.SECOND * this.SNAKE_TICK * this.NEXT_IMMIGRANT_DELAY_TICKS,function () {
-    this.createImmigrant();
+    if (this.immigrant == null) {
+      this.createImmigrant();
+    }
   },this);
 };
 
@@ -365,17 +375,20 @@ BasicGame.Papersss.prototype.generateRules = function () {
 };
 
 BasicGame.Papersss.prototype.displayRules = function () {
-  this.addTextToGrid(2,24,["RULES:"],this.textGroup);
-  this.addTextToGrid(2,25,["                    ","                    ","                    "],this.textGroup);
-  this.addTextToGrid(2,25,[this.lengthRule.number + " " + this.lengthRule.quality + " SNAKES"],this.textGroup);
-  this.addTextToGrid(2,26,[this.colourRule.number + " " + this.colourRule.quality + " SNAKES"],this.textGroup);
-  this.addTextToGrid(2,27,[this.speedRule.number + " " + this.speedRule.quality + " SNAKES"],this.textGroup);
+  this.addTextToGrid(2,24,["RULES:"]);
+  this.addTextToGrid(2,25,["                    ","                    ","                    "]);
+  this.addTextToGrid(2,25,[this.lengthRule.number + " " + this.lengthRule.quality + " SNAKES"]);
+  this.addTextToGrid(2,26,[this.colourRule.number + " " + this.colourRule.quality + " SNAKES"]);
+  this.addTextToGrid(2,27,[this.speedRule.number + " " + this.speedRule.quality + " SNAKES"]);
 };
 
 
 BasicGame.Papersss.prototype.createImmigrant = function () {
+  if (this.snake.dead) return;
+  
   this.immigrant = new Snake(this.game,-1,this.WALL_TOP + 10);
-  this.immigrantApple = this.game.add.sprite(this.game.width + 10*GRID_SIZE,(this.WALL_TOP + 10)*GRID_SIZE,'apple');
+  // this.immigrantApple = this.game.add.sprite(this.game.width + 10*GRID_SIZE,(this.WALL_TOP + 10)*GRID_SIZE,'apple');
+  this.immigrantApple = this.game.add.sprite(this.game.width + GRID_SIZE,(this.WALL_TOP + 10)*GRID_SIZE,'apple');
   this.immigrant.target = this.immigrantApple;
 
   // LENGTH

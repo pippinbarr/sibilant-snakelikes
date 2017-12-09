@@ -36,6 +36,7 @@
 
 ### Msss. Pacman
 
+- ~~Brighten visuals to make walls clearer?~~
 - ~~Still need a game over~~
 - ~~Only start adding ghosts when the snake starts moving~~
 - ~~Handle win state on all pellets eaten (just reset the game but keep the score right?)~~
@@ -46,9 +47,11 @@
 
 ### Sssuper Mario Brosss.
 
+- ~~Goomba as snake (killing you) instead of apple? Doesn't really make sense as an 'object of desire' - that would be a coin.~~
 
 ### Papersss, Pleassse
 
+- ~~Move target apple closer to edge and have immigrant continue after eating it?~~
 - ~~BUG: Can pass through some snake tails (in some directions??)~~
 - ~~ADD: Play apple sound on successful immigration (they eat it!)~~
 - ~~BUG: Audio dies?~~
@@ -66,6 +69,10 @@
 
 ### Missssssile Command
 
+- ~~There's an annoying pause before missile eat apple, plus it's in background? Or is it just that it's in background?~~
+- ~~Increase frequency of missiles so it's not boring~~
+- ~~Move snake and instructions down screen to associate with apples~~
+- ~~Add "DEFEND APPLES" to instructions since that is legitimately in the game's instructions
 - ~~Add difficulty increase over time = more missiles per tick~~
 - ~~__ACTUALLY, NO, SINCE WE DON'T WANT THE SNAKE TO GET ARBITRARILY LONGER OR THE GAME WILL BECOME TRIVIAL__ Add those other objects that can move across the screen (oh shit, THOSE can make you longer obviously ha ha ha design in the todos sorry)~~
 - ~~Add proper game over for end of apples or snake death~~
@@ -79,7 +86,6 @@
 - ~~Need a score~~
 
 ### Minesssweeper
-
 
 - ~~Need to fix up text display in all scenarios (another text grid?)~~
 - ~~Work out the horrible algorithm for auto-clearing tiles and marking with the number of bombs they are next to~~

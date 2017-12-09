@@ -64,6 +64,9 @@ BasicGame.SnakeBaseGame.prototype = {
 
   wallGroup: null,
   apple: null,
+  CONTROLS_X: 8,
+  CONTROLS_Y: 7,
+  controls: [],
 
 
   create: function () {
@@ -75,9 +78,6 @@ BasicGame.SnakeBaseGame.prototype = {
     this.inputEnabled = true;
 
     this.setupGridDimensions();
-
-    this.CONTROLS_X = 8;
-    this.CONTROLS_Y = 7;
 
     this.instructionsButtonGroup = this.game.add.group();
 
@@ -155,7 +155,6 @@ BasicGame.SnakeBaseGame.prototype = {
 
   createTexts: function () {
     this.instructionsGroup = this.game.add.group();
-    this.controlsGroup = this.game.add.group();
 
     this.createTextGrid();
     this.createInstructions();
@@ -177,7 +176,7 @@ BasicGame.SnakeBaseGame.prototype = {
     }
   },
 
-  addTextToGrid(startX,startY,text,group,buttonGroup,callback,itemIndex,rotation) {
+  addTextToGrid(startX,startY,text,array,buttonGroup,callback,itemIndex,rotation) {
 
     var x = startX;
     var y = startY;
@@ -190,11 +189,12 @@ BasicGame.SnakeBaseGame.prototype = {
       else y = startY;
 
       for (var j = 0; j < text[i].length; j++) {
+
         this.textGrid[y][x].text = text[i].charAt(j).toUpperCase();
         this.textGrid[y][x].rotation = rotation;
 
-        if (group) {
-          group.add(this.textGrid[y][x]);
+        if (array) {
+          array.push(this.textGrid[y][x]);
         }
 
         if (buttonGroup) {
@@ -242,15 +242,16 @@ BasicGame.SnakeBaseGame.prototype = {
     var instructionsX = 2;
 
     if (this.game.device.desktop) {
-      this.addTextToGrid(instructionsX,instructionsY,["R=RESTART M=MENU"],this.textGroup);
+      this.addTextToGrid(instructionsX,instructionsY,["R=RESTART M=MENU"]);
     }
     else {
-      this.addTextToGrid(instructionsX,instructionsY,["RESTART"],this.textGroup,this.instructionsButtonGroup,this.restart);
-      this.addTextToGrid(instructionsX+9,instructionsY,["MENU"],this.textGroup,this.instructionsButtonGroup,this.gotoMenu);
+      this.addTextToGrid(instructionsX,instructionsY,["RESTART"],null,this.instructionsButtonGroup,this.restart);
+      this.addTextToGrid(instructionsX+9,instructionsY,["MENU"],null,this.instructionsButtonGroup,this.gotoMenu);
     }
   },
 
   createControls: function () {
+    this.controls = [];
     var controlsStrings = [];
     if (this.game.device.desktop) {
       controlsStrings = ["ARROWS","CONTROL","SNAKE"];
@@ -259,7 +260,7 @@ BasicGame.SnakeBaseGame.prototype = {
       controlsStrings = ["SWIPES","CONTROL","SNAKE"];
     }
 
-    this.addTextToGrid(this.CONTROLS_X,this.CONTROLS_Y,controlsStrings,this.controlsGroup);
+    this.addTextToGrid(this.CONTROLS_X,this.CONTROLS_Y,controlsStrings,this.controls);
   },
 
   update: function () {
@@ -389,6 +390,7 @@ BasicGame.SnakeBaseGame.prototype = {
   },
 
   gameOver: function () {
+    this.hideControls();
     this.setGameOverText("GAME OVER","",this.score+" POINTS","","");
   },
 
@@ -411,7 +413,7 @@ BasicGame.SnakeBaseGame.prototype = {
     if (this.snake.dead) return;
     if (!this.inputEnabled) return;
 
-    if (this.controlsGroup.visible && (this.cursors.left.isDown || this.cursors.right.isDown || this.cursors.up.isDown || this.cursors.down.isDown)) {
+    if (this.controls && (this.cursors.left.isDown || this.cursors.right.isDown || this.cursors.up.isDown || this.cursors.down.isDown)) {
       this.hideControls();
       this.startAppleTimer();
     }
@@ -432,11 +434,13 @@ BasicGame.SnakeBaseGame.prototype = {
   },
 
   hideControls: function () {
-    // if (this.snake.next.x == 0 && this.snake.next.y == 0) {
-    this.controlsGroup.forEach(function (letter) {
-      letter.text = '';
-    });
-    this.controlsGroup.visible = false;
+    // if (!this.controls) return;
+    if (this.controls) {
+      this.controls.forEach(function (letter) {
+        letter.text = '';
+      },this);
+    }
+    this.controls = null;
     // }
   },
 
@@ -454,7 +458,7 @@ BasicGame.SnakeBaseGame.prototype = {
     this.currentSwipe = d;
     if (!d) return;
 
-    if (this.controlsGroup.visible) {
+    if (this.controls) {
       this.hideControls();
       this.startAppleTimer();
     }

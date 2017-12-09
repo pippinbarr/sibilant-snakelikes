@@ -154,6 +154,7 @@ BasicGame.Sssensssible.prototype.createControls = function () {
 
   BasicGame.SnakeBaseGame.prototype.createControls.call(this);
 
+  this.controlsTwo = [];
   var controlsStrings2 = [];
   this.controlsGroupTwo = this.game.add.group();
 
@@ -162,7 +163,7 @@ BasicGame.Sssensssible.prototype.createControls = function () {
     this.CONTROLS_TWO_Y = 23;
 
     controlsStrings2 = ["WASD","CONTROLS","SNAKE"];
-    this.addTextToGrid(this.CONTROLS_TWO_X,this.CONTROLS_TWO_Y,controlsStrings2,this.controlsGroupTwo);
+    this.addTextToGrid(this.CONTROLS_TWO_X,this.CONTROLS_TWO_Y,controlsStrings2,this.controlsTwo);
   }
 
   else {
@@ -171,7 +172,7 @@ BasicGame.Sssensssible.prototype.createControls = function () {
 
     controlsStrings2 = ["SWIPES","CONTROL","SNAKE"];
     // controlsStrings2 = ["WIPE"];
-    this.addTextToGrid(this.CONTROLS_TWO_X,this.CONTROLS_TWO_Y,controlsStrings2,this.controlsGroupTwo,null,null,null,Math.PI);
+    this.addTextToGrid(this.CONTROLS_TWO_X,this.CONTROLS_TWO_Y,controlsStrings2,this.controlsTwo,null,null,null,Math.PI);
   }
 
 },
@@ -303,13 +304,13 @@ BasicGame.Sssensssible.prototype.createInstructions = function () {
   var instructionsX = 2;
 
   if (this.game.device.desktop) {
-    this.addTextToGrid(instructionsX,instructionsY,["R=RESTART M=MENU"],this.textGroup);
+    this.addTextToGrid(instructionsX,instructionsY,["R=RESTART M=MENU"]);
   }
   else {
-    this.addTextToGrid(instructionsX,instructionsY,["RESTART"],this.textGroup,this.instructionsButtonGroup,this.restart);
-    this.addTextToGrid(instructionsX+9,instructionsY,["MENU"],this.textGroup,this.instructionsButtonGroup,this.gotoMenu);
-    this.addTextToGrid(this.NUM_COLS-3,1,["RESTART"],this.textGroup,this.instructionsButtonGroup,this.restart,null,Math.PI);
-    this.addTextToGrid(this.NUM_COLS-12,1,["MENU"],this.textGroup,this.instructionsButtonGroup,this.gotoMenu,null,Math.PI);
+    this.addTextToGrid(instructionsX,instructionsY,["RESTART"],null,this.instructionsButtonGroup,this.restart);
+    this.addTextToGrid(instructionsX+9,instructionsY,["MENU"],null,this.instructionsButtonGroup,this.gotoMenu);
+    this.addTextToGrid(this.NUM_COLS-3,1,["RESTART"],null,this.instructionsButtonGroup,this.restart,null,Math.PI);
+    this.addTextToGrid(this.NUM_COLS-12,1,["MENU"],null,this.instructionsButtonGroup,this.gotoMenu,null,Math.PI);
   }
 }
 
@@ -559,10 +560,12 @@ BasicGame.Sssensssible.prototype.startAppleTimer = function () {
 
 BasicGame.Sssensssible.prototype.hideControlsTwo = function () {
   // if (this.snakeTwo.next.x == 0 && this.snakeTwo.next.y == 0) {
-  this.controlsGroupTwo.forEach(function (letter) {
+  if (!this.controlsTwo) return;
+  this.controlsTwo.forEach(function (letter) {
     letter.text = '';
   });
-  this.controlsGroupTwo.visible = false;
+  // this.controlsGroupTwo.visible = false;
+  this.controlsTwo = null;
   // }
 };
 

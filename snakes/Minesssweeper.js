@@ -86,7 +86,7 @@ BasicGame.Minesssweeper.prototype.createMap = function () {
 BasicGame.Minesssweeper.prototype.tick = function () {
   BasicGame.SnakeBaseGame.prototype.tick.call(this);
 
-  if (!this.controlsGroup.visible) {
+  if (!this.controls) {
     this.checkMapCollision();
   }
 };
@@ -167,7 +167,7 @@ BasicGame.Minesssweeper.prototype.flipTile = function (tile) {
     }
   }
   else {
-    this.addTextToGrid(tile.x + this.WALL_LEFT + 1,tile.y + this.WALL_TOP + 1,bombs+"",this.textGroup);
+    this.addTextToGrid(tile.x + this.WALL_LEFT + 1,tile.y + this.WALL_TOP + 1,bombs+"");
   }
 };
 

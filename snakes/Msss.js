@@ -52,7 +52,7 @@ BasicGame.Msss.prototype.create = function () {
 
   this.createApples();
 
-  this.SNAKE_TICK = 0.3;
+  this.SNAKE_TICK = 0.2;
   this.DEATH_PAUSE_TICKS = 0;
   this.deathPauseTicks = 0;
 

@@ -7,9 +7,11 @@ BasicGame.Missssssile.prototype.constructor = BasicGame.Missssssile;
 
 BasicGame.Missssssile.prototype.create = function () {
 
+  this.SNAKE_START_Y = 24;
+  this.CONTROLS_Y = 16;
+
   BasicGame.SnakeBaseGame.prototype.create.call(this);
 
-  this.missiles = this.game.add.group();
 
   this.apples = this.game.add.group();
   this.apples.create((this.WALL_LEFT + 3) * GRID_SIZE,(this.WALL_BOTTOM - 1) * GRID_SIZE,'apple');
@@ -17,10 +19,12 @@ BasicGame.Missssssile.prototype.create = function () {
   this.apples.create((this.WALL_RIGHT - 3) * GRID_SIZE,(this.WALL_BOTTOM - 1) * GRID_SIZE,'apple');
   this.apples.create((this.WALL_RIGHT - 8) * GRID_SIZE,(this.WALL_BOTTOM - 1) * GRID_SIZE,'apple');
 
+  this.missiles = this.game.add.group();
+
   this.missileTimer = this.game.time.create(false);
   this.MIN_TICKS_PER_NEW_MISSILE = 10;
-  this.MAX_TICKS_PER_NEW_MISSILE = 100;
-  this.ticksPerNewMissile = this.MAX_TICKS_PER_NEW_MISSILE;
+  this.MAX_TICKS_PER_NEW_MISSILE = 80;
+  this.ticksPerNewMissile = this.MIN_TICKS_PER_NEW_MISSILE + Math.floor(Math.random() * (this.MAX_TICKS_PER_NEW_MISSILE - this.MIN_TICKS_PER_NEW_MISSILE));
 
   this.missileTicker = this.game.time.create(false);
   this.missileTicker.add(Phaser.Timer.SECOND * this.SNAKE_TICK * 2, this.missileTick, this);
@@ -54,10 +58,11 @@ BasicGame.Missssssile.prototype.missileTick = function () {
       snake.flash();
       return;
     }
-    snake.chaseLinear();
+    if (snake.target) snake.chaseLinear();
     snake.grow();
-    this.checkMissileAppleCollision(snake);
     snake.move();
+    this.checkMissileAppleCollision(snake);
+
   },this);
   this.checkMissileWallCollision();
 };
@@ -126,6 +131,7 @@ BasicGame.Missssssile.prototype.checkAppleCollision = function () {
 };
 
 BasicGame.Missssssile.prototype.checkMissileAppleCollision = function (missile) {
+  if (!missile.target) return;
   if (missile.head.position.equals(missile.target.position)) {
     if (this.apples.contains(missile.target)) {
       this.appleSFX.play();
@@ -137,11 +143,10 @@ BasicGame.Missssssile.prototype.checkMissileAppleCollision = function (missile) 
         return;
       }
     }
-    else {
-      // Crash into the wall
-      missile.next.x = 0;
-      missile.next.y = GRID_SIZE;
-    }
+    // Crash into the wall
+    missile.next.x = 0;
+    missile.next.y = GRID_SIZE;
+    missile.target = null;
   }
 
 };
@@ -165,6 +170,18 @@ BasicGame.Missssssile.prototype.gameOver = function () {
     this.setGameOverText("GAME OVER","",this.score+" POINTS","","");
   },this);
 };
+
+BasicGame.Missssssile.prototype.createControls = function () {
+  var controlsStrings = [];
+  if (this.game.device.desktop) {
+    controlsStrings = ["DEFEND","APPLES","","ARROWS","CONTROL","SNAKE"];
+  }
+  else {
+    controlsStrings = ["DEFEND","APPLES","","SWIPES","CONTROL","SNAKE"];
+  }
+
+  this.addTextToGrid(this.CONTROLS_X,this.CONTROLS_Y,controlsStrings,this.controls);
+},
 
 
 BasicGame.Missssssile.prototype.repositionApple = function () {

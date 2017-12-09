@@ -59,13 +59,16 @@ BasicGame.Sssuper.prototype.create = function () {
   this.camera.deadzone = new Phaser.Rectangle(0,0,this.game.width/3,this.game.height);
   this.textGroup.fixedToCamera = true;
 
-  this.goomba1 = this.game.add.sprite(this.snake.head.x + 19*GRID_SIZE,this.snake.head.y,'apple');
-  this.goomba2 = this.game.add.sprite(40*GRID_SIZE,this.snake.head.y,'apple');
-  this.goomba2Move = GRID_SIZE;
+  this.goomba1 = new Snake(this.game, this.snake.head.x/GRID_SIZE + 19,this.snake.head.y/GRID_SIZE);
+  this.game.add.sprite(this.goomba1);
+  this.goomba1.next.x = -GRID_SIZE;
+  // this.goomba1 = this.game.add.sprite(this.snake.head.x + 19*GRID_SIZE,this.snake.head.y,'apple');
+  // this.goomba2 = this.game.add.sprite(40*GRID_SIZE,this.snake.head.y,'apple');
+  // this.goomba2Move = GRID_SIZE;
 
-  this.goombaTicker = this.game.time.create(false);
-  this.goombaTicker.add(Phaser.Timer.SECOND * this.SNAKE_TICK * 4, this.goombaTick, this);
-  this.goombaTicker.start();
+  // this.goombaTicker = this.game.time.create(false);
+  // this.goombaTicker.add(Phaser.Timer.SECOND * this.SNAKE_TICK * 4, this.goombaTick, this);
+  // this.goombaTicker.start();
 
   // Name the state for resetting purposes
   this.stateName = "Sssuper";
@@ -77,38 +80,24 @@ BasicGame.Sssuper.prototype.update = function () {
 
 BasicGame.Sssuper.prototype.tick = function () {
   BasicGame.SnakeBaseGame.prototype.tick.call(this);
+  this.checkGoombaCollision();
+
+  this.goomba1.tick();
+  this.checkGoombaCollision();
 
   if (this.snake.dead) return;
-
-  this.checkGoombaCollision();
 
   if (this.snake.head.x < 0) {
     this.snake.die();
   }
 };
 
-BasicGame.Sssuper.prototype.goombaTick = function () {
-  this.goombaTicker.add(Phaser.Timer.SECOND * this.SNAKE_TICK * 4, this.goombaTick, this);
-
-  this.goomba1.x -= GRID_SIZE;
-  this.goomba2.x += this.goomba2Move;
-  // Hard coded values what an awful person, an asshole really
-  if (this.goomba2.x < 40*GRID_SIZE || this.goomba2.x > 45*GRID_SIZE) {
-    this.goomba2.x -= this.goomba2Move;
-    this.goomba2Move = -this.goomba2Move;
-  }
-
-
-  this.checkGoombaCollision();
-};
-
 BasicGame.Sssuper.prototype.checkGoombaCollision = function () {
-  if (this.snake.head.position.equals(this.goomba1.position) && !this.snake.dead) {
-    this.goomba1.x = -1000;
-    this.goomba1.visible = false;
-    this.snake.bodyPiecesToAdd += this.snake.NEW_BODY_PIECES_PER_APPLE;
-    this.addToScore(this.APPLE_SCORE);
-    this.appleSFX.play();
+  if (this.snake.head.position.equals(this.goomba1.head.position) && !this.snake.dead) {
+    this.snake.die();
+    this.goomba1.die();
+    this.inputEnabled = false;
+    this.game.time.events.add(Phaser.Timer.SECOND * 2, this.gameOver, this);
   }
 };
 
@@ -141,7 +130,7 @@ BasicGame.Sssuper.prototype.handleKeyboardInput = function () {
   if (this.snake.dead) return;
   if (!this.inputEnabled) return;
 
-  if (this.controlsGroup.visible && (this.cursors.left.isDown || this.cursors.right.isDown || this.cursors.up.isDown || this.cursors.down.isDown)) {
+  if (this.controls && (this.cursors.left.isDown || this.cursors.right.isDown)) {
     this.hideControls();
     this.startAppleTimer();
   }
@@ -164,18 +153,21 @@ BasicGame.Sssuper.prototype.handleTouchInput = function () {
   this.currentSwipe = d;
   if (!d) return;
 
-  if (this.controlsGroup.visible) {
-    this.hideControls();
-    this.startAppleTimer();
-  }
+
 
   switch (d.direction) {
     case this.swipe.DIRECTION_LEFT:
     this.snake.moveLeft();
+    if (this.controls) {
+      this.hideControls();
+    }
     break;
 
     case this.swipe.DIRECTION_RIGHT:
     this.snake.moveRight();
+    if (this.controls) {
+      this.hideControls();
+    }
     break;
   }
 };
@@ -186,8 +178,8 @@ BasicGame.Sssuper.prototype.handleTouchInput = function () {
 BasicGame.Sssuper.prototype.createWalls = function () {
 };
 
-BasicGame.Sssuper.prototype.gameOver = function () {
-};
+// BasicGame.Sssuper.prototype.gameOver = function () {
+// };
 
 BasicGame.Sssuper.prototype.repositionApple = function () {
 };
