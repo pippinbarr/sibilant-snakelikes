@@ -502,7 +502,11 @@ BasicGame.Sssensssible.prototype.goalText = function (snakeOneScored) {
   this.appleSFX.play();
 
   if (!snakeOneScored) {
-    this.addTextToGrid(this.goalString.length - this.goalStringIndex,24,[this.goalString.charAt(this.goalStringIndex)],this.controls,null,null,null,Math.PI);
+    if (this.game.device.desktop) {
+      this.addTextToGrid(this.goalStringIndex + 1,24,[this.goalString.charAt(this.goalStringIndex)],this.controls,null,null,null,0);
+    } else {
+      this.addTextToGrid(this.goalString.length - this.goalStringIndex,24,[this.goalString.charAt(this.goalStringIndex)],this.controls,null,null,null,Math.PI);
+    }
   }
   else {
     this.addTextToGrid(this.goalStringIndex + 1,8,[this.goalString.charAt(this.goalStringIndex)],this.controls,null,null,null,0);
