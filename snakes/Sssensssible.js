@@ -212,19 +212,19 @@ BasicGame.Sssensssible.prototype.halfTime = function () {
   this.hideControls();
   this.hideControlsTwo();
   if (this.game.device.desktop) {
-    this.addTextToGrid(7,14,["HALF-TIME"],this.textGroup);
+    this.addTextToGrid(7,14,["HALF-TIME"]);
   }
   else {
-    this.addTextToGrid(7,18,["HALF-TIME"],this.textGroup);
-    this.addTextToGrid(15,14,["HALF-TIME"],this.textGroup,null,null,null,Math.PI);
+    this.addTextToGrid(7,18,["HALF-TIME"]);
+    this.addTextToGrid(15,14,["HALF-TIME"],null,null,null,null,Math.PI);
   }
   this.snake.dead = true;
   this.snakeTwo.dead = true;
   this.game.time.events.add(Phaser.Timer.SECOND * this.SNAKE_TICK * 30, function () {
     this.gameTimeTicker.add(Phaser.Timer.SECOND * this.GAME_TIME_TICK, this.gameTimeTick, this);
-    this.addTextToGrid(7,14,["            "],this.textGroup);
+    this.addTextToGrid(7,14,["            "]);
     if (!this.game.device.desktop) {
-      this.addTextToGrid(7,18,["            "],this.textGroup);
+      this.addTextToGrid(7,18,["            "]);
     }
     this.snake.reset();
     this.snakeTwo.reset();
@@ -237,11 +237,11 @@ BasicGame.Sssensssible.prototype.fullTime = function () {
   this.hideControls();
   this.hideControlsTwo();
   if (this.game.device.desktop) {
-    this.addTextToGrid(7,14,["FULL-TIME"],this.textGroup);
+    this.addTextToGrid(7,14,["FULL-TIME"]);
   }
   else {
-    this.addTextToGrid(7,18,["FULL-TIME"],this.textGroup);
-    this.addTextToGrid(15,14,["FULL-TIME"],this.textGroup,null,null,null,Math.PI);
+    this.addTextToGrid(7,18,["FULL-TIME"]);
+    this.addTextToGrid(15,14,["FULL-TIME"],null,null,null,null,Math.PI);
   }
   this.snake.dead = true;
   this.snakeTwo.dead = true;
@@ -502,10 +502,10 @@ BasicGame.Sssensssible.prototype.goalText = function (snakeOneScored) {
   this.appleSFX.play();
 
   if (!snakeOneScored) {
-    this.addTextToGrid(this.goalString.length - this.goalStringIndex,24,[this.goalString.charAt(this.goalStringIndex)],this.textGroup,null,null,null,Math.PI);
+    this.addTextToGrid(this.goalString.length - this.goalStringIndex,24,[this.goalString.charAt(this.goalStringIndex)],this.controls,null,null,null,Math.PI);
   }
   else {
-    this.addTextToGrid(this.goalStringIndex + 1,8,[this.goalString.charAt(this.goalStringIndex)],this.textGroup,null,null,null,0);
+    this.addTextToGrid(this.goalStringIndex + 1,8,[this.goalString.charAt(this.goalStringIndex)],this.controls,null,null,null,0);
   }
   this.goalStringIndex++;
   if (this.goalStringIndex < this.goalString.length) {
@@ -516,10 +516,10 @@ BasicGame.Sssensssible.prototype.goalText = function (snakeOneScored) {
       this.resetApple();
       this.resetSnakes();
       if (!snakeOneScored) {
-        this.addTextToGrid(0,24,["                        "],this.textGroup)
+        this.addTextToGrid(0,24,["                        "])
       }
       else {
-        this.addTextToGrid(0,8,["                        "],this.textGroup)
+        this.addTextToGrid(0,8,["                        "])
       }
       this.appleSFX.stop();
       this.appleSFX.loop = false;

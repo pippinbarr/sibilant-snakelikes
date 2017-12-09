@@ -1,10 +1,10 @@
 games = [
 	{name: ["Ssshadow","of the","Colossssssusss"], class: "Ssshadow"},
+	{name: ["Papersss","Pleassse"], class: "Papersss"},
+	{name: ["Minesssweeper"], class: "Minesssweeper"},
+	{name: ["Sssensssible","Sssoccer"], class: "Sssensssible"},
 	{name: ["Missssssile","Command"], class: "Missssssile"},
 	{name: ["Msss","Pacman"], class: "Msss"},
-	{name: ["Papersss","Pleassse"], class: "Papersss"},
-	{name: ["Sssensssible","Sssoccer"], class: "Sssensssible"},
-	{name: ["Minesssweeper"], class: "Minesssweeper"},
 	{name: ["Sssuper","Mario","Brosss"], class: "Sssuper"},
 	{name: ["WWW.PIPPINBARR.COM"], class: "Homepage"},
 ];
