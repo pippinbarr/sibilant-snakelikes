@@ -126,16 +126,13 @@ BasicGame.Sssensssible.prototype.setScoreText = function () {
       var spacesToAdd = (this.MAX_SCORE.toString().length - scoreString.length)+1;
       scoreString = Array(spacesToAdd).join(" ") + scoreString;
     }
-    console.log(this.NUM_ROWS/2);
     this.addTextToGrid(this.scoreX-scoreString.length,this.scoreY,[scoreString]);
   } else {
     if (scoreString.length < this.MAX_SCORE.toString().length) {
       var spacesToAdd = (this.MAX_SCORE.toString().length - scoreString.length)+1;
       scoreString = Array(spacesToAdd/2).join(" ") + scoreString + Array(spacesToAdd/2).join(" ");
     }
-    console.log(scoreString.length);
     this.addTextToGrid(1,this.NUM_ROWS/2+Math.floor(scoreString.length/2),[scoreString],null,null,null,null,3*Math.PI/2);
-    // this.addTextToGrid(1,10,[scoreString],null,null,null,null,3*Math.PI/2);
 
   }
 };

@@ -128,8 +128,7 @@
 
 ### Ssshadow of the Colossssssusss
 
-- Should you get a 'you are the colossus' at the end? (e.g. turn into a colossus that you control?)
-
+- ~~__NO I DON'T THINK SO - THE ORIGINAL IS COMPLEX AND YOU DON'T STAY A COLOSSUS, BETTER TO KEEP THE METAPHOR NICE AND SIMPLE__ Should you get a 'you are the colossus' at the end? (e.g. turn into a colossus that you control?)
 - ~~Colossus "favours" bottom right (should probably always move every tick if possible)~~
 - ~~Add win condition (what will this be like? "BUT AT WHAT COST?!?!?!")~~
   - ~~In Shadow there's that swirling soul thing... something like that... black smoke... vanishes into black (change alpha?)... tendrils hit the avatar... he collapses...~~
