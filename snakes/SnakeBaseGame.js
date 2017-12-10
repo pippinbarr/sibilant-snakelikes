@@ -251,6 +251,7 @@ BasicGame.SnakeBaseGame.prototype = {
   },
 
   createControls: function () {
+    console.log("Creating controls.");
     this.controls = [];
     var controlsStrings = [];
     if (this.game.device.desktop) {

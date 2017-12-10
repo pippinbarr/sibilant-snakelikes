@@ -32,6 +32,7 @@
 
 ### Base
 
+- Queue inputs?
 - ~~Self collision loops collision sound~~
 
 ### Msss. Pacman
@@ -47,6 +48,7 @@
 
 ### Sssuper Mario Brosss.
 
+- ~~Some way of clarifying that you can't jump?~~
 - ~~Goomba as snake (killing you) instead of apple? Doesn't really make sense as an 'object of desire' - that would be a coin.~~
 
 ### Papersss, Pleassse
@@ -69,6 +71,7 @@
 
 ### Missssssile Command
 
+- ~~BUG: Restarting missile led to no missiles~~
 - ~~There's an annoying pause before missile eat apple, plus it's in background? Or is it just that it's in background?~~
 - ~~Increase frequency of missiles so it's not boring~~
 - ~~Move snake and instructions down screen to associate with apples~~
@@ -87,6 +90,8 @@
 
 ### Minesssweeper
 
+- ~~Slower?~~
+- ~~No mines spawning within 2 or 3 tiles of the snake start~~
 - ~~Need to fix up text display in all scenarios (another text grid?)~~
 - ~~Work out the horrible algorithm for auto-clearing tiles and marking with the number of bombs they are next to~~
 - ~~Get the basic tile-eating stuff set up~~
@@ -95,6 +100,7 @@
 
 ### Sssensssible Sssoccer
 
+- ~~__YES, WHEN THEY ARE DRIBBLING THEY DO__ Are snakes still colliding when dead?~~
 - ~~BUG: Need to cancel looping apple sound (or just eliminate that with a single apple...)~~
 - ~~OOPS: Was displaying an upside down half-time and full-time in desktop~~
 - ~~BUG: Half time isn't ending~~
@@ -121,6 +127,8 @@
 - ~~Do a bunch of things that get the game partially working (but make sure you forget to list them in your to-dos, because I guess that wasn't necessary)~~
 
 ### Ssshadow of the Colossssssusss
+
+- Should you get a 'you are the colossus' at the end? (e.g. turn into a colossus that you control?)
 
 - ~~Colossus "favours" bottom right (should probably always move every tick if possible)~~
 - ~~Add win condition (what will this be like? "BUT AT WHAT COST?!?!?!")~~

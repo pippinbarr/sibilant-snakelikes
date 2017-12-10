@@ -173,6 +173,21 @@ BasicGame.Sssuper.prototype.handleTouchInput = function () {
 };
 
 
+BasicGame.Sssuper.prototype.createControls = function () {
+  this.controls = [];
+  var controlsStrings = [];
+  // this.CONTROLS_Y -= 4;
+  if (this.game.device.desktop) {
+    controlsStrings = ["ARROWS","CONTROL","SNAKE","","SNAKES","CAN'T","JUMP"];
+  }
+  else {
+    controlsStrings = ["SWIPES","CONTROL","SNAKE","","SNAKES","CAN'T","JUMP"];
+  }
+
+  this.addTextToGrid(this.CONTROLS_X,this.CONTROLS_Y,controlsStrings,this.controls);
+};
+
+
 // Overrides to avoid default behaviour
 
 BasicGame.Sssuper.prototype.createWalls = function () {

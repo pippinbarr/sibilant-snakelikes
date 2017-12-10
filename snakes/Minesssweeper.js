@@ -36,6 +36,7 @@ BasicGame.Minesssweeper.prototype.create = function () {
 
   BasicGame.SnakeBaseGame.prototype.create.call(this);
 
+  this.SNAKE_TICK *= 1.5;
   this.FLIP_TICK = this.SNAKE_TICK/3;
 
   this.toFlip = [];
@@ -57,22 +58,25 @@ BasicGame.Minesssweeper.prototype.createMap = function () {
     var row = [];
     this.map.push(row);
     for (var x = 0; x < this.WALL_RIGHT - this.WALL_LEFT - 1; x++) {
+      var screenX = x + this.WALL_LEFT + 1;
+      var screenY = y + this.WALL_TOP + 1;
       var sprite;
       var type;
       if (y == 0 || y == this.WALL_BOTTOM - this.WALL_TOP - 2 || x == 0 || x == this.WALL_RIGHT - this.WALL_LEFT - 2) {
         type = "WALL";
-        sprite = this.mapGroup.create((x + this.WALL_LEFT + 1)*GRID_SIZE,(y + this.WALL_TOP + 1)*GRID_SIZE,'wall');
+        sprite = this.mapGroup.create(screenX*GRID_SIZE,screenY*GRID_SIZE,'wall');
       }
-      else if (Math.random() < 1 - this.BOMB_CHANCE || (x + this.WALL_LEFT + 1 == this.SNAKE_START_X && y + this.WALL_TOP + 1 == this.SNAKE_START_Y)) {
+      else if (Math.random() < 1 - this.BOMB_CHANCE || (Math.abs(screenX - this.SNAKE_START_X) < 3 && Math.abs(screenY - this.SNAKE_START_Y) < 3)) {
         type = "SAFE";
-        sprite = this.mapGroup.create((x + this.WALL_LEFT + 1)*GRID_SIZE,(y + this.WALL_TOP + 1)*GRID_SIZE,'map_tile');
+        sprite = this.mapGroup.create(screenX*GRID_SIZE,screenY*GRID_SIZE,'map_tile');
         this.totalSafe++;
         // sprite.visible = false;
       }
       else {
         type = "BOMB";
-        sprite = this.mapGroup.create((x + this.WALL_LEFT + 1)*GRID_SIZE,(y + this.WALL_TOP + 1)*GRID_SIZE,'map_tile');
+        sprite = this.mapGroup.create(screenX*GRID_SIZE,screenY*GRID_SIZE,'map_tile');
       }
+
       row.push({type: type, sprite: sprite, x: x, y: y, toFlip: false});
     }
   }

@@ -12,7 +12,6 @@ BasicGame.Missssssile.prototype.create = function () {
 
   BasicGame.SnakeBaseGame.prototype.create.call(this);
 
-
   this.apples = this.game.add.group();
   this.apples.create((this.WALL_LEFT + 3) * GRID_SIZE,(this.WALL_BOTTOM - 1) * GRID_SIZE,'apple');
   this.apples.create((this.WALL_LEFT + 8) * GRID_SIZE,(this.WALL_BOTTOM - 1) * GRID_SIZE,'apple');
@@ -34,6 +33,8 @@ BasicGame.Missssssile.prototype.create = function () {
   this.stateName = "Missssssile";
 };
 BasicGame.Missssssile.prototype.hideControls = function () {
+  console.log("Hiding controls.");
+
   BasicGame.SnakeBaseGame.prototype.hideControls.call(this);
 
   this.addMissile();
@@ -172,6 +173,7 @@ BasicGame.Missssssile.prototype.gameOver = function () {
 };
 
 BasicGame.Missssssile.prototype.createControls = function () {
+  this.controls = [];
   var controlsStrings = [];
   if (this.game.device.desktop) {
     controlsStrings = ["DEFEND","APPLES","","ARROWS","CONTROL","SNAKE"];

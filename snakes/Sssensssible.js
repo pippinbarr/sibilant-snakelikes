@@ -416,19 +416,23 @@ BasicGame.Sssensssible.prototype.checkAppleCollision = function () {
       }
     },this);
 
-    this.snake.forEach(function (bit) {
-      if (bit.position.equals(appleNext)) {
-        this.killSnake(this.snake);
-        return;
-      }
-    },this);
+    if (!this.snake.dead) {
+      this.snake.forEach(function (bit) {
+        if (bit.position.equals(appleNext)) {
+          this.killSnake(this.snake);
+          return;
+        }
+      },this);
+    }
 
-    this.snakeTwo.forEach(function (bit) {
-      if (bit.position.equals(appleNext)) {
-        this.killSnake(this.snake);
-        return;
-      }
-    },this);
+    if (!this.snakeTwo.dead && !this.snake.dead) {
+      this.snakeTwo.forEach(function (bit) {
+        if (bit.position.equals(appleNext)) {
+          this.killSnake(this.snake);
+          return;
+        }
+      },this);
+    }
 
     if (!this.snake.dead) {
       this.appleSFX.play();
@@ -449,19 +453,23 @@ BasicGame.Sssensssible.prototype.checkAppleCollision = function () {
       }
     },this);
 
-    this.snake.forEach(function (bit) {
-      if (bit.position.equals(appleNext)) {
-        this.killSnake(this.snakeTwo);
-        return;
-      }
-    },this);
+    if (!this.snake.dead && !this.snakeTwo.dead) {
+      this.snake.forEach(function (bit) {
+        if (bit.position.equals(appleNext)) {
+          this.killSnake(this.snakeTwo);
+          return;
+        }
+      },this);
+    }
 
-    this.snakeTwo.forEach(function (bit) {
-      if (bit.position.equals(appleNext)) {
-        this.killSnake(this.snakeTwo);
-        return;
-      }
-    },this);
+    if (!this.snakeTwo.dead) {
+      this.snakeTwo.forEach(function (bit) {
+        if (bit.position.equals(appleNext)) {
+          this.killSnake(this.snakeTwo);
+          return;
+        }
+      },this);
+    }
 
     if (!this.snakeTwo.dead) {
       this.appleSFX.play();
