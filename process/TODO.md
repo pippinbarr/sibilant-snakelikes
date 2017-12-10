@@ -15,6 +15,10 @@
 
 ## TO-DO
 
+### PRESS
+
+- ~~Send to press~~
+
 ### AUDIO
 
 - ~~FIX the hideous popping sound of movement at fast ticks~~
@@ -32,7 +36,7 @@
 
 ### Base
 
-- Queue inputs?
+- ~~__TRIED SOME WAYS AND EVENTUALLY FELT LIKE IT'S FINE THE WAY IT IS__ Queue inputs?~~
 - ~~Self collision loops collision sound~~
 
 ### Msss. Pacman

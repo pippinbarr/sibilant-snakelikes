@@ -119,6 +119,7 @@ BasicGame.Menu.prototype.update = function () {
 		if (complete) {
 			if (games[this.currentItem].class == "Homepage") {
 				window.location = "http://www.pippinbarr.com/";
+				// window.open('http://www.pippinbarr.com/', '_blank');
 			}
 			else {
 				this.game.time.events.add(Phaser.Timer.SECOND * this.SNAKE_TICK * 32, function () {
