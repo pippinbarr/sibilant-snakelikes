@@ -1,3 +1,36 @@
+## 2017-12-11 17:01 in which we fret about side views and think about where we are
+
+As of right now I've sent the game to press and run it past a significant number of testers. For al intents and purposes the game is done and I'm not really interested in doing more work on it. There's a definite resistance point for me at times like this - I could absolutely work on the game for a number of weeks trying to really nail down the feeling of the controls and getting the ontology just so and so on... but this is an experiment and an experiment should be carried out and learned from, nothing more.
+
+__Side views?__
+
+One of the major things that came out of the testing was that Sssuper Mario Brosss. caused people an unexpected degree of anguish in terms of not being able to go 'up' with the snake. People are very used to the idea that they can move upward and not having that available feels like some kind of betrayal of agency? It's actually interesting in terms of the fact that I'm now realising (or re-realising, or should have realised a long time ago) that of course the player is in the same conversation with the game that I am in terms of ontology/meaning/appropriate behaviour. So for me it seemed very natural and okay that a Snake in a Mario world would be confined to the ground, it's _not_ natural to other players. They're prioritising the target system over the source system. Is that perhaps the more normal response? Am I going against the grain? Should I be trying to answer these or should it be you, future interrogator of this project?
+
+Uh but getting back to the point here... the Mario platformer world is a side-view thing right? Therefore gravity points down the screen. A Snake can't jump (in Snake) because that's a top down game... thus it's two dimensional in a different orientation. So to me the snake doesn't have the capacity for jumping and so in Mario it doesn't move up (or down). (Should it be able to move down and crash into the wall? Given that the snake penetrates walls in the normal game? Jesus...)
+
+But then as came up in conversation with Jonathan - the Missssssile Command snake appears to fly through the air. It's a side-on game as well. But this seems reasonable in terms of having the snake match the behaviour of the element of the source game it's being mapped to. And _then_ as was also pointed out the Ssshadow of the Colossssssusss version of the game is also side on (though the source game is 3D), and in that version the snake _can_ fly because the flying is meant to allow us to reference the idea of _climbing_.
+
+Basically I have to admit that there's not so much rigour in terms of the perspective of the game? I didn't really ever thinking about it in the design process at all - I just chose versions that "seemed reasonable". It really only comes to a head because in the Mario version I'm _limiting_ the player in a way that feels kind of unfair, in service of a gag. You need to have a good reason to remove control I guess. All this raises the rather daunting question of whether I should be mapping the entire Super Mario World 1-1 and thinking much more seriously about coins etc... (I guess things with coins in them are defacto apples? But then there's questions of hidden information, there's the pipes... oh jesus christ...)
+
+Honestly I feel exhausted by this conceptually. But now I'm talking myself into a position of dissatisfaction with the way the Mario game is. Or worse, really, I'm feeling a bit convinced it's simply "wrong". Do I then just completely remove it rather than have something "ontologically incorrect"? Fuck fuck fuck.
+
+__More generally on testing__
+
+Apart from my new dissatisfaction the testing process went quite well. Pacman is "too hard" because you can crash into walls, but I think I see this as a consequence of the translation. I don't think you can have harmless walls in a Snake game - it's practically the definition of Snake that you die on contact with everything other than an apple.
+
+People were confused by Missssssile Command, but that's hugely because they didn't understand the apples = cities thing. But conceptually that is a strong decision - apples as the object of desire. With the moving of the snake down and including the "DEFEND APPLES" instruction I think I can call that fixed.
+
+So overall the game is gone with the spectre of Mario hanging terribly above it.
+
+__Back to Mario__
+
+I did _not_ expect this to be so dramatically problematic. Shit. My soul is telling me to implement the full level and allow for a flying snake. But I'm afraid of the pipe and I'm afraid of more goombas... I'm mostly afraid of the pipe? How do you do that? If pipes (and everything else) are made of walls then the snake dies... Snake doesn't have a concept of hollowness? So maybe it's safe? ... how much work is this? Vitally, how fucked am I if I'm trying to release on Wednesday. Can I actually implement the entire Mario tonight and have it working and safe?
+
+I mean, I don't want to do this, but I kind of feel like I have to?
+
+I guess I'll start and see. Shit.
+
+
 ## 2017-11-25 17:31 in which we think about the current state of things
 
 Every game has code that does something at this point. One is super thin (Papersss), but the rest tend to get across at least the basic point. I think I understand, in terms of design, what each of the games needs in order to be considered complete
