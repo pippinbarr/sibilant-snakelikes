@@ -178,10 +178,10 @@ BasicGame.Sssuper.prototype.createControls = function () {
   var controlsStrings = [];
   // this.CONTROLS_Y -= 4;
   if (this.game.device.desktop) {
-    controlsStrings = ["ARROWS","CONTROL","SNAKE","","SNAKES","CAN'T","JUMP"];
+    controlsStrings = ["ARROWS","CONTROL","SNAKE"];
   }
   else {
-    controlsStrings = ["SWIPES","CONTROL","SNAKE","","SNAKES","CAN'T","JUMP"];
+    controlsStrings = ["SWIPES","CONTROL","SNAKE"];
   }
 
   this.addTextToGrid(this.CONTROLS_X,this.CONTROLS_Y,controlsStrings,this.controls);
