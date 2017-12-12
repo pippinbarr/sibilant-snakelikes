@@ -22,6 +22,7 @@ BasicGame.Preloader.prototype = {
 		this.load.image('wall','assets/images/wall.png');
 		this.load.image('map_tile','assets/images/map_tile.png');
 		this.load.image('black','assets/images/black.png');
+		this.load.image('mario-map','assets/images/mario-map.png');
 
 		this.load.audio('hit',['assets/sounds/hit.mp3','assets/sounds/hit.ogg']);
 		this.load.audio('apple',['assets/sounds/apple.mp3','assets/sounds/apple.ogg']);
