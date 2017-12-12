@@ -61,6 +61,13 @@ __Pippin__
 
 Hah! Oh god. I hadn't even thought of Shadow. Yes my "rigour" is in tatters anyway at this point. So interesting. I'll have to write about this now I think...
 
+---
+
+__Pippin__
+
+Hey Jonathan - a short email to say thanks for noticing and pushing on and helping with the Mario thing. Tonight in a surge of energy I completely reimplemented it as the "flying" version because it felt truer to the spirit of the game and it's "ontology". The build has been pushed if you want to take a look :)
+
+
 
 # Jess Marcotte
 
@@ -161,4 +168,4 @@ Heh. Interesting idea! God, it's so complicated to make these decisions. Jonatha
 
 __Jess__
 
-That's true about the sideview rules for Shadow of the Colossus, but somehow the acrobatics in that game and how the character jumps around on Colossi and hangs on and falls through the air a lot made this feel totally fine to me. The logic and constraints of this project are fascinating (from the perspective of someone who doesn't have to make any decisions about the design). 
+That's true about the sideview rules for Shadow of the Colossus, but somehow the acrobatics in that game and how the character jumps around on Colossi and hangs on and falls through the air a lot made this feel totally fine to me. The logic and constraints of this project are fascinating (from the perspective of someone who doesn't have to make any decisions about the design).
