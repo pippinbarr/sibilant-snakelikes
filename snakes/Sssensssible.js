@@ -476,7 +476,7 @@ BasicGame.Sssensssible.prototype.checkAppleCollision = function () {
   }
 
   // Check for goals
-  if (!this.snake.dead && this.apple.position.y < 6*GRID_SIZE && this.apple.position.y > 3*GRID_SIZE && this.apple.position.x >= 8*GRID_SIZE && this.apple.position.x < 16*GRID_SIZE) {
+  if (!this.snake.dead && this.apple.position.y < 7*GRID_SIZE && this.apple.position.y > 4*GRID_SIZE && this.apple.position.x >= 8*GRID_SIZE && this.apple.position.x < 16*GRID_SIZE) {
     this.scoreTwo++;
     this.snake.SNAKE_START_LENGTH += this.EXTRA_BODY_PIECES_PER_GOAL;
     this.snakeTwo.SNAKE_START_LENGTH += this.EXTRA_BODY_PIECES_PER_GOAL;

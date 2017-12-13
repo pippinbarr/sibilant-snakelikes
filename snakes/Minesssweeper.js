@@ -36,7 +36,7 @@ BasicGame.Minesssweeper.prototype.create = function () {
 
   BasicGame.SnakeBaseGame.prototype.create.call(this);
 
-  this.SNAKE_TICK *= 1.5;
+  // this.SNAKE_TICK *= 1.5;
   this.FLIP_TICK = this.SNAKE_TICK/3;
 
   this.toFlip = [];
