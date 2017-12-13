@@ -370,3 +370,59 @@ The shadow one is tricky... a lot of the fun of this project has come in thinkin
 And pacman... hmmmm, yeah. Again it's tough. In Snake's world hitting a wall means you die, so it feels like it'd be weird if in the Pacman version you don't... on the other hand it makes it incredibly tough, it's true. On the other hand, maybe that's okay... hard to say!
 
 ---
+
+# Enric Llagostero
+
+__Enric__
+
+Just finished playing around with the game. A few thoughts:
+
+- Loved Sssshadow of the colosssssussss. It def made me think of the
+sense of scale of the original game and contrasted it with how snake
+feels so minimal. I think it's also a good choice for first game n the
+menu, I felt that it was, together with minessssssweeeper, the most
+surprising one.
+- Msss pacman was pretty fun. While it's so similar to snake itself,
+it also feels very alienating how constrained the space is and the
+feeling of being in a mze that is at the same time made for you and
+not. This is certainly the scene that felt more aggressive?
+- Missssile command felt empty and disconnected. I didn't feel the
+sense of protection and dilemma that the original game gave, but it
+wasn't missing in a way that gave me new tensions instead, so it just
+felt a bit empty. After some playing I "got" the idea that I'm also
+one of the missiles, that the snake is an aggressive agent somehow,
+but I didn't feel that connected to it. I feel that escaping /
+avoiding in similar ways to the papersss please scene could maybe
+work?
+- Paperss please is interesting. I see it a bit as a commentary on the
+original game, in a sense, in how arbitrary and simple it is. Also it
+shows how much the "mechanic" of it is kind of irrelevant without its
+content. the only thing: after a cube "passses" it takes some time to
+change the core, it gets harder to connect?
+- Sssssensible soccer was great, I like the negative feedbak loop of
+growing when you score: this is very different from the tendency of
+increasing differences, but gives a chance to the other player. I
+didn't play it with 2 players, so can't really comment much on that
+dynamic.
+- Minessssweeper is maybe the most beautiful one? I love the unveiling
+of space by moving into it, the tension of crashing against the
+wall/unknown. It also totally made me notice and think more of the
+negative space and the spatial puzzle of the original game.
+- Ssssuper mario: this one felt broken. I couldn't jump, which is the
+whole point of mario. I get that the snake is an outsider in this
+world, but I knida which I could maybe pile up on myself to scale
+obstacles or something like that.
+
+---
+
+__Pippin__
+
+So helpful, great insights!
+
+Missile is a problem I think. It's tough because I think it's actually a pretty nice remediation of the original game, but if you're not already familiar with that game it's pretty damn confusing. The apples at the bottom represent the cities you're defending so, while you _can_ eat them, you shouldn't eat _all_ of them or the game ends. The other snakes (missiles) are trying to eat them.
+
+Papers: yeah the score change adjustment is a bit weird... it's because the snake is going off-screen to eat an apple! But maybe I just position the apple closer to the edge and that solves it...
+
+Super Mario: yep, this one is kind of a throw-away gag to be honest - the "outsider" word is a good one. (There is that Snakebird game with the mechanic you're wishing for - I'm just harsh :)
+
+---
