@@ -302,3 +302,71 @@ This is very helpful!
 - No jumping in Mario - snake's can't jump :) (But I need to find a way to communicate this intentionality better...)
 
 - Weird about the scale... I'll look into that... what resolution is your display?
+
+---
+
+# David Clarke
+
+__David__
+
+Oh man, the weekend just took off and I'm just realizing now I didn't give you any feedback!
+
+Games were fun, no major confusions except for the system of scoring... I found it a difficult to figure out, but I'm not an experienced gamer. With 'papersss pleassse' it seemed like i could intersect any snake in spite of the rules... not totally sure about this...
+
+Minesssweeper slows to a crawl, but maybe this is supposed to happen...
+
+missssssile command, not sure how to play this one
+
+Sssuper mario brosss didn't seem to respond to the arrow keys the first time I played it, but it's working now!
+
+---
+
+__Pippin__
+
+Hey no problem - this is still helpful! Totally understand things not making so much sense - it's pretty "inside baseball" in terms of the mechanics involved. A bit concerned about Minesweeper slowing down... can't seem to reproduce that one (is it perhaps fixed now somehow? I did speed up the snake a bit).
+
+The Mario version is interesting (to me) because so many testers felt like it was broken without being able to go up - I had intended it that way, but it didn't make sense so I had to actually remake it! :)
+
+---
+
+# Alex
+
+__Alex__
+
+I only experienced something game-breaking on Mario. The up button doesn't seem to work, so I die on the first jump, Pressing the up key at the start screen does begin the game, so I know that it registers the keystroke both with the hardware and in the game, but it doesn't translate to movement. I don't know how much of the map you replicated, so this might by design (especially since having a snake flying around the map wouldn't seem quite right). If that's the case, having a game where your only option is to inevitably fail doesn't seem like it works as well here as it does in games like Snakisms or even Save the Date! because in those games the act of failure communicated meaning. Here, it feels more like a bug or an oversight. Maybe instead of dying to a wall, you have a one-dot snake representing a Goomba kill the player? It's possible that there's no way to end this section that doesn't feel either bad (unavoidable death) or unearned (replacing the wall with the end-of-level flag). And again, this is all assuming that this is the intended outcome.
+
+Two other, much shorter pieces of feedback: With the Shadow of the Colossus level, it seems weird to me that the end message you get for successfully completing the level (GAME OVER 0 POINTS) is the same as the one you get if you fail. There isn't anything that communicates to the player a feeling of success or winning. Maybe that's by design, in which case feel free to ignore me, but maybe each of the red contact points on the Colossus could be worth a certain point value so that the player gets more feedback on how successful they were? I also only knew to touch the red points because I played Snakisms, so adding a point value could help clarify for the player what their goal is. As for the Ms. Pacman level, the enemies have a habit of killing each other. The movement restrictions of not touching the snakes imposed on such a relatively small map size probably makes this balanced, but it does feel weird as a player. If you want to put the game out soon, though, it's only mildly strange and might take more effort to correct than it's worth (since you would have to change AI pathing and then make sure that it remains fair to the player), so it's okay to leave as-is.
+
+---
+
+__Pippin__
+
+Thanks so much for playing the game and paying such close attention.
+
+- The Mario game is actually more of a gag than a game. It's intentional that you can't move up (jump) or down. The idea is that the physics of the snake, transported to the platformer world, lead to a kind of fatalistic crash into a wall. The goomba's tricky... I decided to make it an apple and have the snake eat it so you at least go that satisfaction, though to be honest it doesn't make a lot of sense. Maybe it should be another snake and you just collide with it unavoidably?
+
+- In Shadow with the 0 points I was trying to find a way to reference the moral ambiguity of that game in the end - the idea that it wasn't valuable or good to have killed the colossi after all. It's possible I should give the points initially and then take them away? But there's something I like about the emptiness of just having no points ever...
+
+- In Pacman... yeah, it's true they crash into each other a lot. They're pretty dumb. It's tricky because I felt like if I made them 'ghosts' that couldn't hit each other it troubled the physics of why they _could_ hit the snake. But maybe they should be semi-transparent and not self-collide? It'd make the game a lot harder... as you say, it's possibly their constant colliding with each other makes it a bit easier to play...
+
+---
+
+__Alex__
+
+- The Mario game is basically just a replication of World 1:1, right? What if you did replace the apple that takes the place of the Goomba and make it a snake? I think it might reduce some of the frustration, since it's more intuitive that you would die to an enemy than to parts of the environment that hold no risk in the original game.
+
+- The idea of Shadow was to make you think you were doing something valuable and good and then to shatter that illusion at the end, right? So maybe initially giving the player points and then watching as they slowly go away after beating the Colossus replicates the arc of the game more closely. Though you also get the warning right away from Dormin itself that there will be a price to pay for Momo's revival, is it too cheesy to put question marks for the points instead of 0? Though I do see what you mean, 0 has a really strong feeling in terms of not having worth or value. It's possible that this version is the best way to communicate that ambiguity.
+
+- The Pacman game is honestly already pretty hard. I probably played 30+ times and never won, in part due to that touching the walls means death rather than no movement. Even though it's funny to watch, it's probably the best balance state for the game's difficulty.
+
+---
+
+__Pippin__
+
+Yeah, I did replace the apple with a snake, I think that's a good change. It's a shame because you see less of the level now, but the whole thing's just a gag anyway, so it's fine I guess.
+
+The shadow one is tricky... a lot of the fun of this project has come in thinking through those sorts of minute details about representation!
+
+And pacman... hmmmm, yeah. Again it's tough. In Snake's world hitting a wall means you die, so it feels like it'd be weird if in the Pacman version you don't... on the other hand it makes it incredibly tough, it's true. On the other hand, maybe that's okay... hard to say!
+
+---
