@@ -169,3 +169,136 @@ Heh. Interesting idea! God, it's so complicated to make these decisions. Jonatha
 __Jess__
 
 That's true about the sideview rules for Shadow of the Colossus, but somehow the acrobatics in that game and how the character jumps around on Colossi and hangs on and falls through the air a lot made this feel totally fine to me. The logic and constraints of this project are fascinating (from the perspective of someone who doesn't have to make any decisions about the design).
+
+---
+
+# Gersande La Fleche
+
+__Gersande__
+
+Hey Pippin! (Sorry for the delay: I had this email sitting in my drafts folder last night and somehow didn’t realise I didn’t actually send it)
+
+0. Controls aren’t very smooth on my computer. One of my go to moves in Snake is the very sharp 1x1 turn (turn right, immediately turn right again, or the same sharp turns to the left) and I seem incapable of doing that in my browser…
+Not sure how much that can be optimised that can be optimised on your end.
+0. Because I had a hard time doing sharp turns, MSSS PACMAN was devilishly hard and I don’t think I ever survived more than 15 seconds in it, even after quite a bit of trying.
+0. SSSUPER MARIO BROSSS seems broken to me. Unless the snake can’t “jump” or go up?
+0. Papersss Pleassse is the one that I find most interesting. I like the three rules, I like the floating box with two little holes. What does the -10, -20, -30 counter in the top right hand corner mean? But of all the games, it’s the one I was most successful at!
+0. I found Sssensssible Sssoccer to be very cute but difficult to control with two hands
+0. I’d never been very good at Minesssweeper, and it was very difficult to do Minesweeper and Snakes at the same time. But the concept was interesting.
+
+Hope this feedback is useful?
+
+---
+
+__Pippin__
+
+All very helpful!
+
+Weird about the controls... I find they work alright, but I'll look into whether there are some possibilities there... maybe I can set up a queue of commands so that you can execute things faster... right now you have to move with the rhythm of the snake.
+
+Pacman is super hard. Not totally sure what to do about it really... slower doesn't really seem to help because it starts feeling unnatural. Maybe I could make it reeeeally slow...
+
+Mario - yeah, can't jump, so doomed to slither along the ground. I'll think about whether there's a way to clarify that in the instructions or something, or a 'no' sound when you press up...
+
+In papers the number is still the score - you get points for following the rules and lose points for messing up... e.g. if you let through a green snake but green snakes are banned, you lose 10 points, but if you block it you gain 10 points...
+
+The soccer game is definitely for two players - pretty hard solo I agree :)
+
+---
+
+# Sebastian Salvagno
+
+__Sebastian__
+
+Hi Pippin, I tried your game and I'm familiar with the oner one that you made in the same vain. These are really cool. Some doubts / issues I came across :
+
+I am not sure I understand the Missile Command one. Am I supposed to get the 4 "apples" at the bottom and the game ends?
+
+In the paper's please one, if you restart, there is a snake that can pass by without you being able to move, which starts you at a negative score.
+
+In the soccer one, crashing while flashing felt a bit unfair, specially since the flashing is so long.
+
+In the Mario one, I suppose it's intentional to not be able to jump or navigate besides going left - right and dying?
+
+Besides these things everything looks great to me. Looking forward to seeing more of your work! Thanks for letting me try it out.
+
+---
+
+__Pippin__
+
+Thanks a lot for this!
+
+- The missile command one is tricky. If you aren't already familiar with Missile Command it won't make much sense. The apples at the bottom represent your "cities" that you're defending. You _can_ eat them, but if you eat all of them the game ends. The other snakes are trying to eat them.
+
+- In paper's please - I think I've fixed that now.
+
+- In soccer - not totally sure about crashing while flashing? How do you mean? Sounds like something I need to fix - do you know how I can reproduce it?
+
+- Mario is just a gag, that's right - a joke about the fact snakes can't jump :)
+
+---
+
+__Sebastian__
+
+I think what I didn't initially get about the missile command one is that you have to use the snake's body to block.
+In soccer, what I mean by crashing is the two snakes colliding with each other. The blinking reminds me of that invisible frames that characters get in other games, so I didn't expect them to collide when that was happening.
+
+And yeah, for Mario I thought it was a gag. Just making sure.
+
+Hope this helps.
+
+---
+
+__Pippin__
+
+Definitely helps - I've changed the instructions a bit for Missile Command - now says "DEFEND APPLES" as well.
+
+Hm, you're right that snakes shouldn't collide when flashing - I'll look into that...
+
+---
+
+# Stephan Reilly
+
+__Stephan__
+
+Played through the game today.
+
+Here’s what I got:
+
+In the Shadow of the Colossus Level, I hit the red head block and the animation of it disssapearing played but I still got the game over screen. I’m assuming the colossus still moved during the animation or something but that felt bad and unfair after trying to beat it for a while...
+
+Papersss Pleassse was the most challenging of any of the games. I couldn’t catch the fastest ones when I needed to. But I loved the idea, and got it almost instantly what the references were.
+
+I don’t understand how basic Minesweeper works so Minesssweeper was a mystery to me. But one time I spawned directly into a mine so maybe starting them 4 or 5 blocks away just to give the player a fair start.
+
+After restarting the Missssssile Command nothing spawned and I had to back out to the menu and load it again. I couldn’t get anything to spawn after the first retry. But I did enjoy the side to side trying to stop other snakes.
+
+Msss Pacman was waaaay too hard for me. I felt like the snake I was controlling should just stop at the wall and wait for an input to move again, not just instantly die. In my opinion that would be much more enjoyable and make it feel way more like Pacman, and the challenge of attacking snakes is still there.
+
+I couldn’t for the life of me figure out how to jump in Sssuper Mario Brosss... just kept dying.
+
+And just general thoughts:
+
+I loved the idea I’m a huge Snake fan and really enjoyed the clever ways you mashed it with other popular games.
+
+I had to zoom out my browser to make it fit, I’m not sure if there’s a way for you to scale it to the screen size automatically. The instructions for Retry and Menu were at the bottom and I couldn’t see them without zooming out, seems like important info.
+
+---
+
+__Pippin__
+
+This is very helpful!
+
+- The colossus game ends when you eat the final apple, so that was 'correct' behaviour, but you raise a good point in terms of whether that should be game over or not... I'll have to consider that...
+
+- Papers: yeah the fast snakes are faaaast! You kind of have to anticipate them by leaving the way blocked before they even spawn (based on the rules of course)
+
+- Spawning directly on a mine kind of sucks, it's true... I'll make it impossible to spawn a mine that close to the snake, good call
+
+- I'll take a look at Missile, sounds buggy...
+
+- Msss. Pacman is a difficult one - totally see your point in terms of it being too hard (I find it super hard myself), but I feel like death-on-wall-hit is so fundamental to Snake that I don't know if it's right to change it...
+
+- No jumping in Mario - snake's can't jump :) (But I need to find a way to communicate this intentionality better...)
+
+- Weird about the scale... I'll look into that... what resolution is your display?
