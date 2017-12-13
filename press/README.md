@@ -18,7 +18,7 @@ He is the associate director of the [Technoculture, Art, and Games (TAG)](http:/
 
 ## Description
 
-Sssnakes can do anything! Sssubdue colossssssi! Ssstamp passssssportsss! Sssweep minesss! Ssscore goalsss! Ssstop missssssiles! Circumvent ghossstsss! Jump! Okay, maybe not that lassst one! But even ssso! Go sssnakesss!
+Sssnakes can do anything! Sssubdue colossssssi! Ssstamp passssssportsss! Sssweep minesss! Ssscore goalsss! Ssstop missssssiles! Circumvent ghossstsss! Ssswwoop through World 1-1! Go sssnakesss!
 
 ## History
 
