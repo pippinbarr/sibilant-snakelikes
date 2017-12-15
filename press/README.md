@@ -50,7 +50,8 @@ _Sibilant Snakelikes_ is an open source game licensed under a [Creative Commons 
 
 ## Press
 
-- Coming soon?
+- Kottke, Jason. [Sibilant Snakelikes](https://kottke.org/17/12/sibilant-snakelikes). kottke.org. 13 December 2017.
+- Pierrec. [Sibilant Snakelikes](http://oujevipo.fr/general/6463-sibilant-snakelikes/). L'Oujevipo. 14 December 2017.
 
 ## Additional Links
 
