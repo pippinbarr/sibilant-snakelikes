@@ -1,3 +1,82 @@
+## 2017-12-29 15:19 in which we continue with a post-mortem about the core idea of the project
+
+Plausible structure, fill out and add examples from the actual documentation as a test case for using the documentation to build a larger case. Bear in mind that _the game itself is the ultimate piece of evidence_ (is that true? Rather _the game in play_ is that thing?)
+
+- Starting out with no real thing beyond my instinct for variation and a comedy name idea
+- Finding way to the core concept, uncertainty about whether it's translation, remediation, or metaphor (I never solve this)
+- Idea of the source and target systems (this comes from metaphor language) and the question of priority or precedence (this comes in part from Chogue discussions)
+- Specific instances that help to illustrate those ideas in practice - constant tension between source and target, the ease with which you can lose track of what's important, the fact that players experience this concept and tension just as much as you do (e.g. Mario)
+- Bigger picture version of all this is asking what's expressive about games, both in the sense of what is the kernel of the source and what are the expressive potentials of the target
+- The idea of the object of desire and the object of death as working philosophical concepts that inform design
+- The game (and its creation) ask questions about what games are made of, what is at their core, and how they express ideas, and how expressive simple mechanics can be made to be? (Need some kind of grand finale in other words that make it feel a bit grander?)
+
+That sounds like a relatively interesting piece of writing. I should write it. I will write it. In the next exciting installment of, my fucking pomodoros.
+
+(I guess I should now keep this actual planning thing and write the 'real thing' above so as not to delete evidence.)
+
+
+## 2017-12-29 14:44 in which we recommence with a post-mortem about the research-creation method
+
+A major feature of _Sibilant Snakelikes_ is that it served as a testbed for me in terms of an enhanced version of the research-creation method I've been working on with Jonathan and Rilla. _It is as if you were doing work_ represents my first serious attempt to apply a version of the method in terms of serious documentation via a journal and working 'in the open' in a public GitHub repository, but _Sibilant Snakelikes_ represents me taking seriously Jonathan's ideas about commit messages as a key vector of information in a repository. That is, Jonathan pointed out that the commit messages could be the main form of reporting in this kind of scenario, and it's not something I've ever done before, so _Sibilant Snakelikes_ was chiefly a chance for me to add that to my repertoire of documentation.
+
+In terms of research-creation method, then, this game had these approaches
+
+- _To do list_. This is the most common form of documentation I've tended to do for a long time, going back to documenting game creation in Evernote for example. To-do lists are useful in that they represent the concerns you have in development and reflect whether or not you solved/did them. They're less useful in terms of chronology or expanded discussions of the _why_ of each item. I've taken to writing short explanations of solutions to problems identified in bold when I cross out a todo where it seems appropriate. Looking at the todo list for _Sibilant Snakelikes_ it doesn't feel like a very important artifact to me. It was _useful_ for me personally while doing the work on the game, because I needed to know what I thought what was necessary, but it was never very rigorous or explanatory.
+
+See: https://github.com/pippinbarr/sibilant-snakelikes/blob/master/process/TODO.md
+
+- _Process journal_. This is the aspect of development I think I've been getting better at over the last several projects. Writing my thoughts (in conjunction with todos) in an Evernote document has been a pretty common way I've approached game making for a while. I think I've taken it to the next level since at least something like _SNAKISMS_ which was the first game I seriously included a process documentation folder with the game itself, and worked on GitHub explicitly. _v r 3_ is perhaps the first time I started writing a really in-depth, agonising documentation of design thinking and second-guessing. So writing about process in a more long-form way has been important to me for a while, and _Sibilant Snakelikes_ has this element in spades. As of these words the process journal is almost 15,000 words long and full of what I think are pretty useful insights into the decision-making that went into this game.
+
+See: https://github.com/pippinbarr/sibilant-snakelikes/blob/master/process/README.md
+
+- _Commits_. This is the first time I've pursued a project with the commits targeted as a key factor in design writing and thinking. Following Jonathan's lead, I tried to include design thinking with every relevant commit. That means that a commit tends to consist of the traditional listing of changes made for the code being committed (usually pretty dry and factual), and then explicit meditations on the design thinking behind the changes being committed. One really interesting part of this was that sometimes in the act of writing out the design thinking I would end up making new design decisions or even _reversing_ the decision I had made in the commit. The specificity of the commit messages - just writing about _exactly that code_ and even being able to see _which code_ in the diff - led to a different style of thinking and writing to the process journal, and that has felt important. The two documentation forms tell a related but distinct story of what the project is. The commits are more practical, anchored to evidence in the code itself. The journal is more philosophical, grappling with the 'big questions' in the project overall.
+
+See: https://github.com/pippinbarr/sibilant-snakelikes/commits/master
+
+- _Tester correspondence_. Having done so for _It is as if you were doing work_ before it, I included correspondence with testers as part of the official documentation of the game. That meant getting permission from testers to include our email conversations about the game. One thing I like about this is obviously just having different voices in the documentation - admittedly these voices have my voice constantly responding to them, but you get to see how other people perceive the work. Including this feels like it reveals a different angle on the philosophy behind the game, too - when people push back on decisions it forces you to a) think about them again yourself and then often b) stick to your guns because you understand 'better' how the game is meant to be. The testing led to one really important moment in the overall process which was the remaking of Sssuper Mario Brosss. to include the ability to go up and down.
+
+See: https://github.com/pippinbarr/sibilant-snakelikes/blob/master/process/TESTING.md
+
+- _Manifesto_. I had a 'manifesto' document inspired by what Tassos had told us about Kony's practice of doing this when they're producing their theatre work. The idea was to capture what I've called, in the past, the 'ground truth' of a project - but that terminology is probably wrong. The manifesto is meant to tell you what the guiding principles of the project are so that everyone (or in my case just me) can agree what the project is, and most importantly when you need to make a decision you can refer to the manifesto to make one in keeping with the work. This was kind of a failure in this project because I only wrote _one_ manifesto relatively late in the project. I think the manifesto itself is a pretty okay reflection of where I got to with the core ideas of the game, but I think it would be far more interest to have a number of explicit manifestos written throughout the project as a way to reflect the top-level understanding of what it is and how that changes. (This would help with what I see as a need to have some piece of writing/thought that are more about synthesis and high-level thinking so that someone else coming to look at the documentation might be able to get a fix on it without reading, you know, 30,000 or so words.)
+
+See: https://github.com/pippinbarr/sibilant-snakelikes/blob/master/process/MANIFESTO.md
+
+- _Screenshots and animated GIFs_. It's fairly common for me to take screenshots of work in progress, usually to throw onto Twitter to see if they get a reaction out of anybody. Ultimately I feel like I still just don't understand how to do this well or systematically. This project does have a few images, but they feel unmoored from everything else and don't seem to tell me much about the work, which is disappointing. I guess I wonder whether there's a way to formalise this more so that you get a representative screenshot of each commit or something? Or would that just be utterly frustrating to have to do?
+
+See: https://github.com/pippinbarr/sibilant-snakelikes/tree/master/process/images
+
+---
+
+So, that's a lot of documentation. Cumulatively, those elements represented over 33,000 words of documentation (I just counted), which is really a huge amount of writing. That goes along with roughly 3,500 lines of code. There's no question, I think, that this has been a generative and powerful means to document a creative process seriously, rigorously, and consistently. And it cuts both ways - the documentation as a _result_ is a pretty impressive image of this project and its design, the documentation _process_ absolutely forced me to think more deeply about each design decision, especially down to the level of code (thanks to the commit message element).
+
+An unanswered question is how (or whether) this documentation can go on to a second life as data for an analysis or other form of scholarly work that would use it to create second-order knowledge beyond the fairly personal and specific writing I've done myself. What could documentation like this facilitate?
+
+The ultimate question, though, perhaps, is this: who the hell is going to read all this?
+
+
+## 2017-12-29 14:09 in which we start to write a post-mortem for the game (and fail)
+
+It's been 16 days since I released _Sibilant Snakelikes_ into the world. It got some (not much) press. It received some nice comments from Ian Bogost and Raph Koster among others. It's been played by almost 4,000 people since it came out which is really not that bad. I mean, it's a lot of people. It's not 200,000 people, but it's a lot of people nonetheless.
+
+Part of this project was to push harder on the research-creation method that Rilla and Jonathan and I have been envisaging. In particular one of my main objectives was to work on detailed commit messages that would tell a blow-by-blow account of the development of the game. The idea there was to create messages that focused on how design decisions were being reflected in and influenced by the implementation of the game. That would then go along with the more reflective and potentially wordy material in this journal.
+
+On that front I think that the project was a definite success. The commit history is detailed beyond what I would have hoped and I think it does tell the story of development. Importantly, too, I think the practice of writing commits in that style - noting the basic technical work and then meditating briefly on its relationship to the overall project and design - was really generative. To the extent that I'm personally really interested in the connections between technical work and design work, it was great. But I also think it's a specifically helpful way to think about design as it continues beyond the idea of some idealistic design document. A lot of what design is, surely, is the many decisions made in the moments of creation, and this approach lends itself to capturing those moments and decisions.
+
+Naturally when we're talking about a history of commits you don't end up with a synthesis or cohesive view of what the project is and how it turned out, so my thought now is to write a set of postmortems, one for each of the game modes, where I can at least try to explore in words how I think the game went, how it relates to the overall manifesto/idea of the project (translation/remediation/metaphor in between games), what I might do differently, etc.
+
+I suppose there's nothing to do, now but forge ahead?
+
+### Ssshadow of the Colossssssusss
+
+Dear god I feel overwhelmed just looking at the commit history for the initial version of this game. There's already so much material going in there at different levels of the project (e.g. research creation, the idea of remediation, the idea of SotC specifically). And now I've read through the journal entries on the game too (at least for the first pass on the game, which was also the main pass) and there's just a _lot_ of information there. I don't think I can really put it all together.
+
+### Wait a second...
+
+So what am I supposed to write here at the end of this project? What is a useful 'final' outcome from this thing that will tie up some loose ends? Is it just to scrape the existing writing/discoveries and tidy them into a form that's easier to digest? That's at least practical in the sense that I can go looking for key design decisions and insights for each game in the material and just report them so that someone else could read them without digging?
+
+Or am I better off trying to write a couple of things more about the two key concepts that the project is build around - translation and research-creation? With references to specifics from the process so support or illustrate the ideas there? I JUST DON'T KNOW.
+
+
 ## 2017-12-11 17:01 in which we fret about side views and think about where we are
 
 As of right now I've sent the game to press and run it past a significant number of testers. For al intents and purposes the game is done and I'm not really interested in doing more work on it. There's a definite resistance point for me at times like this - I could absolutely work on the game for a number of weeks trying to really nail down the feeling of the controls and getting the ontology just so and so on... but this is an experiment and an experiment should be carried out and learned from, nothing more.
@@ -20,7 +99,7 @@ Apart from my new dissatisfaction the testing process went quite well. Pacman is
 
 People were confused by Missssssile Command, but that's hugely because they didn't understand the apples = cities thing. But conceptually that is a strong decision - apples as the object of desire. With the moving of the snake down and including the "DEFEND APPLES" instruction I think I can call that fixed.
 
-So overall the game is gone with the spectre of Mario hanging terribly above it.
+So overall the game is done with the spectre of Mario hanging terribly above it.
 
 __Back to Mario__
 
