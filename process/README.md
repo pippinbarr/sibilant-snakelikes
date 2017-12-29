@@ -1,3 +1,58 @@
+## 2017-12-29 18:06 in which we write an actual post-mortem about the core idea
+
+Like most projects I've ever worked on, _Sibilant Snakelikes_ started as a kind of intuited joke. In this case, the joke was around wanting to make another Snake-based variations game (ala _SNAKISMS_) but in the "Bungle" mode (ala Indie Bungles 1 and 2). I've been drawn to the "variations" mode for a long time, but recently it has come to seem even more important because it seems like a quintessentially _experimental_ form of design. So _Sibilant Snakelikes_ was going to be multiple forms of Snake, and it was going to follow the _Indie Breakouts_ form by looking at translating existing games into the Snake form.
+
+Part of the overall project has been an unresolved uncertainty about what I should say the "approach" is. I've most commonly called it either "remediation" or "translation". _Remediation_ gets at my hazy memories of Bolter and Grusin and the idea of "paying homage" to one medium through another. Key to that is the notion that different games could be thought of as _mediums_, which is perhaps complete bullshit, but is strangely alluring nonetheless. If a medium is "an intervening agency, means, or instrument by which something is conveyed or accomplished", then maybe it's not so bad after all? _Translation_ feels very functional as a verb to use - we go from one "language" (game) to another "language" (game) and must figure out what vocabulary, grammar, and syntax is appropriate to convey the ideas expressed in one language in another.
+
+Given that translation is functioning there as a _metaphor_, the final approach I sometimes cited was, well, _metaphor_. As such I started using the ideas of a _source_ system and a _target_ system as a way of speaking about the game I'm trying to represent (source system) in terms of Snake (target system). When you have two designed systems but can only privilege one system for each design decision you're making, you end up needing some kind of rule for that situation. That idea also came up frequently in discussions with Jonathan when we were trying to figure out our (in-progress) game _Chogue_ which draws on both Rogue-likes and chess. There we asked constantly whether some aspect of _Chogue_ should be "more Rogue-like" or "more chess". In _Sibilant Snakelikes_ the question is whether the source or target system should be dominant at any one moment.
+
+That question was "answered" to some extent in three of the points of the only manifesto I wrote for the game. Namely:
+
+1/ The _source game_ provides the concepts, narratives, framings, objectives, complex meanings, goals, evaluations, ...
+
+2/ The _target game_ (Snake) provides the visuals, mechanics, core-gameplay, sounds, aesthetics, unit-operations, basic units of meaning, ...
+
+5/ When in doubt about a specific moment of design thinking, prioritise the techniques and meanings of the target game.
+
+In essence, the entire process of designing and implementing the games in _Sibilant Snakelikes_ was about the tension created between the expressive capacity of the Snake framework (target system) and the design and expression of the source system game (whether it was _Shadow of the Colossus_ or _Super Mario Bros._ or something else). Resolving those tensions generally prioritised the Snake system (hence point 5 in the manifesto above), but that realisation was something I constantly had to find my way back to. It was often very tempting to come up with innovations in the Snake system in order to "better" reach a similar kind of expression to a source game, for example.
+
+By way of illustration, let me write about a specific element of design illustrated in some depth in the repository in the commit messages. Here I'm literally just choosing one of the first moments of tension between source and target and how to choose between them, which comes up in _Ssshadow of the Colossssssusss_: should the apples representing handholds disappear or be replaced by a body tile? In this game the eating of apples is used to represent gradually climbing up the body of the colossus until you stab it in the head and it dies. As such the key action 'eating an apple' is used to represent two things: reaching a handhold (spatial progress) and stabbing the colossus to death (narrative/ludic progress?).
+
+Impressively, I'm oscillating on this from the very beginning. The first commit message even has both solutions in it! First I decide they should be replaced by a solid tile:
+
+> _You can now eat the apple and it will respawn at the next location on the colossus (and the previous bit of the colossus will be replace with a solid brick_ (#4965130)
+
+Then in the same commit message and therefore _while I'm writing the commit_ I change my mind and make them disappear:
+
+> _One option for the death-on-impact is that when the snake 'eats' one of these apples it's just gone forever. So it eats the climbing grip on the colossus. I guess that makes a small degree of sense - it would be a case of snake rules trumping colossus rules. I'm tempted by it because it's obviously easier. ... Fuck it, I'm going to make that change now. So now an eating grip/apple on the colossus is just gone, no more body there._ (#4965130)
+
+Note that this decision is being made here in large part because I had a bug in my code that meant that the Snake was dying when it ate a hand-hold apple - e.g. it's just a cop-out for a problem of implementation: it's easier.
+
+The _very next commit_ sees me go back to the initial decision to have handhold apples be replaced by body tiles:
+
+> _Reversing what I wrote in the previous commit I put back in the tracking code so that when an apple gets eaten it replaces that part of the colossus' body with a body bit ...  So it's not like you're EATING the colossus, but rather... I don't know, interacting with that part of it. I think this is more in keeping with Colossus rules rather than pure Snake rules... I don't love the idea that you're eating it for some reason. Can always undo this later._ (#efe414f).
+
+It's obvious I'm still feeling uneasy about this decision and don't really have a strong underlying justification for siding with the rules of _Shadow of the Colossus_ over Snake in this specific instance. Note that this decision comes _before_ I've written the manifesto about prioritising the _target_ system, and in fact the manifesto is the result of realising over time that I need a more rigorous way of resolving exactly these kinds of conflicts. Here I've decided to prioritise the source system, but it's clear I don't know why, and it's clear I can't make sense of it in the Snake universe my game is actually set in.
+
+> _Found a way to fix the snake passing through the colossus specifically when it moves at the same moment in time. The fix introduced a new problem which was the snake colliding with the piece of the colossus that replaces the apple when it gets eaten. I 'design fixed' that by making the bits that are apples just vanish when you eat them._
+
+> _Not sure if this is a 'good decision'. I find it interesting that I chose so easily to change the design of the game (apples eaten are subtracted from the colossus's body) in order to fix a technical problem (essentially of ordering of collision detection) that I could almost certainly have solved in a different way to maintain the original design. It could be that because I'm late in the development process and so am willing to compromise design in favour of lower technical effort? That seems like a very real thing. And in fact I like this form of design to some extent (like a corollary to 'it's not a bug, it's a feature' in a way?)._
+
+> _Speaking to the actual implications of the decision... well I think it doesn't make sense as a metaphor for climbing the colossus, right? Your handholds don't vanish as you use them. On the other hand it fits better with the concept of the target game - apples eaten vanish from the screen, they don't become something else. So there's a tension there... it may simply be the case that there's no correct resolution?_ (#4048024)
+
+A long commit message, speaking again to the difficulties of resolving this issue. Here the "replace apple with a body tile" version is again causing a bug in the code and I "design fix" that by having apples completely disappear. That is, it's again in response to to a bug rather than a philosophical necessity. In the final paragraph I reach a proper acknowledgement of the tension involved: the ontological status of "handhold" versus "apple" for the red square in the game, that is, whether to prioritise source or target. Even though this comes _after_ I've written the manifesto, I don't seem to remember that and so suggest that there's no "correct" answer.
+
+In fact I'd argue there _is_ a correct answer (per the manifesto) and that I should have known that "apples are apples" in this game and shouldn't behave otherwise. An apple, the "object of desire" in Snake, is something that, when eaten, vanishes. (Note: this is not upheld in Sssensssible Sssoccer, for better or worse. Probably worse.)
+
+---
+
+Importantly here, I'm _able_ to write this detailed analysis of a really, really specific design question. The application of the research-creation method here means I can track decision making to a very fine grain and therefore report back on the design process I went through. This one design question (the ontological status of an apple) is pretty illustrative of how the design of the whole game operated - constant, difficult decisions about how to _express_ the source system through the _mechanics_ of the target system (or something like that).
+
+One thing that came out of that which I find interest was, as alluded to above, this idea of the "object of desire" (the apple) and the opposition of the "object of death" (the wall or body). I found myself writing about these as higher level concepts from the Snake world that allowed me to translate more clearly from a target system. "Apple" is not a concept that exists in _Shadow of the Colossus_, but there are objects of desire such as handholds and stabbing locations (here object can work both ways, as a 'physical' entity in the world but also as a _goal_). By thinking of the apple as Snake's "object of desire" we can know, in some sense, that handholds in Ssshadow of the Colossssssusss should be represented as apples, as should the final stabbing location. This creation of a higher level language of design may even be necessary in this kind of project.
+
+I don't have an amazing, razzle-dazzle finish to this piece of writing, so I'll conclude by saying that I think it at least begin to illustrate the power of the research-creation method followed in terms of allowing close analysis of design _and_ the truly _experimental_ nature of the game _Sibilant Snakelikes_ and its design. Thanks for listening.
+
+
 ## 2017-12-29 15:19 in which we continue with a post-mortem about the core idea of the project
 
 Plausible structure, fill out and add examples from the actual documentation as a test case for using the documentation to build a larger case. Bear in mind that _the game itself is the ultimate piece of evidence_ (is that true? Rather _the game in play_ is that thing?)
