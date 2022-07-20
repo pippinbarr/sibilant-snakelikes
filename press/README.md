@@ -48,12 +48,6 @@ _Sibilant Snakelikes_ is an open source game licensed under a [Creative Commons 
 
 ![Ssshadow](images/ssshadow-of-the-colossssssusss.png) ![Papersss](images/papersss-pleassse.png) ![Minesssweeper](images/minesssweeper.png) ![Sssensssible](images/sssensssible-sssoccer.png) ![Missssssile](images/missssssile-command.png) ![Msss](images/msss-pacman.png) ![Sssuper](images/sssuper-mario-brosss.png)
 
-## Press
-
-- Kottke, Jason. [Sibilant Snakelikes](https://kottke.org/17/12/sibilant-snakelikes). kottke.org. 13 December 2017.
-- Pierrec. [Sibilant Snakelikes](http://oujevipo.fr/general/6463-sibilant-snakelikes/). L'Oujevipo. 14 December 2017.
-- Johson, Jason. [What if Every Game Was ‘Snake’ on an Old Nokia?](https://motherboard.vice.com/en_us/article/5955zb/what-if-every-game-was-snake-on-an-old-nokia). Motherboard. 18 December 2017.
-
 ## Additional Links
 
 - [Pippin's blog posts about Sibilant Snakelikes](http://www.pippinbarr.com/search.html?q=sibilant-snakelikes)

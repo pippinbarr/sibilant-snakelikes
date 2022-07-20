@@ -1,16 +1,23 @@
+# *Sibilant Snakelikes*
+
+![](images/sibilant-snakelikes-banner.png)
+
+# [Play Online](http://www.pippinbarr.com/sibilant-snakelikes/) (desktop and mobile)
+
+## Description
 *Sssnakes can do anything! Sssubdue colossssssi! Ssstamp passssssportsss! Sssweep minesss! Ssscore goalsss! Ssstop missssssiles! Circumvent ghossstsss! Ssswwoop through World 1-1! Go sssnakesss!*
 
-## [Play Online](http://pippinbarr.github.io/sibilant-snakelikes/) in your browser (mobile- and tablet-friendly)
+## Press
+* Kottke, Jason. [Sibilant Snakelikes](https://kottke.org/17/12/sibilant-snakelikes). kottke.org. 13 December 2017.
+* Pierrec. [Sibilant Snakelikes](http://oujevipo.fr/general/6463-sibilant-snakelikes/). L'Oujevipo. 14 December 2017.
+* Johnson, Jason. [What if Every Game Was ‘Snake’ on an Old Nokia?](https://motherboard.vice.com/en_us/article/5955zb/what-if-every-game-was-snake-on-an-old-nokia). Motherboard. 18 December 2017.
 
-## Information
+Read the [Press Kit](../press) for press information
 
-* [Code repository](https://github.com/pippinbarr/sibilant-snakelikes/) (you're looking at it)
-* [Process journal](https://github.com/pippinbarr/sibilant-snakelikes/tree/master/process)
-* [Blog posts about *Sibilant Snakelikes*](http://www.pippinbarr.com/search.html?q=sibilant-snakelikes)
-* [Press Kit](https://github.com/pippinbarr/sibilant-snakelikes/tree/master/press)
+## Documentation
+* Read the [Process Documentation](../process) for todos and design explorations
+* Read the [Commit History](https://github.com/pippinbarr/sibilant-snakelikes/commits/master) for detailed, moment-to-moment insights into the development process
+* Look at the [Code Repository](https://github.com/pippinbarr/sibilant-snakelikes) for source code etc.
 
 ## License
-
-SNAKISMS is licensed under a [Creative Commons Attribution-NonCommercial 3.0 Unported License](http://creativecommons.org/licenses/by-nc/3.0/).
-
-<a rel="license" href="http://creativecommons.org/licenses/by-nc/3.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/3.0/88x31.png" /></a>
+*Sibilant Snakelikes* is licensed under a [Creative Commons Attribution-NonCommercial 3.0 Unported License](http://creativecommons.org/licenses/by-nc/3.0/).
